@@ -11,10 +11,10 @@ namespace ProjectIndependence.API.Core.Entities.Sales
     public class SalesQuotation : EntityBase
     {
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public required Customer Customer { get; set; }
         public DateOnly QuotationDate { get; set; }
-        public string Status { get; set; }
+        public required string Status { get; set; }
         public decimal TotalPrice { get; set; }
-        public ICollection<SalesQuotationLine> SalesQuotationLines { get; set; }
+        public ICollection<SalesQuotationLine> SalesQuotationLines { get; set; } = [];
     }
 }
