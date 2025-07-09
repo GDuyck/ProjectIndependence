@@ -1,4 +1,5 @@
 ﻿using ProjectIndependence.API.Core.Entities.Base;
+using ProjectIndependence.API.Core.Entities.Sales;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace ProjectIndependence.API.Core.Entities.Customers
         public string Email { get; set; }
         public string BillingAddress { get; set; }
         public string ShippingAddress { get; set; }
+        public ICollection<SalesQuotation> SalesQuotations { get; set; }
     }
 }
