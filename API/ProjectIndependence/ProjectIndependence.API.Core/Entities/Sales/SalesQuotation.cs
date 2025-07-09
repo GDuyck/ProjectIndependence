@@ -15,5 +15,6 @@ namespace ProjectIndependence.API.Core.Entities.Sales
         public DateOnly QuotationDate { get; set; }
         public string Status { get; set; }
         public decimal TotalPrice { get; set; }
+        public ICollection<SalesQuotationLine> SalesQuotationLines { get; set; }
     }
 }
