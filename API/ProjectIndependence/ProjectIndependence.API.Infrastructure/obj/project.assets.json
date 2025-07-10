@@ -1595,6 +1595,16 @@
             "rid": "win"
           }
         }
+      },
+      "ProjectIndependence.API.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/ProjectIndependence.API.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProjectIndependence.API.Core.dll": {}
+        }
       }
     }
   },
@@ -4681,13 +4691,19 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "ProjectIndependence.API.Core/1.0.0": {
+      "type": "project",
+      "path": "../ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj",
+      "msbuildProject": "../ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.EntityFrameworkCore.Design >= 9.0.6",
       "Microsoft.EntityFrameworkCore.Relational >= 9.0.6",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.6",
+      "ProjectIndependence.API.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4722,7 +4738,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj": {
+              "projectPath": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

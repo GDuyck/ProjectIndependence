@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectIndependence.API.Core\ProjectIndependence.API.Core.csproj" />
+  </ItemGroup>
+
 </Project>
