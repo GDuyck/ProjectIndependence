@@ -71,8 +71,7 @@
               "RelativeToolTip": "ProjectIndependence.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-09T10:46:36.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:46:36.698Z"
             },
             {
               "$type": "Document",
@@ -84,21 +83,19 @@
               "RelativeToolTip": "ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAMwBkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:38:04.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:38:04.344Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "ProjectIndependence.API.Infrastructure",
+              "Title": "ProjectIndependence.API.Infrastructure.csproj",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj",
               "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj",
               "RelativeToolTip": "ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-09T10:37:42.905Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:37:42.905Z"
             },
             {
               "$type": "Document",
@@ -110,8 +107,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:32:30.035Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:32:30.035Z"
             },
             {
               "$type": "Document",
@@ -123,8 +119,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T09:15:14.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T09:15:14.216Z"
             },
             {
               "$type": "Document",
@@ -136,8 +131,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAMwBAAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T08:58:55.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T08:58:55.173Z"
             },
             {
               "$type": "Document",
@@ -149,8 +143,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAIAwwBQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T08:57:31.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T08:57:31.128Z"
             },
             {
               "$type": "Document",
@@ -162,8 +155,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T10:07:38.495Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-07T10:07:38.495Z"
             }
           ]
         }
