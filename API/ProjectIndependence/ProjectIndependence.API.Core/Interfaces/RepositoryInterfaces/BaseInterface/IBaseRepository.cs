@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInterface
 {
-    internal interface IBaseRepository<TEntity> 
+    public interface IBaseRepository<TEntity> 
         where TEntity : EntityBase
     {
         Task<TEntity> GetByIdAsync(Guid id);
