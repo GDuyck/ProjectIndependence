@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+nn5/EUcLhY=",
+  "dgSpecHash": "G/9KMiM9XVw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\ProjectIndependence.API.csproj",
+  "projectFilePath": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\ProjectIndependence.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gijsd\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\gijsd\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
