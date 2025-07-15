@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectIndependence.API.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectIndependence.API.Infrastructure", "ProjectIndependence.API.Infrastructure\ProjectIndependence.API.Infrastructure.csproj", "{6153FE29-267D-4AD2-9465-D08C500C7034}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectIndependence.API.Tests", "ProjectIndependence.API.Tests\ProjectIndependence.API.Tests.csproj", "{D658CE9A-15EA-4E00-9BAA-962A79309C47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{6153FE29-267D-4AD2-9465-D08C500C7034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6153FE29-267D-4AD2-9465-D08C500C7034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6153FE29-267D-4AD2-9465-D08C500C7034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D658CE9A-15EA-4E00-9BAA-962A79309C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D658CE9A-15EA-4E00-9BAA-962A79309C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D658CE9A-15EA-4E00-9BAA-962A79309C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D658CE9A-15EA-4E00-9BAA-962A79309C47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
