@@ -1,6 +1,12 @@
-﻿using Moq;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Identity.Client;
+using Moq;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
+using ProjectIndependence.API.Infrastructure.Data;
+using ProjectIndependence.API.Infrastructure.Repositories.Products;
+using ProjectIndependence.API.Tests.Static;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,32 +17,72 @@ namespace ProjectIndependence.API.Tests.Products
 {
     public class ProductRepositoryTest
     {
-        private readonly Mock<IProductRepository> _productRepositoryMock;
-        private readonly List<Product> _mockProducts;
+        private readonly IProductRepository productRepository;
+        private readonly ServiceProvider serviceProvider;
+        private readonly List<Product> mockProducts;
 
         public ProductRepositoryTest()
         {
-            _mockProducts = new List<Product>
+            var services = new ServiceCollection();
+            services.AddDbContext<ApplicationDbContext>(
+                options => options.UseInMemoryDatabase( Guid.NewGuid().ToString() ) );
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            serviceProvider = services.BuildServiceProvider();
+
+            productRepository = serviceProvider.GetRequiredService<IProductRepository>();
+        }
+
+        [Fact]
+        public async Task ProductRepository_GetAllAsync_ReturnsAllProductInDatabase()
+        {
+            // ACT
+            var result = await productRepository.GetAllAsync();
+
+            // ASSERT
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public async Task ProductRepository_AddAsync_AddProductAndReturnsTheAddedProductAndIsNotNull()
+        {
+            // ARRANGE
+            var newProduct = new Product
             {
-                new Product
-                {
-                    Name = "Test product 1",
-                    Price = 20,
-                    Tax = 21
-                },
-                new Product
-                {
-                    Name = "Test product 2",
-                    Price = 40,
-                    Tax = 12
-                }
+                Id = new Guid(),
+                Name = "New Product 3",
+                Price = 24,
+                Tax = 6
             };
 
-            _productRepositoryMock = new Mock<IProductRepository>();
+            // ACT
+            var result = await productRepository.AddAsync(newProduct);
 
-            _productRepositoryMock.Setup(repo => repo.GetAllAsync()).Returns(() =>  _mockProducts);
+            // ASSERT
+            Assert.NotNull(result);
+            Assert.Equal(newProduct.Name, result.Name);
+            Assert.Equal(newProduct.Id, result.Id);
+        }
 
+        [Fact]
+        public async Task ProductRepository_GetById_ReturnsProductWithAValidIdAsync()
+        {
+            // ARRANGE
+            var newProduct = new Product
+            {
+                Id = new Guid(),
+                Name = "New Product 3",
+                Price = 24,
+                Tax = 6
+            };
 
+            // ACT
+            await productRepository.AddAsync(newProduct);
+            var getByIdResult = await productRepository.GetByIdAsync(newProduct.Id);
+
+            // ASSERT
+            Assert.Equal(newProduct.Id, getByIdResult.Id);
+            Assert.Equal(newProduct.Name, getByIdResult.Name);
         }
     }
 }

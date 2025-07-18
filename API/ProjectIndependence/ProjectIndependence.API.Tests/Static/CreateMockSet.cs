@@ -11,7 +11,7 @@ namespace ProjectIndependence.API.Tests.Static
 {
     public static class CreateMockSet
     {
-        public static Mock<DbSet<T>> CreateMockDbSet<T>(IEnumerable<T> mockData) where T : EntityBase
+        public static Mock<DbSet<T>> Create<T>(IEnumerable<T> mockData) where T : EntityBase
         {
             var queryableData = mockData.AsQueryable();
 

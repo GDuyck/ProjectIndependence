@@ -54,7 +54,7 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
             DbSet<TEntity> dbSet = _dbContext.Set<TEntity>();
         }
 
-        private IQueryable<TEntity> FetchAll()
+        public IQueryable<TEntity> FetchAll()
         {
             return _dbContext.Set<TEntity>().AsNoTracking();
         }
