@@ -17,6 +17,7 @@ namespace ProjectIndependence.API.Tests.Products
 {
     public class ProductRepositoryTest
     {
+        //private readonly Mock<IProductRepository> _productRepositoryMock;
         private readonly IProductRepository productRepository;
         private readonly ServiceProvider serviceProvider;
         private readonly List<Product> mockProducts;
@@ -31,6 +32,26 @@ namespace ProjectIndependence.API.Tests.Products
             serviceProvider = services.BuildServiceProvider();
 
             productRepository = serviceProvider.GetRequiredService<IProductRepository>();
+
+            var appDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+            appDbContext.Products.AddRange(
+                    new Product
+                    {
+                        Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
+                        Name = "Test product 1",
+                        Price = 20,
+                        Tax = 21
+                    },
+                    new Product
+                    {
+                        Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa"),
+                        Name = "Test product 2",
+                        Price = 40,
+                        Tax = 12
+                    }
+                );
+            appDbContext.SaveChanges();
         }
 
         [Fact]
@@ -44,7 +65,21 @@ namespace ProjectIndependence.API.Tests.Products
         }
 
         [Fact]
-        public async Task ProductRepository_AddAsync_AddProductAndReturnsTheAddedProductAndIsNotNull()
+        public async Task ProductRepository_GetById_ReturnsProductWithAValidIdAsync()
+        {
+            // ARRANGE
+            var testId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa");
+
+            // ACT
+            var getByIdResult = await productRepository.GetByIdAsync(testId);
+
+            // ASSERT
+            Assert.NotNull(getByIdResult);
+            Assert.Equal(testId, getByIdResult.Id);
+        }
+
+        [Fact]
+        public async Task ProductRepository_AddAsync_AddProductAndReturnsTheAddedProduct()
         {
             // ARRANGE
             var newProduct = new Product
@@ -59,30 +94,8 @@ namespace ProjectIndependence.API.Tests.Products
             var result = await productRepository.AddAsync(newProduct);
 
             // ASSERT
-            Assert.NotNull(result);
             Assert.Equal(newProduct.Name, result.Name);
             Assert.Equal(newProduct.Id, result.Id);
-        }
-
-        [Fact]
-        public async Task ProductRepository_GetById_ReturnsProductWithAValidIdAsync()
-        {
-            // ARRANGE
-            var newProduct = new Product
-            {
-                Id = new Guid(),
-                Name = "New Product 3",
-                Price = 24,
-                Tax = 6
-            };
-
-            // ACT
-            await productRepository.AddAsync(newProduct);
-            var getByIdResult = await productRepository.GetByIdAsync(newProduct.Id);
-
-            // ASSERT
-            Assert.Equal(newProduct.Id, getByIdResult.Id);
-            Assert.Equal(newProduct.Name, getByIdResult.Name);
         }
     }
 }

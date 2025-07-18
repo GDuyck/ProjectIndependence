@@ -15,6 +15,5 @@ namespace ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInter
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
         Task DeleteAsync(Guid id);
-        IQueryable<TEntity> FetchAll();
     }
 }
