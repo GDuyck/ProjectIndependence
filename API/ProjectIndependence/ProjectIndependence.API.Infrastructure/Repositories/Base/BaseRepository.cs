@@ -2,11 +2,6 @@
 using ProjectIndependence.API.Core.Entities.Base;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInterface;
 using ProjectIndependence.API.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectIndependence.API.Infrastructure.Repositories.Base
 {
@@ -14,6 +9,7 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
         where TEntity : EntityBase
     {
         private readonly ApplicationDbContext _dbContext;
+
         public BaseRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;

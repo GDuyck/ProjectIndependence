@@ -1,17 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Identity.Client;
-using Moq;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories.Products;
 using ProjectIndependence.API.Tests.Servicebuilder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectIndependence.API.Tests.Products
 {
@@ -23,8 +14,8 @@ namespace ProjectIndependence.API.Tests.Products
 
         public ProductRepositoryTest()
         {
-            mockProducts = new List<Product> 
-            { 
+            mockProducts = new List<Product>
+            {
                     new Product
                     {
                         Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
@@ -110,16 +101,16 @@ namespace ProjectIndependence.API.Tests.Products
             // ARRANGE
             string newProductName = "Product formerly known as Test Product 1";
 
-            // ACT 
+            // ACT
             var productToUpdate = await productRepository.GetByIdAsync(Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"));
-            
+
             productToUpdate.Name = newProductName;
 
             var result = await productRepository.UpdateAsync(productToUpdate);
 
             // ASSERT
             Assert.Equal(newProductName, result.Name);
-            Assert.Equal(productToUpdate.Id, result.Id); 
+            Assert.Equal(productToUpdate.Id, result.Id);
         }
 
         [Fact]
