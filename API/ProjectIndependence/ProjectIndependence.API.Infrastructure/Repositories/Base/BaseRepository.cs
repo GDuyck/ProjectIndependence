@@ -43,15 +43,20 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
             return entity;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var entity = await GetByIdAsync(id);
+
+            if (entity is null)
+                return false;
 
             _dbContext.Set<TEntity>().Remove(entity);
 
             await _dbContext.SaveChangesAsync();
 
             DbSet<TEntity> dbSet = _dbContext.Set<TEntity>();
+
+            return true;
         }
 
         private IQueryable<TEntity> FetchAll()

@@ -6,7 +6,7 @@ using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories.Products;
-using ProjectIndependence.API.Tests.Static;
+using ProjectIndependence.API.Tests.Servicebuilder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,25 +17,14 @@ namespace ProjectIndependence.API.Tests.Products
 {
     public class ProductRepositoryTest
     {
-        //private readonly Mock<IProductRepository> _productRepositoryMock;
         private readonly IProductRepository productRepository;
         private readonly ServiceProvider serviceProvider;
         private readonly List<Product> mockProducts;
 
         public ProductRepositoryTest()
         {
-            var services = new ServiceCollection();
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseInMemoryDatabase( Guid.NewGuid().ToString() ) );
-            services.AddScoped<IProductRepository, ProductRepository>();
-
-            serviceProvider = services.BuildServiceProvider();
-
-            productRepository = serviceProvider.GetRequiredService<IProductRepository>();
-
-            var appDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-
-            appDbContext.Products.AddRange(
+            mockProducts = new List<Product> 
+            { 
                     new Product
                     {
                         Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
@@ -50,8 +39,11 @@ namespace ProjectIndependence.API.Tests.Products
                         Price = 40,
                         Tax = 12
                     }
-                );
-            appDbContext.SaveChanges();
+            };
+
+            serviceProvider = CreateServiceProvider.CreateProvider<Product, IProductRepository, ProductRepository>(mockProducts);
+
+            productRepository = serviceProvider.GetRequiredService<IProductRepository>();
         }
 
         [Fact]
@@ -62,6 +54,7 @@ namespace ProjectIndependence.API.Tests.Products
 
             // ASSERT
             Assert.NotNull(result);
+            Assert.Equal(mockProducts.Count, result.Count());
         }
 
         [Fact]
@@ -76,6 +69,19 @@ namespace ProjectIndependence.API.Tests.Products
             // ASSERT
             Assert.NotNull(getByIdResult);
             Assert.Equal(testId, getByIdResult.Id);
+        }
+
+        [Fact]
+        public async Task ProductRepository_GetById_ReturnsNullWithInvalidId()
+        {
+            // ARRANGE
+            var testId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901ab");
+
+            // ACT
+            var result = await productRepository.GetByIdAsync(testId);
+
+            // ASSERT
+            Assert.Null(result);
         }
 
         [Fact]
@@ -96,6 +102,50 @@ namespace ProjectIndependence.API.Tests.Products
             // ASSERT
             Assert.Equal(newProduct.Name, result.Name);
             Assert.Equal(newProduct.Id, result.Id);
+        }
+
+        [Fact]
+        public async Task ProductRepository_UpdateAsync_ReturnProductWithUpdatedValues()
+        {
+            // ARRANGE
+            string newProductName = "Product formerly known as Test Product 1";
+
+            // ACT 
+            var productToUpdate = await productRepository.GetByIdAsync(Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"));
+            
+            productToUpdate.Name = newProductName;
+
+            var result = await productRepository.UpdateAsync(productToUpdate);
+
+            // ASSERT
+            Assert.Equal(newProductName, result.Name);
+            Assert.Equal(productToUpdate.Id, result.Id); 
+        }
+
+        [Fact]
+        public async Task ProductRepository_DeleteAsync_ReturnsTrueIfProductExistsAndGetsDeleted()
+        {
+            // ARRANGE
+            var testId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa");
+
+            // ACT
+            var result = await productRepository.DeleteAsync(testId);
+
+            // ASSERT
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task ProductRepository_DeleteAsync_ReturnsFalseIfProductDoesNotExist()
+        {
+            // ARRANGE
+            var testId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901ab");
+
+            // ACT
+            var result = await productRepository.DeleteAsync(testId);
+
+            // ASSERT
+            Assert.False(result);
         }
     }
 }

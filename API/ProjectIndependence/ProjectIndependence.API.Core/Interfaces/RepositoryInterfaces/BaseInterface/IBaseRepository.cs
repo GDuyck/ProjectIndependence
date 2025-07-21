@@ -14,6 +14,6 @@ namespace ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInter
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
-        Task DeleteAsync(Guid id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }
