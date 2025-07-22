@@ -21,7 +21,7 @@ namespace ProjectIndependence.API.Tests.Products
                         Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
                         Name = "Test product 1",
                         Price = 20,
-                        Tax = 21
+                        Tax = 21,
                     },
                     new Product
                     {
@@ -32,7 +32,7 @@ namespace ProjectIndependence.API.Tests.Products
                     }
             };
 
-            serviceProvider = CreateServiceProvider.CreateProvider<Product, IProductRepository, ProductRepository>(mockProducts);
+            serviceProvider = CreateServiceProvider.CreateProvider<Product>(mockProducts);
 
             productRepository = serviceProvider.GetRequiredService<IProductRepository>();
         }

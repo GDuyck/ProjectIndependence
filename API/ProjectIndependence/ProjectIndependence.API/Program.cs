@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Infrastructure.Data;
+using ProjectIndependence.API.Infrastructure.Repositories.Customers;
 using ProjectIndependence.API.Infrastructure.Repositories.Products;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,7 @@ builder.Services.AddSwaggerGen();
 
 // Add dependency injection
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 var app = builder.Build();
 
