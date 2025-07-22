@@ -4,10 +4,12 @@ using ProjectIndependence.API.Core.Entities.Base;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInterface;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
+using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories.Base;
 using ProjectIndependence.API.Infrastructure.Repositories.Customers;
 using ProjectIndependence.API.Infrastructure.Repositories.Products;
+using ProjectIndependence.API.Infrastructure.Repositories.Sales;
 
 namespace ProjectIndependence.API.Tests.Servicebuilder
 {
@@ -21,6 +23,8 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
                 options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ISalesQuotationRepository, ISalesQuotationRepository>();
+            services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
 

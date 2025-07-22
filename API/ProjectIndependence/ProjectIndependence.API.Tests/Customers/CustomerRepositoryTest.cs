@@ -16,8 +16,8 @@ namespace ProjectIndependence.API.Tests.Customers
 
         public CustomerRepositoryTest()
         {
-            _customers = new List<Customer>
-            {
+            _customers =
+            [
                 new Customer
                 {
                     Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901ab"),
@@ -28,7 +28,7 @@ namespace ProjectIndependence.API.Tests.Customers
                     Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901bb"),
                     Name = "Lorena"
                 }
-            };
+            ];
 
             _serviceProvider = CreateServiceProvider.CreateProvider<Customer>(_customers);
 

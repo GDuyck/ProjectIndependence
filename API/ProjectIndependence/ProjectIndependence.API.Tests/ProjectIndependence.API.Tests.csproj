@@ -24,10 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Sales\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ProjectIndependence.API.Core\ProjectIndependence.API.Core.csproj" />
     <ProjectReference Include="..\ProjectIndependence.API.Infrastructure\ProjectIndependence.API.Infrastructure.csproj" />
   </ItemGroup>
