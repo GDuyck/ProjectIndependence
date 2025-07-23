@@ -20,8 +20,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore ./API/ProjectIndependence/*.sln
+      run: dotnet restore ./API/ProjectIndependence/ProjectIndependence.sln
     - name: Build
-      run: dotnet build ./API/ProjectIndependence/*.sln --no-restore
+      run: dotnet build ./API/ProjectIndependence/ProjectIndependence.sln --no-restore
     - name: Test
-      run: dotnet test ./API/ProjectIndependence/*.sln --no-build --verbosity normal
+      run: dotnet test ./API/ProjectIndependence/ProjectIndependence.sln --no-build --verbosity normal
