@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-    project: **\*.sln
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +21,10 @@ jobs:
         dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
+      projects: '**/*.sln'
     - name: Build
       run: dotnet build --no-restore
+      projects: '**/*.sln'
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      projects: '**/*.sln'
