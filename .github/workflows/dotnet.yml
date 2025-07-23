@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-
+    project: **\*.sln
     runs-on: ubuntu-latest
 
     steps:
