@@ -22,7 +22,7 @@ builder.Services.AddSwaggerGen();
 // Add dependency injection
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<ISalesQuotationRepository, ISalesQuotationRepository>();
+builder.Services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
 builder.Services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
 var app = builder.Build();

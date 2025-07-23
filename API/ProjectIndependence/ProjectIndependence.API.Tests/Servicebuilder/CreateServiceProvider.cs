@@ -23,7 +23,7 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
                 options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<ISalesQuotationRepository, ISalesQuotationRepository>();
+            services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
             services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
             var serviceProvider = services.BuildServiceProvider();
