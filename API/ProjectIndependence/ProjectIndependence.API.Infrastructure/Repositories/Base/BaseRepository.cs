@@ -2,11 +2,6 @@
 using ProjectIndependence.API.Core.Entities.Base;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.BaseInterface;
 using ProjectIndependence.API.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectIndependence.API.Infrastructure.Repositories.Base
 {
@@ -14,6 +9,7 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
         where TEntity : EntityBase
     {
         private readonly ApplicationDbContext _dbContext;
+
         public BaseRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -43,15 +39,20 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
             return entity;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var entity = await GetByIdAsync(id);
+
+            if (entity is null)
+                return false;
 
             _dbContext.Set<TEntity>().Remove(entity);
 
             await _dbContext.SaveChangesAsync();
 
             DbSet<TEntity> dbSet = _dbContext.Set<TEntity>();
+
+            return true;
         }
 
         private IQueryable<TEntity> FetchAll()
