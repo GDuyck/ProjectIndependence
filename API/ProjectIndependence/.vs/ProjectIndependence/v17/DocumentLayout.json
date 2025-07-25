@@ -3,32 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\sales\\salesquotationrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\sales\\salesquotationrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\sales\\salesquotationlinerepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\sales\\salesquotationlinerepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\servicebuilder\\createserviceprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\servicebuilder\\createserviceprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BE0998AC-3D88-4741-9B89-C9FE78DED56E}|ProjectIndependence.API\\ProjectIndependence.API.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BE0998AC-3D88-4741-9B89-C9FE78DED56E}|ProjectIndependence.API\\ProjectIndependence.API.csproj|solutionrelative:projectindependence.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BE0998AC-3D88-4741-9B89-C9FE78DED56E}|ProjectIndependence.API\\ProjectIndependence.API.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{BE0998AC-3D88-4741-9B89-C9FE78DED56E}|ProjectIndependence.API\\ProjectIndependence.API.csproj|solutionrelative:projectindependence.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\customers\\customerrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\customers\\customerrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8E3DA739-2733-4E0D-9CD5-8301074EC394}|ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.core\\entities\\sales\\salesquotation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -82,37 +62,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "SalesQuotationLineRepositoryTest.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Sales\\SalesQuotationLineRepositoryTest.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Sales\\SalesQuotationLineRepositoryTest.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Sales\\SalesQuotationLineRepositoryTest.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Sales\\SalesQuotationLineRepositoryTest.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAiwCgAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T09:57:47.673Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SalesQuotationRepositoryTest.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Sales\\SalesQuotationRepositoryTest.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Sales\\SalesQuotationRepositoryTest.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Sales\\SalesQuotationRepositoryTest.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Sales\\SalesQuotationRepositoryTest.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAmwJIAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T09:57:22.208Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 5,
               "Title": "CustomerRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Customers\\CustomerRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Customers\\CustomerRepository.cs",
@@ -125,33 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CustomerRepositoryTest.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Customers\\CustomerRepositoryTest.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Customers\\CustomerRepositoryTest.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Customers\\CustomerRepositoryTest.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Customers\\CustomerRepositoryTest.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAuwEwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T08:39:24.696Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateServiceProvider.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAAwCAAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T11:02:26.157Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
@@ -159,12 +87,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAqwAwAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-17T07:45:51.813Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-17T07:45:51.813Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 8,
               "Title": "IProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\Products\\IProductRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\Products\\IProductRepository.cs",
@@ -172,12 +99,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\Products\\IProductRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T11:39:21.63Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T11:39:21.63Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 6,
               "Title": "ProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Products\\ProductRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Products\\ProductRepository.cs",
@@ -185,25 +111,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Infrastructure\\Repositories\\Products\\ProductRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T11:34:31.583Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T11:34:31.583Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductRepositoryTest.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T09:07:32.645Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 10,
               "Title": "IBaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\BaseInterface\\IBaseRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\BaseInterface\\IBaseRepository.cs",
@@ -211,12 +123,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\BaseInterface\\IBaseRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T09:13:28.038Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T09:13:28.038Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\Program.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API\\Program.cs",
@@ -224,12 +135,11 @@
               "RelativeToolTip": "ProjectIndependence.API\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:47:57.307Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:47:57.307Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\appsettings.json",
               "RelativeDocumentMoniker": "ProjectIndependence.API\\appsettings.json",
@@ -237,12 +147,11 @@
               "RelativeToolTip": "ProjectIndependence.API\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-09T10:46:36.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:46:36.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
@@ -250,12 +159,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAIAwwBIAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:38:04.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:38:04.344Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 12,
               "Title": "SalesQuotationLine.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
@@ -263,12 +171,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T10:32:30.035Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T10:32:30.035Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 11,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
@@ -276,12 +183,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T09:15:14.216Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T09:15:14.216Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 7,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
@@ -289,12 +195,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T08:58:55.173Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T08:58:55.173Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "SalesQuotation.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
@@ -302,12 +207,11 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-09T08:57:31.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-09T08:57:31.128Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 9,
               "Title": "EntityBase.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",
@@ -315,8 +219,7 @@
               "RelativeToolTip": "ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T10:07:38.495Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-07T10:07:38.495Z"
             }
           ]
         }
