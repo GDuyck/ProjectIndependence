@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
@@ -24,6 +25,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
 builder.Services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
+
+builder.Services.AddMapster();
 
 var app = builder.Build();
 

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ProjectIndependence.API.Core.Dtos.Base;
+using ProjectIndependence.API.Core.Entities.Base;
 
 namespace ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Base
 {
-    public interface IBaseService
+    public interface IBaseService<TResponseDto, TRequestDto, TEntity>
+        where TResponseDto : DtoBase
+        where TRequestDto : DtoBase
+        where TEntity : EntityBase
     {
+        Task<TResponseDto> GetByIdAsync(Guid id);
     }
 }
