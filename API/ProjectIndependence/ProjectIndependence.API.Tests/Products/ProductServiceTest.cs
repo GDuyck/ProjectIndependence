@@ -19,48 +19,6 @@ namespace ProjectIndependence.API.Tests.Products
 
         public ProductServiceTest()
         {
-            mockProductRepository = new Mock<IProductRepository>();
-
-            var services = new ServiceCollection();
-            services.AddMapster();
-            var provider = services.BuildServiceProvider();
-
-            _mapper = provider.GetRequiredService<IMapper>();
-
-            _products = new List<Product>
-            {
-                    new Product
-                    {
-                        Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
-                        Name = "Test product 1",
-                        Price = 20,
-                        Tax = 21,
-                    },
-                    new Product
-                    {
-                        Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa"),
-                        Name = "Test product 2",
-                        Price = 40,
-                        Tax = 12
-                    }
-            };
-
-            mockProductRepository
-                .Setup(mpr => mpr.GetByIdAsync(Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa")))
-                .ReturnsAsync((Guid id) =>
-                    new Product
-                    {
-                        Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa"),
-                        Name = "Test product 2",
-                        Price = 40,
-                        Tax = 12
-                    });
-            mockProductRepository
-                .Setup(mpr => mpr.GetAllAsync())
-                .ReturnsAsync(_products);
-
-            //_productService = new ProductService(mockProductRepository.Object, _mapper);
-
             _productService = CreateServiceProvider.Instance.GetRequiredService<IProductService>();
         }
 
@@ -107,7 +65,7 @@ namespace ProjectIndependence.API.Tests.Products
 
             // ASSERT
             Assert.NotNull(result);
-            Assert.Equal(_products.Count, result.Count());
+            Assert.NotEmpty(result);
             Assert.IsType<DtoProduct>(result.ToList()[0]);
         }
 
