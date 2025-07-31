@@ -118,7 +118,7 @@ namespace ProjectIndependence.API.Tests.Products
         public async Task ProductService_DeleteAsync_ReturnsTrueWithValidId()
         {
             // ARRANGE
-            var validId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa");
+            var validId = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622");
 
             // ACT
             var result = await _productService.DeleteAsync(validId);
