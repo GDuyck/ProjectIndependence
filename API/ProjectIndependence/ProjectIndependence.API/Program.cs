@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
+using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Services.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories.Customers;
 using ProjectIndependence.API.Infrastructure.Repositories.Products;
@@ -27,6 +29,8 @@ builder.Services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>(
 builder.Services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
 builder.Services.AddMapster();
+
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

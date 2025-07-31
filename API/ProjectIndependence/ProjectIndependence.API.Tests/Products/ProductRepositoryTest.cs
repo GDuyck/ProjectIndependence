@@ -9,32 +9,10 @@ namespace ProjectIndependence.API.Tests.Products
     public class ProductRepositoryTest
     {
         private readonly IProductRepository productRepository;
-        private readonly ServiceProvider serviceProvider;
-        private readonly List<Product> mockProducts;
 
         public ProductRepositoryTest()
         {
-            mockProducts = new List<Product>
-            {
-                    new Product
-                    {
-                        Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
-                        Name = "Test product 1",
-                        Price = 20,
-                        Tax = 21,
-                    },
-                    new Product
-                    {
-                        Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa"),
-                        Name = "Test product 2",
-                        Price = 40,
-                        Tax = 12
-                    }
-            };
-
-            serviceProvider = CreateServiceProvider.CreateProvider<Product>(mockProducts);
-
-            productRepository = serviceProvider.GetRequiredService<IProductRepository>();
+            productRepository = CreateServiceProvider.Instance.GetRequiredService<IProductRepository>();
         }
 
         [Fact]
@@ -45,14 +23,14 @@ namespace ProjectIndependence.API.Tests.Products
 
             // ASSERT
             Assert.NotNull(result);
-            Assert.Equal(mockProducts.Count, result.Count());
+            Assert.NotEmpty(result);
         }
 
         [Fact]
         public async Task ProductRepository_GetById_ReturnsProductWithAValidIdAsync()
         {
             // ARRANGE
-            var testId = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa");
+            var testId = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622");
 
             // ACT
             var getByIdResult = await productRepository.GetByIdAsync(testId);

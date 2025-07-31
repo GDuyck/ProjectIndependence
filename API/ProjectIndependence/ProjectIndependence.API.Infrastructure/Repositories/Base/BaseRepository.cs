@@ -34,6 +34,12 @@ namespace ProjectIndependence.API.Infrastructure.Repositories.Base
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
+            var tracked = _dbContext.ChangeTracker.Entries<TEntity>()
+                .FirstOrDefault(e => e.Entity.Id == entity.Id);
+
+            if (tracked is not null)
+                tracked.State = EntityState.Detached;
+
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return entity;

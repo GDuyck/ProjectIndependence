@@ -9,5 +9,9 @@ namespace ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Base
         where TEntity : EntityBase
     {
         Task<TResponseDto> GetByIdAsync(Guid id);
+        Task<IEnumerable<TResponseDto>> GetAllAsync();
+        Task<TResponseDto> AddAsync(TRequestDto requestDto);
+        Task<TResponseDto> UpdateAsync(TRequestDto requestDto);
+        Task<bool> DeleteAsync(Guid id);
     }
 }
