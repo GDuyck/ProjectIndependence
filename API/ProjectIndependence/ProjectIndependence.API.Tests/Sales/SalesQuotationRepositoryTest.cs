@@ -37,7 +37,7 @@ namespace ProjectIndependence.API.Tests.Sales
                 }
             };
 
-            serviceProvider = CreateServiceProvider.CreateProvider(mockSalesQuotations);
+            serviceProvider = TestServiceProviderFixture.CreateProvider(mockSalesQuotations);
 
             salesQuotationRepository = serviceProvider.GetRequiredService<ISalesQuotationRepository>();
         }
