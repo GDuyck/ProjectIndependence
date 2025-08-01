@@ -46,7 +46,7 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
         {
             var services = new ServiceCollection();
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
+                options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()), ServiceLifetime.Transient);
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
