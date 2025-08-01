@@ -30,7 +30,7 @@ namespace ProjectIndependence.API.Tests.Customers
                 }
             ];
 
-            _serviceProvider = CreateServiceProvider.CreateProvider<Customer>(_customers);
+            _serviceProvider = TestServiceProviderFixture.CreateProvider<Customer>(_customers);
 
             _customerRepository = _serviceProvider.GetRequiredService<ICustomerRepository>();
         }

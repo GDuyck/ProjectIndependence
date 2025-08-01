@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\servicebuilder\\createserviceprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\servicebuilder\\createserviceprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|solutionrelative:projectindependence.api.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\products\\productservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\products\\productservicetest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\servicebuilder\\serviceprovidercollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\servicebuilder\\serviceprovidercollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\servicebuilder\\testserviceproviderfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\servicebuilder\\testserviceproviderfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|solutionrelative:projectindependence.api.infrastructure\\repositories\\base\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.infrastructure\\repositories\\customers\\customerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.infrastructure\\repositories\\products\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6153FE29-267D-4AD2-9465-D08C500C7034}|ProjectIndependence.API.Infrastructure\\ProjectIndependence.API.Infrastructure.csproj|solutionrelative:projectindependence.api.infrastructure\\repositories\\products\\productrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D658CE9A-15EA-4E00-9BAA-962A79309C47}|ProjectIndependence.API.Tests\\ProjectIndependence.API.Tests.csproj|solutionrelative:projectindependence.api.tests\\products\\productrepositorytest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8E3DA739-2733-4E0D-9CD5-8301074EC394}|ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj|c:\\users\\gijsd\\desktop\\projectindependence\\projectindependence\\api\\projectindependence\\projectindependence.api.core\\services\\baseservice\\baseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -114,50 +118,63 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CreateServiceProvider.cs",
-              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "RelativeToolTip": "ProjectIndependence.API.Tests\\Servicebuilder\\CreateServiceProvider.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAAwDoAAABCAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ServiceProviderCollection.cs",
+              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\ServiceProviderCollection.cs",
+              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Servicebuilder\\ServiceProviderCollection.cs",
+              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\ServiceProviderCollection.cs",
+              "RelativeToolTip": "ProjectIndependence.API.Tests\\Servicebuilder\\ServiceProviderCollection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-01T09:19:49.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TestServiceProviderFixture.cs",
+              "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\TestServiceProviderFixture.cs",
+              "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Servicebuilder\\TestServiceProviderFixture.cs",
+              "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Servicebuilder\\TestServiceProviderFixture.cs",
+              "RelativeToolTip": "ProjectIndependence.API.Tests\\Servicebuilder\\TestServiceProviderFixture.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAQwBMAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-31T10:12:26.571Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "ProductRepositoryTest.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
               "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
               "RelativeToolTip": "ProjectIndependence.API.Tests\\Products\\ProductRepositoryTest.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAkwCgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T10:35:58.293Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ProductServiceTest.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductServiceTest.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Tests\\Products\\ProductServiceTest.cs",
               "ToolTip": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Tests\\Products\\ProductServiceTest.cs",
               "RelativeToolTip": "ProjectIndependence.API.Tests\\Products\\ProductServiceTest.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAuwCMAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-29T10:14:46.475Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ProductService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Services\\Products\\ProductService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Services\\Products\\ProductService.cs",
@@ -170,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "IProductService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Products\\IProductService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Products\\IProductService.cs",
@@ -182,7 +199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "CustomerService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Services\\Customers\\CustomerService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Services\\Customers\\CustomerService.cs",
@@ -194,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "ICustomerService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Customers\\ICustomerService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Customers\\ICustomerService.cs",
@@ -207,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "BaseService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Services\\BaseService\\BaseService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Services\\BaseService\\BaseService.cs",
@@ -220,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "DtoCreateProduct.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Dtos\\Products\\DtoCreateProduct.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Dtos\\Products\\DtoCreateProduct.cs",
@@ -232,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "DtoProduct.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Dtos\\Products\\DtoProduct.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Dtos\\Products\\DtoProduct.cs",
@@ -244,7 +261,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "DtoBase.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Dtos\\Base\\DtoBase.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Dtos\\Base\\DtoBase.cs",
@@ -256,7 +273,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "ProjectIndependence.API.Core.csproj",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\ProjectIndependence.API.Core.csproj",
@@ -268,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "IBaseService.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Base\\IBaseService.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\ServiceInterfaces\\Base\\IBaseService.cs",
@@ -281,7 +298,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "CustomerRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Customers\\CustomerRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Customers\\CustomerRepository.cs",
@@ -294,7 +311,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Base\\BaseRepository.cs",
@@ -307,7 +324,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "IProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\Products\\IProductRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\Products\\IProductRepository.cs",
@@ -319,7 +336,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ProductRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Repositories\\Products\\ProductRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Repositories\\Products\\ProductRepository.cs",
@@ -332,7 +349,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "IBaseRepository.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\BaseInterface\\IBaseRepository.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Interfaces\\RepositoryInterfaces\\BaseInterface\\IBaseRepository.cs",
@@ -345,7 +362,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\Program.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API\\Program.cs",
@@ -358,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API\\appsettings.json",
               "RelativeDocumentMoniker": "ProjectIndependence.API\\appsettings.json",
@@ -370,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Infrastructure\\Data\\ApplicationDbContext.cs",
@@ -383,7 +400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "SalesQuotationLine.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotationLine.cs",
@@ -395,7 +412,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Product.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Products\\Product.cs",
@@ -407,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Customer.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Customers\\Customer.cs",
@@ -419,7 +436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "SalesQuotation.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Sales\\SalesQuotation.cs",
@@ -431,7 +448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "EntityBase.cs",
               "DocumentMoniker": "C:\\Users\\gijsd\\Desktop\\ProjectIndependence\\ProjectIndependence\\API\\ProjectIndependence\\ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",
               "RelativeDocumentMoniker": "ProjectIndependence.API.Core\\Entities\\Base\\EntityBase.cs",

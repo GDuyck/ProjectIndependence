@@ -15,10 +15,9 @@ using ProjectIndependence.API.Infrastructure.Repositories.Sales;
 
 namespace ProjectIndependence.API.Tests.Servicebuilder
 {
-    public static class CreateServiceProvider
+    public class TestServiceProviderFixture : IDisposable
     {
-        private static IServiceProvider? _provider;
-        public static IServiceProvider Instance => _provider ??= Build();
+        public IServiceProvider ServiceProvider;
 
         public static ServiceProvider CreateProvider<TEntitiy>(List<TEntitiy> entities)
             where TEntitiy : EntityBase
@@ -42,7 +41,48 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
             return serviceProvider;
         }
 
-        private static IServiceProvider Build()
+        //private static IServiceProvider Build()
+        //{
+        //    var services = new ServiceCollection();
+        //    services.AddDbContext<ApplicationDbContext>(
+        //        options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()), ServiceLifetime.Transient);
+        //    services.AddScoped<IProductRepository, ProductRepository>();
+        //    services.AddScoped<ICustomerRepository, CustomerRepository>();
+        //    services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
+        //    services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
+
+        //    services.AddMapster();
+
+        //    services.AddScoped<IProductService, ProductService>();
+
+        //    var serviceProvider = services.BuildServiceProvider();
+
+        //    var appDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+
+        //    appDbContext.Set<Product>()
+        //        .AddRange(
+        //                new Product
+        //                {
+        //                    Id = Guid.Parse("9ee738a9-2d29-44b0-8d3a-92c8b4f0f622"),
+        //                    Name = "Test product 1",
+        //                    Price = 20,
+        //                    Tax = 21,
+        //                },
+        //                new Product
+        //                {
+        //                    Id = Guid.Parse("1134c810-922a-47e2-90d1-ae0ed12901aa"),
+        //                    Name = "Test product 2",
+        //                    Price = 40,
+        //                    Tax = 12
+        //                }
+        //        );
+
+        //    appDbContext.SaveChanges();
+
+        //    return serviceProvider;
+        //}
+
+        public TestServiceProviderFixture()
         {
             var services = new ServiceCollection();
             services.AddDbContext<ApplicationDbContext>(
@@ -56,9 +96,9 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
 
             services.AddScoped<IProductService, ProductService>();
 
-            var serviceProvider = services.BuildServiceProvider();
+            ServiceProvider = services.BuildServiceProvider();
 
-            var appDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var appDbContext = ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             appDbContext.Set<Product>()
                 .AddRange(
@@ -79,8 +119,11 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
                 );
 
             appDbContext.SaveChanges();
+        }
 
-            return serviceProvider;
+        public void Dispose()
+        {
+            (ServiceProvider as IDisposable)?.Dispose();
         }
     }
 }

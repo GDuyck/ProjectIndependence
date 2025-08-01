@@ -6,13 +6,13 @@ using ProjectIndependence.API.Tests.Servicebuilder;
 
 namespace ProjectIndependence.API.Tests.Products
 {
-    public class ProductRepositoryTest
+    public class ProductRepositoryTest : IClassFixture<TestServiceProviderFixture>
     {
         private readonly IProductRepository productRepository;
 
-        public ProductRepositoryTest()
+        public ProductRepositoryTest(TestServiceProviderFixture fixture)
         {
-            productRepository = CreateServiceProvider.Instance.GetRequiredService<IProductRepository>();
+            productRepository = fixture.ServiceProvider.GetRequiredService<IProductRepository>();
         }
 
         [Fact]

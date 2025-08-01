@@ -10,16 +10,16 @@ using ProjectIndependence.API.Tests.Servicebuilder;
 
 namespace ProjectIndependence.API.Tests.Products
 {
-    public class ProductServiceTest
+    public class ProductServiceTest : IClassFixture<TestServiceProviderFixture>
     {
         private readonly Mock<IProductRepository> mockProductRepository;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         private readonly List<Product> _products;
 
-        public ProductServiceTest()
+        public ProductServiceTest(TestServiceProviderFixture fixture)
         {
-            _productService = CreateServiceProvider.Instance.GetRequiredService<IProductService>();
+            _productService = fixture.ServiceProvider.GetRequiredService<IProductService>();
         }
 
         [Fact]
