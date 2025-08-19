@@ -1,16 +1,14 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Core.Services.Products;
 using ProjectIndependence.API.Core.Validation.Products;
 using ProjectIndependence.API.Infrastructure.Data;
-using ProjectIndependence.API.Infrastructure.Repositories.Customers;
-using ProjectIndependence.API.Infrastructure.Repositories.Products;
-using ProjectIndependence.API.Infrastructure.Repositories.Sales;
+using ProjectIndependence.API.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,16 +22,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add dependency injection
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
-builder.Services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
+builder.Services.AddInfrastructureServices(
+    builder.Configuration.GetConnectionString("DefaultDatabase"));
+
+builder.Services.AddFluentValidationIntegration();
 
 builder.Services.AddMapster();
-builder.Services.AddValidatorsFromAssemblyContaining<DtoRequestProductValidator>();
-
-builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

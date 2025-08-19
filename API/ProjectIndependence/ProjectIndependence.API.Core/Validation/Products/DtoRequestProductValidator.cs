@@ -1,10 +1,5 @@
 ﻿using FluentValidation;
 using ProjectIndependence.API.Core.Dtos.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectIndependence.API.Core.Validation.Products
 {
@@ -21,13 +16,12 @@ namespace ProjectIndependence.API.Core.Validation.Products
             RuleFor(p => p.Price)
                 .GreaterThan(0)
                 .WithMessage("A pruduct price can not be 0");
-            RuleFor(p => p.Price)
-                .PrecisionScale(2, 10, true)
-                .WithMessage("Price must have 2 decimal places");
+            //RuleFor(p => p.Price)
+            //    .PrecisionScale(2, 10, true)
+            //    .WithMessage("Price must have 2 decimal places");
             RuleFor(p => p.Tax)
                 .NotEmpty()
                 .WithMessage("There must be a tax");
-
         }
     }
 }
