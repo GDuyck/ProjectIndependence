@@ -1,27 +1,35 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
-
-on:
-  push:
-    branches: [ "Dev" ]
-  pull_request:
-    branches: [ "Dev" ]
-
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          SA_PASSWORD: "YourStrong!Passw0rd"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd="timeout 5 bash -c 'echo > /dev/tcp/localhost/1433'" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
 
     steps:
     - uses: actions/checkout@v4
-    - name: Setup .NET
+
+    - name: Set up .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
     - name: Restore dependencies
       run: dotnet restore API/ProjectIndependence/ProjectIndependence.sln
+
     - name: Build
       run: dotnet build API/ProjectIndependence/ProjectIndependence.sln --no-restore
+
     - name: Test
+      env:
+        ConnectionStrings__DefaultDatabase: "Server=localhost,1433;Database=ProjectIndependenceTest;User=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=true"
       run: dotnet test API/ProjectIndependence/ProjectIndependence.sln --no-build --verbosity normal
