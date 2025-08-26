@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy solution and project files
-COPY ProjectIndependence.sln ./
+COPY ProjectIndependence.sln /
 COPY ProjectIndependence.API/ProjectIndependence.API.csproj ProjectIndependence.API/
 COPY ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj ProjectIndependence.API.Core/
 COPY ProjectIndependence.API.Infrastructure/ProjectIndependence.API.Infrastructure.csproj ProjectIndependence.API.Infrastructure/
@@ -26,6 +26,6 @@ WORKDIR /app
 COPY --from=build /app ./
 
 # If you have certs in repo root
-COPY certs ./certs
+COPY certs /certs
 
 ENTRYPOINT ["dotnet", "ProjectIndependence.API.dll"]
