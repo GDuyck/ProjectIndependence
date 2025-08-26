@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Core.Response;
@@ -28,7 +27,7 @@ namespace ProjectIndependence.API.Controllers
         {
             var products = await _productService.GetAllAsync();
 
-            return Ok(products);
+            return Ok(ApiResponse<IEnumerable<DtoProduct>>.FromSucces(products));
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace ProjectIndependence.API.Controllers
                     Title = "Invalid body request",
                     Detail = "The request body was empty or could not be serialized",
                     Status = StatusCodes.Status400BadRequest
-
                 };
 
                 return BadRequest(ApiResponse<object>.FromError(problem));
@@ -67,7 +65,7 @@ namespace ProjectIndependence.API.Controllers
         /// <param name="dto">The updated product data.</param>
         /// <returns>
         /// returns a 200 OK with apiresponse succes is successfull
-        /// 400 if problems with validation, 404 if not found,  
+        /// 400 if problems with validation, 404 if not found,
         /// </returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(ApiResponse<DtoProduct>), StatusCodes.Status200OK)]

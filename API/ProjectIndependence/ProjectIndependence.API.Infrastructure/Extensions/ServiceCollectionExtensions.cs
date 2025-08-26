@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
@@ -20,13 +23,21 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddInfrastructureServices
+            (this IServiceCollection services,
+            IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
+            string connectionString = configuration.GetConnectionString("DefaultDatabase");
+
             // Add dbContext
+            if (environment.IsEnvironment("Test"))
+                connectionString = configuration.GetConnectionString("TestDatabase");
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(connectionString));
 
-            // Repos
+            // Repositories
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
