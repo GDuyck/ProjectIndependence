@@ -19,7 +19,7 @@ jobs:
 
     # Build the API image from your Dockerfile
     - name: Build API Docker image
-      run: docker build -t projectindependence-api -f API/ProjectIndependence/ProjectIndependence.API/Dockerfile .
+      run: docker build -t projectindependence-api -f API/ProjectIndependence/Dockerfile .
 
     # Run tests inside SDK container
     - name: Run tests in container
