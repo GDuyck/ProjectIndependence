@@ -18,11 +18,6 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
-        options: >-
-          --health-cmd "until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'L1mb0-m@N' -Q 'SELECT 1' > /dev/null 2>&1; do sleep 1; done"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
 
     steps:
     - name: Checkout source
