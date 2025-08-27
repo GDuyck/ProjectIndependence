@@ -26,6 +26,9 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
+    - name: Build API Docker image
+      run: docker build -t projectindependence-api -f API/ProjectIndependence/Dockerfile API/ProjectIndependence
+
     # ✅ Run tests against SQL Server service
     - name: Run tests in container
       run: |
@@ -35,6 +38,3 @@ jobs:
           -e ConnectionStrings__TestDatabase="Server=host.docker.internal,1433;Database=TestDb;User Id=sa;Password=L1mb0-m@N;TrustServerCertificate=True" \
           mcr.microsoft.com/dotnet/sdk:8.0 \
           dotnet test ProjectIndependence.sln --no-build --verbosity normal
-
-    - name: Build API Docker image
-      run: docker build -t projectindependence-api -f API/ProjectIndependence/Dockerfile API/ProjectIndependence
