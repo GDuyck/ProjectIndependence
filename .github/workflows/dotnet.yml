@@ -14,7 +14,7 @@ jobs:
       sqlserver:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
-          SA_PASSWORD: "Your_password123"
+          SA_PASSWORD: "L1mb0-m@N"
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
