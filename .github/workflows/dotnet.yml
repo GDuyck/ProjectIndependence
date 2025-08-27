@@ -1,4 +1,4 @@
-name: .NET with Docker
+name: .NET with SQL Server
 
 on:
   push:
@@ -18,23 +18,28 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - 1433:1433
+        options: >-
+          --health-cmd "until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'L1mb0-m@N' -Q 'SELECT 1' > /dev/null 2>&1; do sleep 1; done"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
 
-    # ✅ Run tests against SQL Server service
-    - name: Run tests in container
-      run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/src \
-          -w /src/API/ProjectIndependence \
-          -e ConnectionStrings__TestDatabase="Server=host.docker.internal,1433;Database=TestDb;User Id=sa;Password=L1mb0-m@N;TrustServerCertificate=True" \
-          mcr.microsoft.com/dotnet/sdk:8.0 \
-          dotnet test ProjectIndependence.sln --no-build --verbosity normal
+    - name: Restore dependencies
+      run: dotnet restore API/ProjectIndependence/ProjectIndependence.sln
 
-    - name: Build API Docker image
-      run: docker build -t projectindependence-api -f API/ProjectIndependence/Dockerfile API/ProjectIndependence
+    - name: Build
+      run: dotnet build API/ProjectIndependence/ProjectIndependence.sln --no-restore
+
+    - name: Run tests against SQL Server
+      env:
+        ConnectionStrings__TestDatabase: "Server=localhost,1433;Database=TestDb;User Id=sa;Password=L1mb0-m@N;TrustServerCertificate=True"
+      run: dotnet test API/ProjectIndependence/ProjectIndependence.sln --no-build --verbosity normal
