@@ -1,6 +1,9 @@
 ﻿using FluentAssertions;
+using Mapster;
+using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
+using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration;
 using ProjectIndependence.API.Tests.Seeding;
@@ -12,14 +15,9 @@ using Xunit;
 
 namespace ProjectIndependence.API.Tests.Products
 {
-    public class ProductIntegrationTests : IClassFixture<CustomWebApplicationFactory>
+    public class ProductIntegrationTests : IntegrationTestBase, IClassFixture<CustomWebApplicationFactory>
     {
-        private readonly HttpClient _httpClient;
-
-        public ProductIntegrationTests(CustomWebApplicationFactory factory)
-        {
-            _httpClient = factory.CreateClient();
-        }
+        public ProductIntegrationTests(CustomWebApplicationFactory factory): base(factory) { }
 
         [Fact]
         public async Task GetAll_ReturnOkWithProducts()
@@ -54,6 +52,31 @@ namespace ProjectIndependence.API.Tests.Products
             result.Data.Id.Should().Be(productToLookUp.Id);
             result.Data.Name.Should().Be(productToLookUp.Name);
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task GetById_WithInvalidId_ReturnsNotFound()
+        {
+            // ARRANGE
+            var wrongId = Guid.NewGuid();
+
+            // ACT
+            var response = await _httpClient.GetAsync($"api/products/{wrongId}");
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            result.Success.Should().BeFalse();
+            result.Data.Should().BeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
+            // Deserialize error
+            var problemDetail = (result.Error as JsonElement?)?.Deserialize<ProblemDetails>();
+
+            problemDetail.Should().NotBeNull();
+            problemDetail.Title.Should().Be(ValidationErrors.NotFoundTitle);
+            problemDetail.Detail.Should().Be(ValidationErrors.ProductNotFound + wrongId);
         }
 
         [Fact]
