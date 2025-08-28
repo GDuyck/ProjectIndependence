@@ -1,36 +1,28 @@
 using Mapster;
-using Microsoft.EntityFrameworkCore;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
-using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
-using ProjectIndependence.API.Core.Services.Products;
-using ProjectIndependence.API.Infrastructure.Data;
-using ProjectIndependence.API.Infrastructure.Repositories.Customers;
-using ProjectIndependence.API.Infrastructure.Repositories.Products;
-using ProjectIndependence.API.Infrastructure.Repositories.Sales;
+using ProjectIndependence.API.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultDatabase")));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add dependency injection
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
-builder.Services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80);
+    options.ListenAnyIP(443, listenOptions =>
+    {
+        listenOptions.UseHttps("certs/localhost.pfx", "L1mb0-m@N");
+    });
+});
+
+builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
+
+builder.Services.AddFluentValidationIntegration();
 
 builder.Services.AddMapster();
-
-builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
@@ -48,3 +40,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
