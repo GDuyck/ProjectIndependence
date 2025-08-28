@@ -83,7 +83,7 @@ namespace ProjectIndependence.API.Controllers
                     Status = StatusCodes.Status404NotFound
                 };
 
-                return BadRequest(ApiResponse<object>.FromError(problemDetail));
+                return NotFound(ApiResponse<object>.FromError(problemDetail));
             }
 
             var updatedProduct = await _productService.UpdateAsync(dto);

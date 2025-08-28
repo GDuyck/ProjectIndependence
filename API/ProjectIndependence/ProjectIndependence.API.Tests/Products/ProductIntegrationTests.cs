@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
@@ -11,13 +10,14 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using Xunit;
 
 namespace ProjectIndependence.API.Tests.Products
 {
     public class ProductIntegrationTests : IntegrationTestBase, IClassFixture<CustomWebApplicationFactory>
     {
-        public ProductIntegrationTests(CustomWebApplicationFactory factory): base(factory) { }
+        public ProductIntegrationTests(CustomWebApplicationFactory factory) : base(factory)
+        {
+        }
 
         [Fact]
         public async Task GetAll_ReturnOkWithProducts()
@@ -67,9 +67,10 @@ namespace ProjectIndependence.API.Tests.Products
 
             // ASSERT
             response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
             result.Success.Should().BeFalse();
             result.Data.Should().BeNull();
-            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
             // Deserialize error
             var problemDetail = (result.Error as JsonElement?)?.Deserialize<ProblemDetails>();
@@ -90,12 +91,8 @@ namespace ProjectIndependence.API.Tests.Products
                 Tax = 21
             };
 
-            var newProductJson = JsonSerializer.Serialize(newProduct);
-
-            var contentToSend = new StringContent(newProductJson, Encoding.UTF8, "application/json");
-
             // ACT
-            var response = await _httpClient.PostAsync("api/products", contentToSend);
+            var response = await _httpClient.PostAsJsonAsync("api/products", newProduct);
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
@@ -109,6 +106,41 @@ namespace ProjectIndependence.API.Tests.Products
             result.Data.Name.Should().Be(newProduct.Name);
             result.Data.Price.Should().Be(newProduct.Price);
             result.Data.Tax.Should().Be(newProduct.Tax);
+        }
+
+        [Fact]
+        public async Task PostAsync_WithInvalidInput_ReturnsBadRequestWithErrorMessage()
+        {
+            // ARRANGE
+            var newProduct = new DtoCreateProduct
+            {
+                Name = "",
+                Price = 0,
+                Tax = 0
+            };
+
+            // ACT
+            var response = await _httpClient.PostAsJsonAsync("api/products", newProduct);
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
+
+            // Deserialize error
+            var problemDetail = (result.Error as JsonElement?)?.Deserialize<ValidationProblemDetails>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            result.Success.Should().BeFalse();
+            result.Data.Should().BeNull();
+
+            problemDetail.Should().NotBeNull();
+            problemDetail.Errors.Should().ContainKey("Name")
+                .WhoseValue.Should().Contain(ValidationErrors.Name);
+            problemDetail.Errors.Should().ContainKey("Price")
+                .WhoseValue.Should().Contain(ValidationErrors.ProductPriceNotZero);
+            problemDetail.Errors.Should().ContainKey("Tax")
+                .WhoseValue.Should().Contain(ValidationErrors.ProductTax);
         }
 
         [Fact]
@@ -127,12 +159,8 @@ namespace ProjectIndependence.API.Tests.Products
                 Tax = oldProduct.Tax
             };
 
-            var updateProductJson = JsonSerializer.Serialize(updatedProduct);
-
-            var contentToSend = new StringContent(updateProductJson, Encoding.UTF8, "application/json");
-
             // ACT
-            var response = await _httpClient.PutAsync($"api/products/{oldProduct.Id}", contentToSend);
+            var response = await _httpClient.PutAsJsonAsync($"api/products/{oldProduct.Id}", updatedProduct);
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
@@ -147,6 +175,126 @@ namespace ProjectIndependence.API.Tests.Products
             result.Data.Price.Should().Be(updatedProduct.Price);
             result.Data.Tax.Should().Be(updatedProduct.Tax);
             result.Data.Id.Should().Be(oldProduct.Id);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_WithInvalidInput_ReturnsBadRequestWithErrorMessage()
+        {
+            // ARRANGE
+            var oldProduct = SeedingData.ProductsToSeed()[0];
+
+            var newProduct = new DtoCreateProduct
+            {
+                Id = oldProduct.Id,
+                Name = "",
+                Price = 0,
+                Tax = 0
+            };
+
+            // ACT
+            var response = await _httpClient.PutAsJsonAsync($"api/products/{oldProduct.Id}", newProduct);
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
+
+            // Deserialize error
+            var problemDetail = (result.Error as JsonElement?)?.Deserialize<ValidationProblemDetails>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            result.Success.Should().BeFalse();
+            result.Data.Should().BeNull();
+
+            problemDetail.Should().NotBeNull();
+            problemDetail.Errors.Should().ContainKey("Name")
+                .WhoseValue.Should().Contain(ValidationErrors.Name);
+            problemDetail.Errors.Should().ContainKey("Price")
+                .WhoseValue.Should().Contain(ValidationErrors.ProductPriceNotZero);
+            problemDetail.Errors.Should().ContainKey("Tax")
+                .WhoseValue.Should().Contain(ValidationErrors.ProductTax);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_WithNotMatchingIds_ReturnsNotFoundWithErrorMessage()
+        {
+            // ARRANGE
+            string newName = "Product with updated name";
+
+            var oldProduct = SeedingData.ProductsToSeed()[0];
+
+            var updatedProduct = new Product
+            {
+                Id = Guid.NewGuid(),
+                Name = newName,
+                Price = oldProduct.Price,
+                Tax = oldProduct.Tax
+            };
+
+            // ACT
+            var response = await _httpClient.PutAsJsonAsync($"api/products/{oldProduct.Id}", updatedProduct);
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
+
+            // Deserialize error
+            var problemDetail = (result.Error as JsonElement?)?.Deserialize<ProblemDetails>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
+            result.Success.Should().BeFalse();
+            result.Data.Should().BeNull();
+
+            problemDetail.Should().NotBeNull();
+            problemDetail.Title.Should().Be(ValidationErrors.IdsNotMatchingTitle);
+            problemDetail.Detail.Should().Be(ValidationErrors.IdsNotMatching);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_WithValidId_ReturnsOkWithDeletedMessage()
+        {
+            // ARRANGE
+            var productIdToDelete = SeedingData.ProductsToSeed()[0].Id;
+
+            // ACT
+            var response = await _httpClient.DeleteAsync($"api/products/{productIdToDelete}");
+            response.EnsureSuccessStatusCode();
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            result.Success.Should().BeTrue();
+            result.Message.Should().Be("The product has been successfully deleted");
+        }
+
+        [Fact]
+        public async Task DeleteAsync_WithInvalidId_ReturnsNotFoundWithMessage()
+        {
+            // ARRANGE
+            var productIdToDelete = Guid.NewGuid();
+
+            // ACT
+            var response = await _httpClient.DeleteAsync($"api/products/{productIdToDelete}");
+
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
+
+            // Deserialize error
+            var problemDetail = (result.Error as JsonElement?)?.Deserialize<ProblemDetails>();
+
+            // ASSERT
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
+            result.Success.Should().BeFalse();
+            result.Data.Should().BeNull();
+
+            problemDetail.Should().NotBeNull();
+            problemDetail.Title.Should().Be(ValidationErrors.NotFoundTitle);
+            problemDetail.Detail.Should().Be(ValidationErrors.ProductNotFound + productIdToDelete);
         }
     }
 }
