@@ -122,7 +122,7 @@ namespace ProjectIndependence.API.Tests.Products
             // ACT
             var response = await _httpClient.PostAsJsonAsync("api/products", newProduct);
 
-            var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
 
             // Deserialize error
             var problemDetail = (result.Error as JsonElement?)?.Deserialize<ValidationProblemDetails>();
@@ -194,7 +194,7 @@ namespace ProjectIndependence.API.Tests.Products
             // ACT
             var response = await _httpClient.PutAsJsonAsync($"api/products/{oldProduct.Id}", newProduct);
 
-            var result = await response.Content.ReadFromJsonAsync<ApiResponse<DtoProduct>>();
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<object>>();
 
             // Deserialize error
             var problemDetail = (result.Error as JsonElement?)?.Deserialize<ValidationProblemDetails>();
