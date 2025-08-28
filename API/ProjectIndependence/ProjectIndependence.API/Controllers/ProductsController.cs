@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Core.Dtos.Products;
+using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Core.Response;
 
@@ -77,8 +78,8 @@ namespace ProjectIndependence.API.Controllers
             {
                 var problemDetail = new ProblemDetails
                 {
-                    Title = "Id's don't match",
-                    Detail = "The ID in the URL doesn't match the ID in the body",
+                    Title = ValidationErrors.IdsNotMatchingTitle,
+                    Detail = ValidationErrors.IdsNotMatching,
                     Status = StatusCodes.Status404NotFound
                 };
 
@@ -91,8 +92,8 @@ namespace ProjectIndependence.API.Controllers
             {
                 var problemDetail = new ProblemDetails
                 {
-                    Title = "Product not found",
-                    Detail = $"There was no product found with the ID {id}",
+                    Title = ValidationErrors.NotFoundTitle,
+                    Detail = ValidationErrors.ProductNotFound + id,
                     Status = StatusCodes.Status404NotFound
                 };
 
@@ -117,8 +118,8 @@ namespace ProjectIndependence.API.Controllers
             {
                 var notFound = new ProblemDetails
                 {
-                    Title = "Not found",
-                    Detail = $"No product found with the id {id}",
+                    Title = ValidationErrors.NotFoundTitle,
+                    Detail = ValidationErrors.ProductNotFound + id,
                     Status = StatusCodes.Status404NotFound
                 };
 
@@ -147,8 +148,8 @@ namespace ProjectIndependence.API.Controllers
             {
                 var notFound = new ProblemDetails
                 {
-                    Title = "Not found",
-                    Detail = $"No product found with the id {id}",
+                    Title = ValidationErrors.NotFoundTitle,
+                    Detail = ValidationErrors.ProductNotFound + id,
                     Status = StatusCodes.Status404NotFound
                 };
 
