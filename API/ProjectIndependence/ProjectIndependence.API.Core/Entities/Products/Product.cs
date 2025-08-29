@@ -5,12 +5,15 @@ namespace ProjectIndependence.API.Core.Entities.Products
 {
     public class Product : EntityBase
     {
-        public string Name { get; private set; }
-        public decimal Price { get; private set; }
-        public TaxRate Tax { get; private set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public TaxRate Tax { get; internal set; }
 
-        public Product(string name, decimal price, int tax)
+        private Product() { }
+
+        public Product(Guid id, string name, decimal price, int tax)
         {
+            Id = id;
             Name = name;
             Price = price;
             Tax = new TaxRate(tax);

@@ -1,5 +1,6 @@
 using Mapster;
 using ProjectIndependence.API.Core.Exceptions;
+using ProjectIndependence.API.Extensions;
 using ProjectIndependence.API.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,7 @@ builder.Services.AddInfrastructureServices(builder.Configuration, builder.Enviro
 builder.Services.AddFluentValidationIntegration();
 
 builder.Services.AddMapster();
+MapsterConfig.RegisterMappings();
 
 var app = builder.Build();
 

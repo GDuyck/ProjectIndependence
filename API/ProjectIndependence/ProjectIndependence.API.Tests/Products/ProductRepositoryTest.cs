@@ -57,13 +57,7 @@ namespace ProjectIndependence.API.Tests.Products
         public async Task ProductRepository_AddAsync_AddProductAndReturnsTheAddedProduct()
         {
             // ARRANGE
-            var newProduct = new Product
-            {
-                Id = new Guid(),
-                Name = "New Product 3",
-                Price = 24,
-                Tax = 6
-            };
+            var newProduct = new Product(Guid.NewGuid(), "New product 3", 24, 6);
 
             // ACT
             var result = await productRepository.AddAsync(newProduct);

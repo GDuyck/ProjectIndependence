@@ -1,10 +1,5 @@
-﻿using Mapster;
-using MapsterMapper;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ProjectIndependence.API.Core.Dtos.Products;
-using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Tests.Servicebuilder;
 
@@ -12,10 +7,7 @@ namespace ProjectIndependence.API.Tests.Products
 {
     public class ProductServiceTest : IClassFixture<TestServiceProviderFixture>
     {
-        private readonly Mock<IProductRepository> mockProductRepository;
         private readonly IProductService _productService;
-        private readonly IMapper _mapper;
-        private readonly List<Product> _products;
 
         public ProductServiceTest(TestServiceProviderFixture fixture)
         {

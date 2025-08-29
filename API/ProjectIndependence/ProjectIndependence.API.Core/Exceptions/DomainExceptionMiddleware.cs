@@ -27,7 +27,7 @@ namespace ProjectIndependence.API.Core.Exceptions
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                }
+                };
 
                 await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response, options));
             }

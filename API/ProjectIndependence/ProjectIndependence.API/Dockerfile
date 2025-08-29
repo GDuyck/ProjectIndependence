@@ -1,8 +1,8 @@
-# Stage 1: build 
+# Stage 1: build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy solution and project files
+# Copy solution and project files (so restore uses cache effectively)
 COPY ProjectIndependence.sln ./
 COPY ProjectIndependence.API/ProjectIndependence.API.csproj ProjectIndependence.API/
 COPY ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj ProjectIndependence.API.Core/
@@ -15,10 +15,10 @@ RUN dotnet restore ProjectIndependence.sln
 # Copy everything else
 COPY . .
 
-# Build
-RUN dotnet build ProjectIndependence.sln -c Release --no-restore
+# Build + Publish API
+RUN dotnet publish ProjectIndependence.API/ProjectIndependence.API.csproj -c Release -o /app/publish 
 
-# Stage 2: run tests
+# Stage 2: run tests (optional)
 FROM build AS testrunner
 WORKDIR /src
 CMD ["dotnet", "test", "ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj", "-c", "Release", "--no-build", "--logger:trx"]
@@ -27,8 +27,10 @@ CMD ["dotnet", "test", "ProjectIndependence.API.Tests/ProjectIndependence.API.Te
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# Publish API from build stage
-COPY --from=build /src/ProjectIndependence.API/bin/Release/net8.0/publish/ ./
+# Copy published output from build stage
+COPY --from=build /app/publish ./
 
+# Copy certificates (for Kestrel HTTPS)
 COPY ./certs ./certs
+
 ENTRYPOINT ["dotnet", "ProjectIndependence.API.dll"]

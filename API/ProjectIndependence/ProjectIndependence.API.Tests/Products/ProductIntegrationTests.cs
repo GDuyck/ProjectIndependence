@@ -1,4 +1,6 @@
 ﻿using FluentAssertions;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
@@ -90,6 +92,10 @@ namespace ProjectIndependence.API.Tests.Products
                 Tax = 21
             };
 
+            var mapper = new Mapper();
+
+            var iWantToCheckSomething = mapper.From(newProduct).AdaptToType<Product>();
+
             // ACT
             var response = await _httpClient.PostAsJsonAsync("api/products", newProduct);
             response.EnsureSuccessStatusCode();
@@ -150,7 +156,8 @@ namespace ProjectIndependence.API.Tests.Products
 
             var oldProduct = SeedingData.ProductsToSeed()[0];
 
-            var updatedProduct = new Product
+            //var updatedProduct = new Product(oldProduct.Id, newName, oldProduct.Price, oldProduct.Tax);
+            var updatedProduct = new DtoCreateProduct
             {
                 Id = oldProduct.Id,
                 Name = newName,
@@ -218,11 +225,12 @@ namespace ProjectIndependence.API.Tests.Products
         public async Task UpdateAsync_WithNotMatchingIds_ReturnsNotFoundWithErrorMessage()
         {
             // ARRANGE
-            string newName = "Product with updated name";
+            string newName = "Product with new name";
 
             var oldProduct = SeedingData.ProductsToSeed()[0];
 
-            var updatedProduct = new Product
+            //var updatedProduct = new Product(Guid.NewGuid(), newName, oldProduct.Price, oldProduct.Tax);
+            var updatedProduct = new DtoCreateProduct
             {
                 Id = Guid.NewGuid(),
                 Name = newName,
