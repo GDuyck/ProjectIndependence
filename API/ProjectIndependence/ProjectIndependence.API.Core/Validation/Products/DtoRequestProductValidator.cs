@@ -6,6 +6,7 @@ namespace ProjectIndependence.API.Core.Validation.Products
 {
     public class DtoRequestProductValidator : AbstractValidator<DtoCreateProduct>
     {
+        private static readonly int[] AllowedTaxes = { 0, 5, 12, 21 };
         public DtoRequestProductValidator()
         {
             RuleFor(p => p.Name)
@@ -23,6 +24,9 @@ namespace ProjectIndependence.API.Core.Validation.Products
             RuleFor(p => p.Tax)
                 .NotEmpty()
                 .WithMessage(ValidationErrors.ProductTax);
+            RuleFor(p => p.Tax)
+                .Must(t => AllowedTaxes.Contains(t))
+                .WithMessage($"Invalid tax rate. Allowed values: {string.Join(", ", AllowedTaxes)}");
         }
     }
 }

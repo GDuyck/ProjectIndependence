@@ -1,4 +1,5 @@
 using Mapster;
+using ProjectIndependence.API.Core.Exceptions;
 using ProjectIndependence.API.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<DomainExceptionMiddleware>();
 
 app.UseAuthorization();
 
