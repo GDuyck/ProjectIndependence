@@ -6,7 +6,7 @@ namespace ProjectIndependence.API.Core.Validation.Products
 {
     public class DtoRequestProductValidator : AbstractValidator<DtoCreateProduct>
     {
-        private static readonly int[] AllowedTaxes = { 0, 5, 12, 21 };
+        private static readonly int[] AllowedTaxes = { 0, 6, 12, 21 };
         public DtoRequestProductValidator()
         {
             RuleFor(p => p.Name)

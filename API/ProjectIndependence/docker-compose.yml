@@ -1,0 +1,41 @@
+version: '3.9'
+
+networks:
+  projectindependence_network:
+    driver: bridge
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: projectindependence_sqlserver
+    environment:
+      SA_PASSWORD: "L1mb0-m@N"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - projectindependence_network
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+  api:
+    build:
+      context: .
+      dockerfile: ProjectIndependence.API/Dockerfile   # adjust path if your Dockerfile is elsewhere
+    container_name: projectindependence_api
+    depends_on:
+      - sqlserver
+    environment:
+      DOTNET_ENVIRONMENT: Development
+      ConnectionStrings__DefaultDatabase: "Server=sqlserver,1433;Database=ProjectIndependenceDev;User Id=sa;Password=L1mb0-m@N;TrustServerCertificate=True;"
+    ports:
+      - "5000:80"
+      - "5001:443"
+    networks:
+      - projectindependence_network
+    volumes:
+      - ./certs:/app/certs   # mount your dev certificate
+
+
+volumes:
+  sqlserver-data:
