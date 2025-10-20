@@ -29,13 +29,13 @@ namespace ProjectIndependence.API.Core.Entities.Products
 
         private Product() { }
 
-        public Product(Guid id, 
-            string name, 
-            string productCode, 
-            string description, 
-            bool isActive, 
-            decimal retailPrice, 
-            decimal costPrice, 
+        public Product(Guid id,
+            string name,
+            string productCode,
+            string description,
+            bool isActive,
+            decimal retailPrice,
+            decimal costPrice,
             int tax,
             int stock,
             string createdBy)
