@@ -9,12 +9,12 @@
   <ItemGroup>
     <Folder Include="Commands\Products\" />
     <Folder Include="Mapping\" />
-    <Folder Include="Products\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.0.0" />
     <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.EFCore" Version="5.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
   </ItemGroup>
 

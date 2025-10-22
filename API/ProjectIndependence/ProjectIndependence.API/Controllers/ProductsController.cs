@@ -4,6 +4,7 @@ using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Commands;
 using ProjectIndependence.API.Core.Products.Dtos;
+using ProjectIndependence.API.Core.Products.Queries;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers
@@ -14,11 +15,13 @@ namespace ProjectIndependence.API.Controllers
     {
         public readonly IProductService _productService;
         public readonly CreateProductCommandHandler _createProductCommandHandler;
+        public readonly ProductListQueryHandler _productListQueryHandler;
 
-        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler)
+        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler)
         {
             _productService = productService;
             _createProductCommandHandler = creatingProductHandler;
+            _productListQueryHandler = productListQueryHandler;
         }
 
         /// <summary>
@@ -30,9 +33,9 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync()
         {
-            var products = await _productService.GetAllAsync();
+            var products = await _productListQueryHandler.HandleAsync(null);
 
-            return Ok(ApiResponse<IEnumerable<DtoProduct>>.FromSucces(products));
+            return Ok(ApiResponse<IEnumerable<ProductListDto>>.FromSucces(products));
         }
 
         /// <summary>

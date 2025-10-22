@@ -12,6 +12,7 @@ using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Queries;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Core.Services.Products;
 using ProjectIndependence.API.Core.Validation;
@@ -48,6 +49,7 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
 
             // Services
             services.AddScoped<CreateProductCommandHandler>();
+            services.AddScoped<ProductListQueryHandler>();
             services.AddScoped<IProductService, ProductService>();
 
             return services;
