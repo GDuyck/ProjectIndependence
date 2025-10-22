@@ -1,5 +1,3 @@
-version: '3.9'
-
 networks:
   projectindependence_network:
     driver: bridge
@@ -21,7 +19,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: ProjectIndependence.API/Dockerfile   # adjust path if your Dockerfile is elsewhere
+      dockerfile: ProjectIndependence.API/Dockerfile
     container_name: projectindependence_api
     depends_on:
       - sqlserver
@@ -34,8 +32,13 @@ services:
     networks:
       - projectindependence_network
     volumes:
-      - ./certs:/app/certs   # mount your dev certificate
-
+      - ./certs:/app/certs
+    # ✅ Add this command to run migrations first
+    command: >
+      sh -c "
+      dotnet ef database update --no-build --project ProjectIndependence.API.Infrastructure --startup-project ProjectIndependence.API &&
+      dotnet ProjectIndependence.API.dll
+      "
 
 volumes:
   sqlserver-data:

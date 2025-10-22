@@ -1,4 +1,4 @@
-﻿namespace ProjectIndependence.API.Core.Dtos.Products
+﻿namespace ProjectIndependence.API.Core.Products.Dtos
 {
     public class ProductDto
     {

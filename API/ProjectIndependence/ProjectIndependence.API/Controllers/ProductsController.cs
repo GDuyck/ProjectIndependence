@@ -2,6 +2,8 @@
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers
@@ -11,10 +13,12 @@ namespace ProjectIndependence.API.Controllers
     public class ProductsController : ControllerBase
     {
         public readonly IProductService _productService;
+        public readonly CreateProductCommandHandler _createProductCommandHandler;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler)
         {
             _productService = productService;
+            _createProductCommandHandler = creatingProductHandler;
         }
 
         /// <summary>
@@ -37,9 +41,9 @@ namespace ProjectIndependence.API.Controllers
         /// <param name="dtoCreateProduct">Values for a new product</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> PostAsync(DtoCreateProduct dtoCreateProduct)
+        public async Task<IActionResult> PostAsync(CreateProductCommand createProductCommand)
         {
-            if (dtoCreateProduct == null)
+            if (createProductCommand == null)
             {
                 var problem = new ProblemDetails
                 {
@@ -51,12 +55,12 @@ namespace ProjectIndependence.API.Controllers
                 return BadRequest(ApiResponse<object>.FromError(problem));
             }
 
-            var newProduct = await _productService.AddAsync(dtoCreateProduct);
+            var newProduct = await _createProductCommandHandler.HandleAsync(createProductCommand);
 
             return CreatedAtRoute(
                 "GetProductById",
                 new { id = newProduct.Id },
-                ApiResponse<DtoProduct>.FromSucces(newProduct));
+                ApiResponse<ProductDto>.FromSucces(newProduct));
         }
 
         /// <summary>

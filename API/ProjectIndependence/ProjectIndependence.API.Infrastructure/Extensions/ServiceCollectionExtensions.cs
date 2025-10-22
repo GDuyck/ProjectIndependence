@@ -11,8 +11,10 @@ using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Products.Commands;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Core.Services.Products;
+using ProjectIndependence.API.Core.Validation;
 using ProjectIndependence.API.Core.Validation.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories.Customers;
@@ -35,7 +37,8 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
                 connectionString = configuration.GetConnectionString("TestDatabase");
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(connectionString));
+                options => options.UseSqlServer(connectionString,
+                sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
             // Repositories
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -44,6 +47,7 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
             services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
             // Services
+            services.AddScoped<CreateProductCommandHandler>();
             services.AddScoped<IProductService, ProductService>();
 
             return services;
@@ -51,7 +55,7 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
 
         public static IServiceCollection AddFluentValidationIntegration(this IServiceCollection services)
         {
-            services.AddValidatorsFromAssemblyContaining<DtoRequestProductValidator>();
+            services.AddValidatorsFromAssembly(typeof(ApplicationValidationMarker).Assembly);
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
 

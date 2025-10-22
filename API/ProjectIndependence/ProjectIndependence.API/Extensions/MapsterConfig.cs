@@ -1,6 +1,8 @@
 ﻿using Mapster;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
+using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Dtos;
 using ProjectIndependence.API.Core.ValueObjects;
 
 namespace ProjectIndependence.API.Extensions
@@ -9,14 +11,24 @@ namespace ProjectIndependence.API.Extensions
     {
         public static void RegisterMappings()
         {
-            TypeAdapterConfig<DtoCreateProduct, Product>.NewConfig()
-                .ConstructUsing(dto => new Product
+            TypeAdapterConfig<CreateProductCommand, Product>.NewConfig()
+                .Map(dest => dest.Tax, src => new TaxRate(src.Tax))
+                .ConstructUsing(command => new Product
                 (
-                    dto.Id != Guid.Empty ? dto.Id : Guid.Empty,
-                    dto.Name,
-                    dto.Price,
-                    dto.Tax
+                    Guid.NewGuid(),
+                    command.Name,
+                    command.ProductCode,
+                    command.Description,
+                    command.IsActive,
+                    command.RetailPrice,
+                    command.CostPrice,
+                    0,
+                    command.Stock,
+                    command.CreatedBy
                 ));
+
+            TypeAdapterConfig<Product, ProductDto>.NewConfig()
+                .Map(dest => dest.Tax, src => src.Tax.Value);
         }
     }
 }

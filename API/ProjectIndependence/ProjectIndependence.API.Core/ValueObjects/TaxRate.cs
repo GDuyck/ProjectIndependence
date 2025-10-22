@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectIndependence.API.Core.ValueObjects
+﻿namespace ProjectIndependence.API.Core.ValueObjects
 {
     public class TaxRate
     {
@@ -20,8 +14,9 @@ namespace ProjectIndependence.API.Core.ValueObjects
         }
 
         public static implicit operator int(TaxRate taxRate) => taxRate.Value;
+
         public static implicit operator TaxRate(int value) => new TaxRate(value);
     }
-    
+
     public record ProductSnapshot(Guid id, string name, decimal price, TaxRate taxRate);
 }
