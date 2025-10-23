@@ -1,15 +1,15 @@
-﻿namespace ProjectIndependence.API.Core.Products.Commands
+﻿namespace ProjectIndependence.API.Core.Products.Commands.UpdateProduct
 {
-    public class CreateProductCommand
+    public class UpdateProductCommand
     {
-        public string ProductCode { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
+        public string ProductCode { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public decimal RetailPrice { get; set; }
         public decimal CostPrice { get; set; }
         public int Tax { get; set; }
         public int Stock { get; set; }
-        public string CreatedBy { get; set; }
     }
 }

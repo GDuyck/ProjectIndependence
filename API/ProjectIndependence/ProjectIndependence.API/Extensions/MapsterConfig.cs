@@ -1,7 +1,8 @@
 ﻿using Mapster;
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Core.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Core.Products.Dtos;
 using ProjectIndependence.API.Core.ValueObjects;
 
@@ -25,6 +26,22 @@ namespace ProjectIndependence.API.Extensions
                     0,
                     command.Stock,
                     command.CreatedBy
+                ));
+
+            TypeAdapterConfig<UpdateProductCommand, Product>.NewConfig()
+                .Map(dest => dest.Tax, src => new TaxRate(src.Tax))
+                .ConstructUsing(command => new Product
+                (
+                    command.Id,
+                    command.Name,
+                    command.ProductCode,
+                    command.Description,
+                    command.IsActive,
+                    command.RetailPrice,
+                    command.CostPrice,
+                    0,
+                    command.Stock,
+                    "Placeholder"
                 ));
 
             TypeAdapterConfig<Product, ProductDto>.NewConfig()

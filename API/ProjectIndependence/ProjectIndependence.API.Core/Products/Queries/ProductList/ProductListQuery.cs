@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectIndependence.API.Core.Products.Queries
+namespace ProjectIndependence.API.Core.Products.Queries.ProductList
 {
     public class ProductListQuery
     {

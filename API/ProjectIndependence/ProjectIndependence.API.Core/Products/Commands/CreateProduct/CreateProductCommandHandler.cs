@@ -1,17 +1,10 @@
 ﻿using Mapster;
-using MapsterMapper;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace ProjectIndependence.API.Core.Products.Commands
+namespace ProjectIndependence.API.Core.Products.Commands.CreateProduct
 {
     public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, ProductDto>
     {

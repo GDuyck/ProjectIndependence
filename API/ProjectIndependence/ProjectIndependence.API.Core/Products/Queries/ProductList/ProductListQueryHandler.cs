@@ -3,7 +3,7 @@ using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Dtos;
 
-namespace ProjectIndependence.API.Core.Products.Queries
+namespace ProjectIndependence.API.Core.Products.Queries.ProductList
 {
     public class ProductListQueryHandler : IQueryHandler<ProductListQuery, List<ProductListDto>>
     {

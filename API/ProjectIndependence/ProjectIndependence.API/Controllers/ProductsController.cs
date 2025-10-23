@@ -2,9 +2,11 @@
 using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
-using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Core.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Core.Products.Dtos;
-using ProjectIndependence.API.Core.Products.Queries;
+using ProjectIndependence.API.Core.Products.Queries.GetProductById;
+using ProjectIndependence.API.Core.Products.Queries.ProductList;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers
@@ -13,15 +15,19 @@ namespace ProjectIndependence.API.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        public readonly IProductService _productService;
-        public readonly CreateProductCommandHandler _createProductCommandHandler;
-        public readonly ProductListQueryHandler _productListQueryHandler;
+        private readonly IProductService _productService;
+        private readonly CreateProductCommandHandler _createProductCommandHandler;
+        private readonly ProductListQueryHandler _productListQueryHandler;
+        private readonly GetProductByIdQueryHandler _getProductByIdQueryHandler;
+        private readonly UpdateProductCommandHandler _updateProductCommandHandler;
 
-        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler)
+        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler, GetProductByIdQueryHandler getProductByIdQueryHandler, UpdateProductCommandHandler updateProductCommandHandler)
         {
             _productService = productService;
             _createProductCommandHandler = creatingProductHandler;
             _productListQueryHandler = productListQueryHandler;
+            _getProductByIdQueryHandler = getProductByIdQueryHandler;
+            _updateProductCommandHandler = updateProductCommandHandler;
         }
 
         /// <summary>
@@ -79,9 +85,9 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(typeof(ApiResponse<DtoProduct>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(Guid id, DtoCreateProduct dto)
+        public async Task<IActionResult> Update(Guid id, UpdateProductCommand updateProductCommand)
         {
-            if (id != dto.Id)
+            if (id != updateProductCommand.Id)
             {
                 var problemDetail = new ProblemDetails
                 {
@@ -93,7 +99,7 @@ namespace ProjectIndependence.API.Controllers
                 return NotFound(ApiResponse<object>.FromError(problemDetail));
             }
 
-            var updatedProduct = await _productService.UpdateAsync(dto);
+            var updatedProduct = await _updateProductCommandHandler.HandleAsync(updateProductCommand);
 
             if (updatedProduct is null)
             {
@@ -107,7 +113,7 @@ namespace ProjectIndependence.API.Controllers
                 return NotFound(ApiResponse<object>.FromError(problemDetail));
             }
 
-            return Ok(ApiResponse<DtoProduct>.FromSucces(updatedProduct));
+            return Ok(ApiResponse<ProductDto>.FromSucces(updatedProduct));
         }
 
         /// <summary>
@@ -119,7 +125,9 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<DtoProduct>> GetByIdAsync(Guid id)
         {
-            var product = await _productService.GetByIdAsync(id);
+            var productQuery = new GetProductByIdQuery(id);
+
+            var product = await _getProductByIdQueryHandler.HandleAsync(productQuery);
 
             if (product is null)
             {
@@ -133,7 +141,7 @@ namespace ProjectIndependence.API.Controllers
                 return NotFound(ApiResponse<object>.FromError(notFound));
             }
 
-            return Ok(ApiResponse<DtoProduct>.FromSucces(product));
+            return Ok(ApiResponse<ProductDto>.FromSucces(product));
         }
 
         /// <summary>

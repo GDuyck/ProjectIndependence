@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using ProjectIndependence.API.Core.Errors;
-using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
 
 namespace ProjectIndependence.API.Core.Validation.Products
 {

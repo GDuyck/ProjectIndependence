@@ -3,7 +3,7 @@ using Mapster;
 using Moq;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Core.Products.Commands;
+using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
 
 namespace ProjectIndependence.API.Tests.Products
 {
