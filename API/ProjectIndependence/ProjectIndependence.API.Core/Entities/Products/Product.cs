@@ -53,5 +53,11 @@ namespace ProjectIndependence.API.Core.Entities.Products
             UpdatedAt = DateTime.Now;
             CreatedBy = createdBy;
         }
+
+        public void ToggleStatus()
+        {
+            IsActive = !IsActive;
+            UpdatedAt = DateTime.Now;
+        }
     }
 }

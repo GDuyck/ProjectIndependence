@@ -1,4 +1,6 @@
 ﻿using Mapster;
+using ProjectIndependence.API.Core.Entities.Products;
+using ProjectIndependence.API.Core.Exceptions;
 using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Dtos;

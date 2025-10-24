@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,8 +12,11 @@ using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Products.Commands.AdjustProductStock;
 using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Core.Products.Commands.ToggleProductStatus;
 using ProjectIndependence.API.Core.Products.Commands.UpdateProduct;
+using ProjectIndependence.API.Core.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Core.Products.Queries.GetProductById;
 using ProjectIndependence.API.Core.Products.Queries.ProductList;
 using ProjectIndependence.API.Core.Response;
@@ -50,10 +54,13 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
             services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
 
             // Services
-            services.AddScoped<CreateProductCommandHandler>();
             services.AddScoped<ProductListQueryHandler>();
             services.AddScoped<GetProductByIdQueryHandler>();
+            services.AddScoped<CreateProductCommandHandler>();
             services.AddScoped<UpdateProductCommandHandler>();
+            services.AddScoped<UpdateProductPriceCommandHandler>();
+            services.AddScoped<AdjustProductStockCommandHandler>();
+            services.AddScoped<ProductStatusCommandHandler>();
             services.AddScoped<IProductService, ProductService>();
 
             return services;

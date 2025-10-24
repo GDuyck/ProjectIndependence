@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjectIndependence.API.Core.Dtos.Products;
+using ProjectIndependence.API.Controllers.Base;
+using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
+using ProjectIndependence.API.Core.Products.Commands.AdjustProductStock;
 using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Core.Products.Commands.ToggleProductStatus;
 using ProjectIndependence.API.Core.Products.Commands.UpdateProduct;
+using ProjectIndependence.API.Core.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Core.Products.Dtos;
 using ProjectIndependence.API.Core.Products.Queries.GetProductById;
 using ProjectIndependence.API.Core.Products.Queries.ProductList;
@@ -13,22 +17,30 @@ namespace ProjectIndependence.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : ApiBaseController
     {
         private readonly IProductService _productService;
         private readonly CreateProductCommandHandler _createProductCommandHandler;
         private readonly ProductListQueryHandler _productListQueryHandler;
         private readonly GetProductByIdQueryHandler _getProductByIdQueryHandler;
         private readonly UpdateProductCommandHandler _updateProductCommandHandler;
+        private readonly UpdateProductPriceCommandHandler _updateProductPriceCommandHandler;
+        private readonly AdjustProductStockCommandHandler _adjustProductStockCommandHandler;
+        private readonly ProductStatusCommandHandler _updateProductStatusCommandHandler;
 
-        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler, GetProductByIdQueryHandler getProductByIdQueryHandler, UpdateProductCommandHandler updateProductCommandHandler)
+        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler, GetProductByIdQueryHandler getProductByIdQueryHandler, UpdateProductCommandHandler updateProductCommandHandler, UpdateProductPriceCommandHandler updateProductPriceCommandHandler, AdjustProductStockCommandHandler adjustProductStockCommandHandler, ProductStatusCommandHandler updateProductStatusCommandHandler)
         {
             _productService = productService;
             _createProductCommandHandler = creatingProductHandler;
             _productListQueryHandler = productListQueryHandler;
             _getProductByIdQueryHandler = getProductByIdQueryHandler;
             _updateProductCommandHandler = updateProductCommandHandler;
+            _updateProductPriceCommandHandler = updateProductPriceCommandHandler;
+            _adjustProductStockCommandHandler = adjustProductStockCommandHandler;
+            _updateProductStatusCommandHandler = updateProductStatusCommandHandler;
         }
+
+        #region GET
 
         /// <summary>
         /// Get all products
@@ -41,14 +53,43 @@ namespace ProjectIndependence.API.Controllers
         {
             var products = await _productListQueryHandler.HandleAsync(null);
 
-            return Ok(ApiResponse<IEnumerable<ProductListDto>>.FromSucces(products));
+            return OkResponse<IEnumerable<ProductListDto>>(products);
         }
+
+        /// <summary>
+        /// Gets product by id number
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns></returns>
+        [HttpGet("{id}", Name = "GetProductById")]
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> GetByIdAsync(Guid id)
+        {
+            var productQuery = new GetProductByIdQuery(id);
+
+            var product = await _getProductByIdQueryHandler.HandleAsync(productQuery);
+
+            if (product is null)
+            {
+                return NotFoundResponse(nameof(Product), id);
+            }
+
+            return OkResponse<ProductDto>(product);
+        }
+
+        #endregion GET
+
+        #region POST
 
         /// <summary>
         /// Adds a new product
         /// </summary>
-        /// <param name="dtoCreateProduct">Values for a new product</param>
+        /// <param name="createProductCommand">Values for a new product</param>
         /// <returns></returns>
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> PostAsync(CreateProductCommand createProductCommand)
         {
@@ -66,11 +107,12 @@ namespace ProjectIndependence.API.Controllers
 
             var newProduct = await _createProductCommandHandler.HandleAsync(createProductCommand);
 
-            return CreatedAtRoute(
-                "GetProductById",
-                new { id = newProduct.Id },
-                ApiResponse<ProductDto>.FromSucces(newProduct));
+            return CreatedAtResponse(newProduct, "GetProductById", new { id = newProduct.Id });
         }
+
+        #endregion POST
+
+        #region PUT
 
         /// <summary>
         /// Updates a product
@@ -82,67 +124,29 @@ namespace ProjectIndependence.API.Controllers
         /// 400 if problems with validation, 404 if not found,
         /// </returns>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(ApiResponse<DtoProduct>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Update(Guid id, UpdateProductCommand updateProductCommand)
         {
             if (id != updateProductCommand.Id)
             {
-                var problemDetail = new ProblemDetails
-                {
-                    Title = ValidationErrors.IdsNotMatchingTitle,
-                    Detail = ValidationErrors.IdsNotMatching,
-                    Status = StatusCodes.Status404NotFound
-                };
-
-                return NotFound(ApiResponse<object>.FromError(problemDetail));
+                return MismatchResponse();
             }
 
             var updatedProduct = await _updateProductCommandHandler.HandleAsync(updateProductCommand);
 
             if (updatedProduct is null)
             {
-                var problemDetail = new ProblemDetails
-                {
-                    Title = ValidationErrors.NotFoundTitle,
-                    Detail = ValidationErrors.ProductNotFound + id,
-                    Status = StatusCodes.Status404NotFound
-                };
-
-                return NotFound(ApiResponse<object>.FromError(problemDetail));
+                return NotFoundResponse(nameof(Product), null);
             }
 
-            return Ok(ApiResponse<ProductDto>.FromSucces(updatedProduct));
+            return OkResponse<ProductDto>(updatedProduct);
         }
 
-        /// <summary>
-        /// Gets product by id number
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("{id}", Name = "GetProductById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<DtoProduct>> GetByIdAsync(Guid id)
-        {
-            var productQuery = new GetProductByIdQuery(id);
+        #endregion PUT
 
-            var product = await _getProductByIdQueryHandler.HandleAsync(productQuery);
-
-            if (product is null)
-            {
-                var notFound = new ProblemDetails
-                {
-                    Title = ValidationErrors.NotFoundTitle,
-                    Detail = ValidationErrors.ProductNotFound + id,
-                    Status = StatusCodes.Status404NotFound
-                };
-
-                return NotFound(ApiResponse<object>.FromError(notFound));
-            }
-
-            return Ok(ApiResponse<ProductDto>.FromSucces(product));
-        }
+        #region DELETE
 
         /// <summary>
         /// Deletes an existing product with the specified ID.
@@ -173,5 +177,93 @@ namespace ProjectIndependence.API.Controllers
 
             return Ok(ApiResponse<object>.FromSuccesfullyDeleted("The product has been successfully deleted"));
         }
+
+        #endregion DELETE
+
+        #region PATCH
+
+        /// <summary>
+        /// Updates a productprice
+        /// </summary>
+        /// <param name="id">The ID of the product to update.</param>
+        /// <param name="command">The updated product data.</param>
+        /// <returns>
+        /// returns a 200 OK with apiresponse succes is successfull
+        /// 400 if problems with validation, 404 if not found,
+        /// </returns>
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [HttpPatch("{id}/price")]
+        public async Task<IActionResult> UpdatePrice(Guid id, [FromBody] UpdateProductPriceCommand command)
+        {
+            if (id != command.Id)
+            {
+                return MismatchResponse();
+            }
+
+            var updatedProductDto = await _updateProductPriceCommandHandler.HandleAsync(command);
+
+            if (updatedProductDto is null)
+            {
+                return NotFoundResponse(nameof(Product), id);
+            }
+
+            return OkResponse<ProductDto>(updatedProductDto);
+        }
+
+        /// <summary>
+        /// Updates product stock
+        /// </summary>
+        /// <param name="id">The ID of the product to update.</param>
+        /// <param name="command">The updated product data.</param>
+        /// <returns>
+        /// returns a 200 OK with apiresponse succes is successfull
+        /// 400 if problems with validation, 404 if not found,
+        /// </returns>
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [HttpPatch("{id}/stock")]
+        public async Task<IActionResult> AdjustProductStock(Guid id, AdjustProductStockCommand command)
+        {
+            if (id != command.Id)
+                return MismatchResponse();
+
+            var updatedProductDto = await _adjustProductStockCommandHandler.HandleAsync(command);
+
+            if (updatedProductDto is null)
+                return NotFoundResponse(nameof(Product), id);
+
+            return OkResponse<ProductDto>(updatedProductDto);
+        }
+
+        /// <summary>
+        /// Updates product status
+        /// </summary>
+        /// <param name="id">The ID of the product to update.</param>
+        /// <param name="command">The updated product data.</param>
+        /// <returns>
+        /// returns a 200 OK with apiresponse succes is successfull
+        /// 400 if problems with validation, 404 if not found,
+        /// </returns>
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> ChangeProductStatus(Guid id, ProductStatusCommand command)
+        {
+            if (id != command.Id)
+                return MismatchResponse();
+
+            var updatedProductDto = await _updateProductStatusCommandHandler.HandleAsync(command);
+
+            if (updatedProductDto is null)
+                return NotFoundResponse(nameof(Product), id);
+
+            return OkResponse<ProductDto>(updatedProductDto);
+        }
+
+        #endregion PATCH
     }
 }
