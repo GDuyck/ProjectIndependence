@@ -24,25 +24,6 @@ namespace ProjectIndependence.API.Core.Exceptions
             {
                 await _next(httpContext);
             }
-            catch (NotFoundException ex)
-            {
-                _logger.LogWarning(
-                    ex,
-                    $"Entity not found: {ex.EntityType} with id {ex.Key}");
-
-                httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-
-                var problem = new ProblemDetails
-                {
-                    Title = "Not found",
-                    Detail = ex.Message,
-                    Status = StatusCodes.Status404NotFound
-                };
-
-                var response = ApiResponse<object>.FromError(problem);
-
-                await WriteJsonAsync(httpContext, response);
-            }
             catch (DomainException ex)
             {
                 _logger.LogWarning(ex, $"A domainexception has occured: {ex.Message}");
