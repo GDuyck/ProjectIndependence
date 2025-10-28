@@ -52,15 +52,9 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ISalesQuotationRepository, SalesQuotationRepository>();
             services.AddScoped<ISalesQuotationLineRepository, SalesQuotationLineRepository>();
+            services.AddCqrs(typeof(ProjectIndependence.API.Core.AssemblyReference).Assembly);
 
             // Services
-            services.AddScoped<ProductListQueryHandler>();
-            services.AddScoped<GetProductByIdQueryHandler>();
-            services.AddScoped<CreateProductCommandHandler>();
-            services.AddScoped<UpdateProductCommandHandler>();
-            services.AddScoped<UpdateProductPriceCommandHandler>();
-            services.AddScoped<AdjustProductStockCommandHandler>();
-            services.AddScoped<ProductStatusCommandHandler>();
             services.AddScoped<IProductService, ProductService>();
 
             return services;

@@ -22,7 +22,7 @@ namespace ProjectIndependence.API.Core.Products.Queries.ProductList
                 .AsQueryable()
                 .ProjectToType<ProductListDto>()
                 .ToList();
-
+                
             return products;
         }
     }

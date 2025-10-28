@@ -27,6 +27,10 @@ builder.Services.AddFluentValidationIntegration();
 builder.Services.AddMapster();
 MapsterConfig.RegisterMappings();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,4 +50,5 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+public partial class Program
+{ }

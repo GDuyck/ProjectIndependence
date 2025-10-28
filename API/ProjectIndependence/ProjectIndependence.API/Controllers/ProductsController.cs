@@ -2,6 +2,7 @@
 using ProjectIndependence.API.Controllers.Base;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Errors;
+using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
 using ProjectIndependence.API.Core.Products.Commands.AdjustProductStock;
 using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
@@ -20,24 +21,12 @@ namespace ProjectIndependence.API.Controllers
     public class ProductsController : ApiBaseController
     {
         private readonly IProductService _productService;
-        private readonly CreateProductCommandHandler _createProductCommandHandler;
-        private readonly ProductListQueryHandler _productListQueryHandler;
-        private readonly GetProductByIdQueryHandler _getProductByIdQueryHandler;
-        private readonly UpdateProductCommandHandler _updateProductCommandHandler;
-        private readonly UpdateProductPriceCommandHandler _updateProductPriceCommandHandler;
-        private readonly AdjustProductStockCommandHandler _adjustProductStockCommandHandler;
-        private readonly ProductStatusCommandHandler _updateProductStatusCommandHandler;
+        private readonly IMediator _mediator;
 
-        public ProductsController(IProductService productService, CreateProductCommandHandler creatingProductHandler, ProductListQueryHandler productListQueryHandler, GetProductByIdQueryHandler getProductByIdQueryHandler, UpdateProductCommandHandler updateProductCommandHandler, UpdateProductPriceCommandHandler updateProductPriceCommandHandler, AdjustProductStockCommandHandler adjustProductStockCommandHandler, ProductStatusCommandHandler updateProductStatusCommandHandler)
+        public ProductsController(IProductService productService, IMediator mediator)
         {
             _productService = productService;
-            _createProductCommandHandler = creatingProductHandler;
-            _productListQueryHandler = productListQueryHandler;
-            _getProductByIdQueryHandler = getProductByIdQueryHandler;
-            _updateProductCommandHandler = updateProductCommandHandler;
-            _updateProductPriceCommandHandler = updateProductPriceCommandHandler;
-            _adjustProductStockCommandHandler = adjustProductStockCommandHandler;
-            _updateProductStatusCommandHandler = updateProductStatusCommandHandler;
+            _mediator = mediator;
         }
 
         #region GET
@@ -51,7 +40,8 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync()
         {
-            var products = await _productListQueryHandler.HandleAsync(null);
+            var query = new ProductListQuery();
+            var products = await _mediator.QueryAsync<ProductListQuery, List<ProductListDto>>(query);
 
             return OkResponse<IEnumerable<ProductListDto>>(products);
         }
@@ -69,7 +59,7 @@ namespace ProjectIndependence.API.Controllers
         {
             var productQuery = new GetProductByIdQuery(id);
 
-            var product = await _getProductByIdQueryHandler.HandleAsync(productQuery);
+            var product = await _mediator.QueryAsync<GetProductByIdQuery, ProductDto>(productQuery);
 
             if (product is null)
             {
@@ -105,7 +95,7 @@ namespace ProjectIndependence.API.Controllers
                 return BadRequest(ApiResponse<object>.FromError(problem));
             }
 
-            var newProduct = await _createProductCommandHandler.HandleAsync(createProductCommand);
+            var newProduct = await _mediator.SendAsync<CreateProductCommand, ProductDto>(createProductCommand);
 
             return CreatedAtResponse(newProduct, "GetProductById", new { id = newProduct.Id });
         }
@@ -134,7 +124,7 @@ namespace ProjectIndependence.API.Controllers
                 return MismatchResponse();
             }
 
-            var updatedProduct = await _updateProductCommandHandler.HandleAsync(updateProductCommand);
+            var updatedProduct = await _mediator.SendAsync<UpdateProductCommand, ProductDto>(updateProductCommand);
 
             if (updatedProduct is null)
             {
@@ -202,7 +192,7 @@ namespace ProjectIndependence.API.Controllers
                 return MismatchResponse();
             }
 
-            var updatedProductDto = await _updateProductPriceCommandHandler.HandleAsync(command);
+            var updatedProductDto = await _mediator.SendAsync<UpdateProductPriceCommand, ProductDto>(command);
 
             if (updatedProductDto is null)
             {
@@ -230,7 +220,7 @@ namespace ProjectIndependence.API.Controllers
             if (id != command.Id)
                 return MismatchResponse();
 
-            var updatedProductDto = await _adjustProductStockCommandHandler.HandleAsync(command);
+            var updatedProductDto = await _mediator.SendAsync<AdjustProductStockCommand, ProductDto>(command);
 
             if (updatedProductDto is null)
                 return NotFoundResponse(nameof(Product), id);
@@ -256,7 +246,7 @@ namespace ProjectIndependence.API.Controllers
             if (id != command.Id)
                 return MismatchResponse();
 
-            var updatedProductDto = await _updateProductStatusCommandHandler.HandleAsync(command);
+            var updatedProductDto = await _mediator.SendAsync<ProductStatusCommand, ProductDto>(command);
 
             if (updatedProductDto is null)
                 return NotFoundResponse(nameof(Product), id);
