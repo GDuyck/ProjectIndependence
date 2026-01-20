@@ -1,6 +1,6 @@
 ﻿namespace ProjectIndependence.API.Application
 {
-    public class ApplicationValidationMarker
+    public sealed class ApplicationValidationMarker
     {
     }
 }

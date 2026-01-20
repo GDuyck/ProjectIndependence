@@ -24,9 +24,6 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
                 options => options.UseSqlServer(connectionString,
                 sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
-            // Repositories
-            services.AddCqrs(typeof(ProjectIndependence.API.Core.AssemblyReference).Assembly);
-
             return services;
         }
     }

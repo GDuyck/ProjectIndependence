@@ -23,6 +23,9 @@ builder.WebHost.ConfigureKestrel(options =>
 
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
 
+// Repositories
+builder.Services.AddCqrs(typeof(ProjectIndependence.API.Application.AssemblyReference).Assembly);
+
 builder.Services.AddFluentValidationIntegration();
 
 builder.Services.AddMapster();

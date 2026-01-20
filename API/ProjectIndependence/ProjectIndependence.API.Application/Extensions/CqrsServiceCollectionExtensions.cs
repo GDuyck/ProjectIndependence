@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ProjectIndependence.API.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using ProjectIndependence.API.Application.Interfaces;
 
-namespace ProjectIndependence.API.Infrastructure.Extensions
+namespace ProjectIndependence.API.Application.Extensions
 {
     public static class CqrsServiceCollectionExtensions
     {
