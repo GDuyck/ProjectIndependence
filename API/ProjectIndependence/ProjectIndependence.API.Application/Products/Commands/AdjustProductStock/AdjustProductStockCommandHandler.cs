@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Interfaces;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -29,9 +28,9 @@ namespace ProjectIndependence.API.Application.Products.Commands.AdjustProductSto
 
             product.Stock += command.QuantityChange;
 
-            var updatedProduct = await _productRepository.UpdateAsync(product);
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
-            var updateProductDto = updatedProduct.Adapt<ProductDto>();
+            var updateProductDto = product.Adapt<ProductDto>();
 
             return updateProductDto;
         }
