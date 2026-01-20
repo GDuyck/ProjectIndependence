@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectIndependence.API.Application.Products.Commands.AdjustProductStock;
+using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Application.Products.Commands.ToggleProductStatus;
+using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
+using ProjectIndependence.API.Application.Products.Commands.UpdateProductPrice;
+using ProjectIndependence.API.Application.Products.Dtos;
+using ProjectIndependence.API.Application.Products.Queries.GetProductById;
+using ProjectIndependence.API.Application.Products.Queries.ProductList;
 using ProjectIndependence.API.Controllers.Base;
 using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Interfaces;
-using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
-using ProjectIndependence.API.Core.Products.Commands.AdjustProductStock;
-using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
-using ProjectIndependence.API.Core.Products.Commands.ToggleProductStatus;
-using ProjectIndependence.API.Core.Products.Commands.UpdateProduct;
-using ProjectIndependence.API.Core.Products.Commands.UpdateProductPrice;
-using ProjectIndependence.API.Core.Products.Dtos;
-using ProjectIndependence.API.Core.Products.Queries.GetProductById;
-using ProjectIndependence.API.Core.Products.Queries.ProductList;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers
@@ -20,12 +18,10 @@ namespace ProjectIndependence.API.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ApiBaseController
     {
-        private readonly IProductService _productService;
         private readonly IMediator _mediator;
 
-        public ProductsController(IProductService productService, IMediator mediator)
+        public ProductsController(IMediator mediator)
         {
-            _productService = productService;
             _mediator = mediator;
         }
 
@@ -135,40 +131,6 @@ namespace ProjectIndependence.API.Controllers
         }
 
         #endregion PUT
-
-        #region DELETE
-
-        /// <summary>
-        /// Deletes an existing product with the specified ID.
-        /// </summary>
-        /// <param name="id">The ID of the product to delete.</param>
-        /// <returns>
-        /// Returns a 200 OK response if the deletion is successful,
-        /// 404 Not Found if the product does not exist.
-        /// </returns>
-        [HttpDelete("{id:guid}")]
-        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            var deleted = await _productService.DeleteAsync(id);
-
-            if (!deleted)
-            {
-                var notFound = new ProblemDetails
-                {
-                    Title = ValidationErrors.NotFoundTitle,
-                    Detail = ValidationErrors.ProductNotFound + id,
-                    Status = StatusCodes.Status404NotFound
-                };
-
-                return NotFound(ApiResponse<object>.FromError(notFound));
-            }
-
-            return Ok(ApiResponse<object>.FromSuccesfullyDeleted("The product has been successfully deleted"));
-        }
-
-        #endregion DELETE
 
         #region PATCH
 
