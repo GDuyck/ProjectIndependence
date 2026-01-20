@@ -1,51 +1,53 @@
-﻿//using FluentAssertions;
-//using Mapster;
-//using Moq;
-//using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
-//using ProjectIndependence.API.Core.Entities.Products;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Infrastructure.Data;
+using ProjectIndependence.API.Extensions;
+using Xunit;
 
-//namespace ProjectIndependence.API.Tests.Products
-//{
-//    public class CreateProductCommandHandlerTests
-//    {
-//        private readonly CreateProductCommandHandler _handler;
+namespace ProjectIndependence.API.Tests.Products
+{
+    public class CreateProductCommandHandlerTests
+    {
+        [Fact]
+        public async Task HandleAsync_ShouldCreateAndReturnDto()
+        {
+            // Register Mapster mappings used by the handler
+            MapsterConfig.RegisterMappings();
 
-//        public CreateProductCommandHandlerTests()
-//        {
-//            Extensions.MapsterConfig.RegisterMappings();
-//        }
+            // Use unique in-memory database per test
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: $"TestDb_{Guid.NewGuid()}")
+                .Options;
 
-//        [Fact]
-//        public async Task HandleAsync_ShouldCreateAndReturnDto()
-//        {
-//            // ARRANGE
-//            var command = new CreateProductCommand
-//            {
-//                Name = "Test Product",
-//                ProductCode = "TP001",
-//                Description = "A test product",
-//                IsActive = true,
-//                RetailPrice = 99.99m,
-//                CostPrice = 50.00m,
-//                Tax = 21,
-//                Stock = 10,
-//                CreatedBy = "Tester"
-//            };
+            await using var context = new ApplicationDbContext(options);
 
-//            var savedEntity = command.Adapt<Product>();
+            var handler = new CreateProductCommandHandler(context);
 
-//            _mockRepo
-//                .Setup(mr => mr.AddAsync(It.IsAny<Product>()))
-//                .ReturnsAsync(savedEntity);
+            var command = new CreateProductCommand
+            {
+                Name = "Test Product",
+                ProductCode = "TP001",
+                Description = "A test product",
+                IsActive = true,
+                RetailPrice = 99.99m,
+                CostPrice = 50.00m,
+                Tax = 21,
+                Stock = 10,
+                CreatedBy = "Tester"
+            };
 
-//            // ACT
-//            var result = await _handler.HandleAsync(command);
+            // Act
+            var result = await handler.HandleAsync(command);
 
-//            // ASSERT
-//            _mockRepo.Verify(mr => mr.AddAsync(It.IsAny<Product>()), Times.Once());
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(command.Name, result.Name);
 
-//            result.Should().NotBeNull();
-//            result.Name.Should().Be(command.Name);
-//        }
-//    }
-//}
+            var saved = await context.Products.FindAsync(result.Id);
+            Assert.NotNull(saved);
+            Assert.Equal(command.ProductCode, saved.ProductCode);
+        }
+    }
+}
