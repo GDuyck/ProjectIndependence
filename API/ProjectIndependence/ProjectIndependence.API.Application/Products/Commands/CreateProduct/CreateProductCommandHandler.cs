@@ -21,6 +21,8 @@ namespace ProjectIndependence.API.Application.Products.Commands.CreateProduct
 
             await _applicationDbContext.Products.AddAsync(newProduct, cancellationToken);
 
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
             var dto = newProduct.Adapt<ProductDto>();
 
             return dto;
