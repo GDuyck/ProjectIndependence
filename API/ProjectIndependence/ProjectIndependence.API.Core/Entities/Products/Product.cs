@@ -63,5 +63,11 @@ namespace ProjectIndependence.API.Core.Entities.Products
             IsActive = !IsActive;
             UpdatedAt = DateTime.Now;
         }
+
+        public void UpdatePrice(decimal newPrice)
+        {
+            RetailPrice = newPrice;
+            UpdatedAt  = DateTime.Now;
+        }
     }
 }
