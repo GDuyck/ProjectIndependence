@@ -2,17 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectIndependence.API.Core.Entities.Base;
-using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Customers;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Sales;
-using ProjectIndependence.API.Core.Interfaces.ServiceInterfaces.Products;
-using ProjectIndependence.API.Core.Services.Products;
 using ProjectIndependence.API.Infrastructure.Data;
-using ProjectIndependence.API.Infrastructure.Repositories.Customers;
-using ProjectIndependence.API.Infrastructure.Repositories.Products;
-using ProjectIndependence.API.Infrastructure.Repositories.Sales;
-using ProjectIndependence.API.Tests.Seeding;
+using System.IO;
 
 namespace ProjectIndependence.API.Tests.Servicebuilder
 {
@@ -31,9 +22,9 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
 
             var appDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-            appDbContext.Set<TEntitiy>().AddRange(entities);
+                appDbContext.Set<TEntitiy>().AddRange(entities);
 
-            appDbContext.SaveChanges();
+                    appDbContext.SaveChanges();
 
             return serviceProvider;
         }

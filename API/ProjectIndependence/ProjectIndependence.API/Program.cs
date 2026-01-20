@@ -21,13 +21,12 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
+// Layer registration
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
+builder.Services.AddApiValidation();
+builder.Services.AddApplication();
 
-// Repositories
-builder.Services.AddCqrs(typeof(ProjectIndependence.API.Application.AssemblyReference).Assembly);
-
-builder.Services.AddFluentValidationIntegration();
-
+// Mapping
 builder.Services.AddMapster();
 MapsterConfig.RegisterMappings();
 
