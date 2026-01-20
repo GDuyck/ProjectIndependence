@@ -69,5 +69,10 @@ namespace ProjectIndependence.API.Core.Entities.Products
             RetailPrice = newPrice;
             UpdatedAt  = DateTime.Now;
         }
+
+        public void UpdateProduct(string productName, string productCode, string productDescription)
+        {
+            UpdatedAt = DateTime.Now;
+        }
     }
 }

@@ -1,32 +1,29 @@
 ﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Products.Dtos;
-using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Commands.UpdateProduct
 {
     public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, ProductDto>
     {
-        private readonly IProductRepository _productRepository;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public UpdateProductCommandHandler(IProductRepository productRepository)
+        public UpdateProductCommandHandler(ApplicationDbContext applicationDbContext)
         {
-            _productRepository = productRepository;
+            _applicationDbContext = applicationDbContext;
         }
 
         public async Task<ProductDto> HandleAsync(UpdateProductCommand command, CancellationToken cancellationToken = default)
         {
-            var productEntity = command.Adapt<Product>();
+            var product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
-            var updatedProductEntity = await _productRepository.UpdateAsync(productEntity);
+            product.UpdateProduct(command.Name, command.ProductCode, command.Description);
 
-            var updatedProductDto = updatedProductEntity.Adapt<ProductDto>();
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+            var updatedProductDto = product.Adapt<ProductDto>();
 
             return updatedProductDto;
         }
