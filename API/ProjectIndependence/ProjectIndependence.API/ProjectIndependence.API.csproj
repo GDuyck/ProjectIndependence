@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ProjectIndependence.API.Application\ProjectIndependence.API.Application.csproj" />
     <ProjectReference Include="..\ProjectIndependence.API.Infrastructure\ProjectIndependence.API.Infrastructure.csproj" />
   </ItemGroup>
 	

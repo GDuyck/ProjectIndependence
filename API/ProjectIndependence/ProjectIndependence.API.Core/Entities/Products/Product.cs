@@ -7,6 +7,7 @@ namespace ProjectIndependence.API.Core.Entities.Products
     {
         // Core info
         public string Name { get; private set; }
+
         public string ProductCode { get; private set; }
         public string Description { get; private set; }
         public bool IsActive { get; private set; }
@@ -15,6 +16,7 @@ namespace ProjectIndependence.API.Core.Entities.Products
 
         // Pricing
         public decimal RetailPrice { get; set; }
+
         public decimal CostPrice { get; set; }
         public TaxRate Tax { get; internal set; }
 
@@ -23,11 +25,13 @@ namespace ProjectIndependence.API.Core.Entities.Products
 
         // Auditing
         public DateTime CreatedAt { get; set; }
+
         public DateTime UpdatedAt { get; set; }
 
         public string CreatedBy { get; set; } // Placeholder, will be updated with person later
 
-        private Product() { }
+        private Product()
+        { }
 
         public Product(Guid id,
             string name,

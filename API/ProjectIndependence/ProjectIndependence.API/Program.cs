@@ -1,4 +1,5 @@
 using Mapster;
+using ProjectIndependence.API.Application.Extensions;
 using ProjectIndependence.API.Core.Exceptions;
 using ProjectIndependence.API.Extensions;
 using ProjectIndependence.API.Infrastructure.Extensions;

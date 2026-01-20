@@ -9,6 +9,8 @@ namespace ProjectIndependence.API.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        private DbSet<SalesQuotationLine> getSalesQuotationLines;
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -16,7 +18,7 @@ namespace ProjectIndependence.API.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public DbSet<SalesQuotation> SalesQuotations { get; set; }
-        public DbSet<SalesQuotationLine> GetSalesQuotationLines { get; set; }
+        public DbSet<SalesQuotationLine> GetSalesQuotationLines { get => getSalesQuotationLines; set => getSalesQuotationLines = value; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
