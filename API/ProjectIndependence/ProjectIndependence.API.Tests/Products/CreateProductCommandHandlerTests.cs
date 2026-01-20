@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProjectIndependence.API.Application.Interfaces;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Tests.Servicebuilder;
 
 namespace ProjectIndependence.API.Tests.Products
@@ -18,7 +20,7 @@ namespace ProjectIndependence.API.Tests.Products
         {
             using var scope = _testFixture.ServiceProvider.CreateScope();
 
-            var handler = scope.ServiceProvider.GetRequiredService<CreateProductCommandHandler>();
+            var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<CreateProductCommand, ProductDto>>();
 
             var command = new CreateProductCommand
             {
