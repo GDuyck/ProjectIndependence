@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjectIndependence.API.Application.Interfaces;
 using ProjectIndependence.API.Application.Products.Commands.AdjustProductStock;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Application.Products.Commands.ToggleProductStatus;
@@ -9,7 +10,6 @@ using ProjectIndependence.API.Application.Products.Queries.GetProductById;
 using ProjectIndependence.API.Application.Products.Queries.ProductList;
 using ProjectIndependence.API.Controllers.Base;
 using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers

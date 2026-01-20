@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectIndependence.API.Core.Interfaces
+namespace ProjectIndependence.API.Application.Interfaces
 {
     public interface IMediator
     {

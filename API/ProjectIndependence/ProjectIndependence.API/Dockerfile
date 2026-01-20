@@ -4,10 +4,11 @@ WORKDIR /src
 
 # Copy solution and project files (so restore uses cache effectively)
 COPY ProjectIndependence.sln ./
-COPY ProjectIndependence.API/ProjectIndependence.API.csproj ProjectIndependence.API/
-COPY ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj ProjectIndependence.API.Core/
-COPY ProjectIndependence.API.Infrastructure/ProjectIndependence.API.Infrastructure.csproj ProjectIndependence.API.Infrastructure/
-COPY ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj ProjectIndependence.API.Tests/
+COPY ProjectIndependence.API/*.csproj ProjectIndependence.API/
+COPY ProjectIndependence.API.Application/*.csproj ProjectIndependence.API.Application/
+COPY ProjectIndependence.API.Core/*.csproj ProjectIndependence.API.Core/
+COPY ProjectIndependence.API.Infrastructure/*.csproj ProjectIndependence.API.Infrastructure/
+COPY ProjectIndependence.API.Tests/*.csproj ProjectIndependence.API.Tests/
 
 # Restore dependencies
 RUN dotnet restore ProjectIndependence.sln

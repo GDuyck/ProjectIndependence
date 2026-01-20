@@ -1,4 +1,4 @@
-﻿namespace ProjectIndependence.API.Core.Interfaces
+﻿namespace ProjectIndependence.API.Application.Interfaces
 {
     public interface IQueryHandler<TQuery, TResult>
     {

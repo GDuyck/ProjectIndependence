@@ -1,7 +1,7 @@
 ﻿using Mapster;
+using ProjectIndependence.API.Application.Interfaces;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Interfaces;
 using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Commands.CreateProduct
