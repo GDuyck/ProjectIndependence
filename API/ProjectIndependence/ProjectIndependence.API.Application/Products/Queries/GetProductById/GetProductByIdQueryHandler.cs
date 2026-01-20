@@ -1,9 +1,10 @@
 ﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Exceptions;
 using ProjectIndependence.API.Core.Interfaces;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
+using ProjectIndependence.API.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +15,16 @@ namespace ProjectIndependence.API.Application.Products.Queries.GetProductById
 {
     public class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, ProductDto>
     {
-        private readonly IProductRepository _productRepository;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public GetProductByIdQueryHandler(IProductRepository productRepository)
+        public GetProductByIdQueryHandler(ApplicationDbContext applicationDbContext)
         {
-            _productRepository = productRepository;
+            _applicationDbContext = applicationDbContext;
         }
 
         public async Task<ProductDto> HandleAsync(GetProductByIdQuery query, CancellationToken cancellationToken = default)
         {
-            var productEnity = await _productRepository.GetByIdAsync(query.Id);
+            var productEnity = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == query.Id, cancellationToken);
 
             var productDto = productEnity.Adapt<ProductDto>();
 
