@@ -2,26 +2,26 @@
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Interfaces;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
+using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Commands.CreateProduct
 {
     public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, ProductDto>
     {
-        private readonly IProductRepository _repository;
+        private readonly ApplicationDbContext _applicationDbContext;
 
-        public CreateProductCommandHandler(IProductRepository productRepository)
+        public CreateProductCommandHandler(ApplicationDbContext applicationDbContext)
         {
-            _repository = productRepository;
+            _applicationDbContext = applicationDbContext;
         }
 
         public async Task<ProductDto> HandleAsync(CreateProductCommand command, CancellationToken cancellationToken = default)
         {
             var newProduct = command.Adapt<Product>();
 
-            var entity = await _repository.AddAsync(newProduct);
+            await _applicationDbContext.Products.AddAsync(newProduct, cancellationToken);
 
-            var dto = entity.Adapt<ProductDto>();
+            var dto = newProduct.Adapt<ProductDto>();
 
             return dto;
         }

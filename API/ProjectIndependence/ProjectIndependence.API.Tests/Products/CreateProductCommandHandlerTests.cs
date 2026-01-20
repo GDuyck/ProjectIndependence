@@ -1,23 +1,18 @@
 ﻿using FluentAssertions;
 using Mapster;
 using Moq;
+using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Core.Entities.Products;
-using ProjectIndependence.API.Core.Interfaces.RepositoryInterfaces.Products;
-using ProjectIndependence.API.Core.Products.Commands.CreateProduct;
 
 namespace ProjectIndependence.API.Tests.Products
 {
     public class CreateProductCommandHandlerTests
     {
-        private readonly Mock<IProductRepository> _mockRepo;
         private readonly CreateProductCommandHandler _handler;
 
         public CreateProductCommandHandlerTests()
         {
             Extensions.MapsterConfig.RegisterMappings();
-
-            _mockRepo = new Mock<IProductRepository>();
-            _handler = new CreateProductCommandHandler(_mockRepo.Object);
         }
 
         [Fact]

@@ -24,25 +24,26 @@ namespace ProjectIndependence.API.Application.Products.Commands.UpdateProduct
                 .NotEmpty()
                 .WithMessage(ValidationErrors.ProductCodeEmpty);
 
-        //    RuleFor(cpm => cpm.RetailPrice)
-        //        .GreaterThan(0)
-        //        .WithMessage(ValidationErrors.ProductPriceNotZero)
-        //        .GreaterThanOrEqualTo(cmp => cmp.CostPrice)
-        //        .WithMessage(ValidationErrors.ProductRetailPriceBiggerThanCostPrice);
+            //    RuleFor(cpm => cpm.RetailPrice)
+            //        .GreaterThan(0)
+            //        .WithMessage(ValidationErrors.ProductPriceNotZero)
+            //        .GreaterThanOrEqualTo(cmp => cmp.CostPrice)
+            //        .WithMessage(ValidationErrors.ProductRetailPriceBiggerThanCostPrice);
 
-        //    RuleFor(cpm => cpm.CostPrice)
-        //        .GreaterThan(0)
-        //        .WithMessage(ValidationErrors.ProductCostPrice)
-        //        .LessThanOrEqualTo(cmp => cmp.RetailPrice)
-        //        .WithMessage(ValidationErrors.ProductCostPriceLesserThan);
+            //    RuleFor(cpm => cpm.CostPrice)
+            //        .GreaterThan(0)
+            //        .WithMessage(ValidationErrors.ProductCostPrice)
+            //        .LessThanOrEqualTo(cmp => cmp.RetailPrice)
+            //        .WithMessage(ValidationErrors.ProductCostPriceLesserThan);
 
-        //    RuleFor(cpm => cpm.Stock)
-        //        .GreaterThan(0)
-        //        .WithMessage(ValidationErrors.ProductStock);
+            //    RuleFor(cpm => cpm.Stock)
+            //        .GreaterThan(0)
+            //        .WithMessage(ValidationErrors.ProductStock);
 
-        //    RuleFor(cmp => cmp.Tax)
-        //        .Must(t => AllowedTaxes.Contains(t))
-        //        .WithMessage($"Invalid tax rate. Allowed values: {string.Join(", ", AllowedTaxes)}");
-        //}
+            //    RuleFor(cmp => cmp.Tax)
+            //        .Must(t => AllowedTaxes.Contains(t))
+            //        .WithMessage($"Invalid tax rate. Allowed values: {string.Join(", ", AllowedTaxes)}");
+            //}
+        }
     }
 }
