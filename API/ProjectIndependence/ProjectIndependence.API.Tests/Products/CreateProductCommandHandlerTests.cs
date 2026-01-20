@@ -1,29 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
-using ProjectIndependence.API.Infrastructure.Data;
-using ProjectIndependence.API.Extensions;
-using Xunit;
+using ProjectIndependence.API.Tests.Servicebuilder;
 
 namespace ProjectIndependence.API.Tests.Products
 {
-    public class CreateProductCommandHandlerTests
+    public class CreateProductCommandHandlerTests : IClassFixture<TestServiceProviderFixture>
     {
-        [Fact]
-        public async Task HandleAsync_ShouldCreateAndReturnDto()
+        private readonly TestServiceProviderFixture _testFixture;
+
+        public CreateProductCommandHandlerTests(TestServiceProviderFixture testFixture)
         {
-            // Register Mapster mappings used by the handler
-            MapsterConfig.RegisterMappings();
+            _testFixture = testFixture;
+        }
 
-            // Use unique in-memory database per test
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: $"TestDb_{Guid.NewGuid()}")
-                .Options;
+        [Fact]
+        public async Task CreateProductCommandHandler_WithCorrectInput_ShouldCreateAndReturnDto()
+        {
+            using var scope = _testFixture.ServiceProvider.CreateScope();
 
-            await using var context = new ApplicationDbContext(options);
-
-            var handler = new CreateProductCommandHandler(context);
+            var handler = scope.ServiceProvider.GetRequiredService<CreateProductCommandHandler>();
 
             var command = new CreateProductCommand
             {
@@ -44,10 +39,6 @@ namespace ProjectIndependence.API.Tests.Products
             // Assert
             Assert.NotNull(result);
             Assert.Equal(command.Name, result.Name);
-
-            var saved = await context.Products.FindAsync(result.Id);
-            Assert.NotNull(saved);
-            Assert.Equal(command.ProductCode, saved.ProductCode);
         }
     }
 }

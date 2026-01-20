@@ -26,5 +26,10 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddInfrastructureServicesWithoutDb(this IServiceCollection services)
+        {
+            return services;
+        }
     }
 }
