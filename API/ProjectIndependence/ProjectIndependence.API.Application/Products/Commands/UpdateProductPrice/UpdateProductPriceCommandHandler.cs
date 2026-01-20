@@ -21,9 +21,9 @@ namespace ProjectIndependence.API.Application.Products.Commands.UpdateProductPri
 
             product.UpdatePrice(command.RetailPrice);
 
-            var updatedProductDto = product.Adapt<ProductDto>();
-
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+            var updatedProductDto = product.Adapt<ProductDto>();
 
             return updatedProductDto;
         }
