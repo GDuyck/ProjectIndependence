@@ -12,10 +12,7 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
 {
     public class TestServiceProviderFixture : IDisposable
     {
-        private readonly SqliteConnection _connection;
-        public ServiceProvider ServiceProvider { get; }
-
-        public TestServiceProviderFixture()
+        public ServiceProvider CreateServiceProvider()
         {
             var services = new ServiceCollection();
 
@@ -24,25 +21,23 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
             services.AddMapster();
             MapsterConfig.RegisterMappings();
 
-            // Add sqlite for in memory db
-            _connection = new SqliteConnection("DataSource=:memory:");
-            _connection.Open();
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(_connection), ServiceLifetime.Transient);
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection), ServiceLifetime.Transient);
 
-            ServiceProvider = services.BuildServiceProvider();
+            var serviceProvider = services.BuildServiceProvider();
 
-            // Initialize database
-            using var scope = ServiceProvider.CreateScope();
+            using var scope = serviceProvider.CreateScope();
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             dbContext.Database.EnsureCreated();
             SeedDatabase(dbContext).GetAwaiter().GetResult();
+
+            return serviceProvider;
         }
 
         public void Dispose()
         {
-            _connection.Close();
-            (ServiceProvider as IDisposable)?.Dispose();
         }
 
         private static async Task SeedDatabase(ApplicationDbContext dbContext)

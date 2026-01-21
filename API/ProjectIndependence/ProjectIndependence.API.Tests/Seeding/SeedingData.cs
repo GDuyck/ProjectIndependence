@@ -56,7 +56,7 @@ namespace ProjectIndependence.API.Tests.Seeding
                 true,
                 5.00m,
                 2.50m,
-                10,
+                21,
                 5,
                 "Seeder");
         }

@@ -10,6 +10,7 @@ using ProjectIndependence.API.Application.Products.Queries.GetProductById;
 using ProjectIndependence.API.Application.Products.Queries.ProductList;
 using ProjectIndependence.API.Controllers.Base;
 using ProjectIndependence.API.Core.Entities.Products;
+using ProjectIndependence.API.Core.Exceptions;
 using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Controllers
@@ -50,6 +51,7 @@ namespace ProjectIndependence.API.Controllers
         [HttpGet("{id}", Name = "GetProductById")]
         [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetByIdAsync(Guid id)
         {
@@ -91,9 +93,18 @@ namespace ProjectIndependence.API.Controllers
                 return BadRequest(ApiResponse<object>.FromError(problem));
             }
 
-            var newProduct = await _mediator.SendAsync<CreateProductCommand, ProductDto>(createProductCommand);
+            
 
-            return CreatedAtResponse(newProduct, "GetProductById", new { id = newProduct.Id });
+            try
+            {
+                var newProduct = await _mediator.SendAsync<CreateProductCommand, ProductDto>(createProductCommand);
+
+                return CreatedAtResponse(newProduct, "GetProductById", new { id = newProduct.Id });
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ApiResponse<object>.FromDomainError(ex.Message));
+            }
         }
 
         #endregion POST

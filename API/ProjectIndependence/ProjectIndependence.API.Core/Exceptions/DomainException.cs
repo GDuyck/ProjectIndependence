@@ -14,4 +14,12 @@
         {
         }
     }
+
+    public class ProductCodeAlreadyExistsException : DomainException
+    {
+        public ProductCodeAlreadyExistsException(string productCode)
+            : base($"A product with code {productCode} already exists.")
+        {
+        }
+    }
 }

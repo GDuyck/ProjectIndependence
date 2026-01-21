@@ -63,5 +63,14 @@ namespace ProjectIndependence.API.Core.Response
                 Message = message
             };
         }
+
+        public static ApiResponse<T> FromDomainError(string message)
+        {
+            return new ApiResponse<T>
+            {
+                Success = false,
+                Error = new { Domain = new[] { message} }
+            };
+        }
     }
 }

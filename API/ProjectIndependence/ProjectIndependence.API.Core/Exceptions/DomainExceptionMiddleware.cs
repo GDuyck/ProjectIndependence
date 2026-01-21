@@ -30,9 +30,15 @@ namespace ProjectIndependence.API.Core.Exceptions
 
                 httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-                var response = ApiResponse<object>.FromValidationErrors(
-                    new Dictionary<string, string[]> { { "Domain", new[] { ex.Message } } }
-                );
+
+                var problem = new ProblemDetails
+                {
+                    Title = "Domain error",
+                    Detail = ex.Message,
+                    Status = StatusCodes.Status400BadRequest
+                };
+
+                var response = ApiResponse<object>.FromError(problem);
 
                 await WriteJsonAsync(httpContext, response);
             }
