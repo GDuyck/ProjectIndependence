@@ -8,6 +8,7 @@ using ProjectIndependence.API.Application.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Application.Products.Queries.GetProductById;
 using ProjectIndependence.API.Application.Products.Queries.ProductList;
+using ProjectIndependence.API.Application.Products.Queries.ProductPriceChangeHistory;
 using ProjectIndependence.API.Controllers.Base;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Exceptions;
@@ -65,6 +66,53 @@ namespace ProjectIndependence.API.Controllers
             }
 
             return OkResponse<ProductDto>(product);
+        }
+
+        // Get productprice changes
+
+        /// <summary>
+        /// Gets history of product price changes by product id
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <returns></returns>
+        [HttpGet("{id}/pricechanges")]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<ProductPriceChangeHistoryListDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProductPriceHistoryListByProductId(Guid id)
+        {
+            var productPriceChangeListQuery = new GetProductPriceChangeHistoryListQuery(id);
+
+            var priceChangeHistory = await _mediator.QueryAsync<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryDto>>(productPriceChangeListQuery);
+
+            if (priceChangeHistory is null || !priceChangeHistory.Any())
+                return NotFoundResponse("ProductPriceChangeHistory", id);
+
+            return OkResponse<IEnumerable<ProductPriceChangeHistoryDto>>(priceChangeHistory);
+        }
+
+        /// <summary>
+        /// Gets detail of price change by product id and price change id
+        /// </summary>
+        /// <param name="id">product id</param>
+        /// <param name="priceChangeId"></param>+
+        /// <returns></returns>
+        [HttpGet("{id}/pricechanges/{priceChangeId}")]
+        [ProducesResponseType(typeof(ApiResponse<ProductPriceChangeHistoryDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetProductPriceHistoryById(Guid id, Guid priceChangeId)
+        {
+            var query = new GetProductPriceChangeQuery(id, priceChangeId);
+
+            var priceChangeHistoryDetail = await _mediator.QueryAsync<GetProductPriceChangeQuery, ProductPriceChangeHistoryDto>(query);
+
+            if (priceChangeHistoryDetail is null)
+                return NotFoundResponse("ProductPriceChangeHistory", priceChangeId);
+
+            return OkResponse<ProductPriceChangeHistoryDto>(priceChangeHistoryDetail);
         }
 
         #endregion GET
