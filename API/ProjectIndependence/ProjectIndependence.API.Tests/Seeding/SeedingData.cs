@@ -46,6 +46,42 @@ namespace ProjectIndependence.API.Tests.Seeding
             };
         }
 
+        public static IEnumerable<ProductPriceChange> ProductPriceChangesToSeed()
+        {
+            return new List<ProductPriceChange>
+            {
+                new ProductPriceChange(
+                    Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    oldRetailPrice: 17.99m,
+                    newRetailPrice: 19.99m,
+                    oldCostPrice: 9.00m,
+                    newCostPrice: 10.00m,
+                    reasonForPriceChange: "Annual supplier increase",
+                    changedBy: "Seeder"
+                ),
+
+                new ProductPriceChange(
+                    Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    oldRetailPrice: 45.00m,
+                    newRetailPrice: 49.50m,
+                    oldCostPrice: 22.00m,
+                    newCostPrice: 25.00m,
+                    reasonForPriceChange: "Repricing to match market",
+                    changedBy: "Seeder"
+                ),
+
+                new ProductPriceChange(
+                    Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                    oldRetailPrice: 8.99m,
+                    newRetailPrice: 9.99m,
+                    oldCostPrice: 3.50m,
+                    newCostPrice: 4.00m,
+                    reasonForPriceChange: "Minor cost adjustment",
+                    changedBy: "Seeder"
+                )
+            };
+        }
+
         public static Product SingleProduct()
         {
             return new Product(
@@ -60,5 +96,7 @@ namespace ProjectIndependence.API.Tests.Seeding
                 5,
                 "Seeder");
         }
+
+        // add seeding date for productpricechanges
     }
 }

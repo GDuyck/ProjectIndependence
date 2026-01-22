@@ -45,6 +45,7 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
             if (!dbContext.Products.Any())
             {
                 dbContext.Products.AddRange(SeedingData.ProductsToSeed());
+                dbContext.ProductPriceChanges.AddRange(SeedingData.ProductPriceChangesToSeed());
                 await dbContext.SaveChangesAsync();
             }
         }
