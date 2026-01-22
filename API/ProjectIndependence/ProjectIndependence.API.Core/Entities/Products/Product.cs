@@ -64,9 +64,14 @@ namespace ProjectIndependence.API.Core.Entities.Products
             UpdatedAt = DateTime.Now;
         }
 
-        public void UpdatePrice(decimal newPrice)
+        public void UpdatePrice(decimal newRetailPrice, decimal newCostPrice)
         {
-            RetailPrice = newPrice;
+            if(newRetailPrice > 0)
+                RetailPrice = newRetailPrice;
+
+            if(newCostPrice > 0)
+                CostPrice = newCostPrice;
+
             UpdatedAt  = DateTime.Now;
         }
 

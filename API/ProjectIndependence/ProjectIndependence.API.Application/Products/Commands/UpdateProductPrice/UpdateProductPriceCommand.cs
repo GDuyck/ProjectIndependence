@@ -11,5 +11,7 @@ namespace ProjectIndependence.API.Application.Products.Commands.UpdateProductPri
         public Guid Id { get; set; }
         public decimal RetailPrice { get; set; }
         public decimal CostPrice { get; set; }
+        public string ReasonForPriceChange { get; set; }
+        public string UpatedBy { get; set; }
     }
 }

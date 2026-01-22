@@ -17,7 +17,9 @@ namespace ProjectIndependence.API.Application.Products.Queries.GetProductById
 
         public async Task<ProductDto> HandleAsync(GetProductByIdQuery query, CancellationToken cancellationToken = default)
         {
-            var productEnity = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == query.Id, cancellationToken);
+            var productEnity = await _applicationDbContext.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == query.Id, cancellationToken);
 
             var productDto = productEnity.Adapt<ProductDto>();
 
