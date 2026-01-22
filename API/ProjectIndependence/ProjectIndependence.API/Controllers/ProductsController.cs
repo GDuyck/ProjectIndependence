@@ -93,8 +93,6 @@ namespace ProjectIndependence.API.Controllers
                 return BadRequest(ApiResponse<object>.FromError(problem));
             }
 
-            
-
             try
             {
                 var newProduct = await _mediator.SendAsync<CreateProductCommand, ProductDto>(createProductCommand);

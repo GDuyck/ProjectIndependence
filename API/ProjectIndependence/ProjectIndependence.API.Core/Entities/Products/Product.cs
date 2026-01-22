@@ -70,8 +70,10 @@ namespace ProjectIndependence.API.Core.Entities.Products
             UpdatedAt  = DateTime.Now;
         }
 
-        public void UpdateProduct(string productName, string productCode, string productDescription)
+        public void UpdateProduct(string productName, string productDescription)
         {
+            Name = productName;
+            Description = productDescription;
             UpdatedAt = DateTime.Now;
         }
     }

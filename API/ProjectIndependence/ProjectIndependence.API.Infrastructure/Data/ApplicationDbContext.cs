@@ -17,6 +17,7 @@ namespace ProjectIndependence.API.Infrastructure.Data
 
         public DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
         public DbSet<SalesQuotation> SalesQuotations { get; set; }
         public DbSet<SalesQuotationLine> GetSalesQuotationLines { get => getSalesQuotationLines; set => getSalesQuotationLines = value; }
 
@@ -33,6 +34,11 @@ namespace ProjectIndependence.API.Infrastructure.Data
             modelBuilder.Entity<Product>()
                 .Property(p => p.Tax)
                 .HasConversion(taxRateConverter);
+
+            modelBuilder.Entity<ProductPriceChange>()
+                .HasOne<Product>()
+                .WithMany()
+                .HasForeignKey(p => p.ProductId);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace ProjectIndependence.API.Application.Products.Commands.UpdateProduct
         {
             var product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
-            product.UpdateProduct(command.Name, command.ProductCode, command.Description);
+            product.UpdateProduct(command.Name, command.Description);
 
             await _applicationDbContext.SaveChangesAsync(cancellationToken);
 

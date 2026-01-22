@@ -1,9 +1,5 @@
 ﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using ProjectIndependence.API.Core.Response;
 
 namespace ProjectIndependence.API.Application.Extensions
 {
