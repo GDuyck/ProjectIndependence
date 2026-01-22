@@ -4,17 +4,13 @@ using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Application.Products.Queries.ProductList;
 using ProjectIndependence.API.Tests.Seeding;
 using ProjectIndependence.API.Tests.Servicebuilder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectIndependence.API.Tests.Products.UnitTests
+namespace ProjectIndependence.API.Tests.Products.UnitTests.QueryTests
 {
     public class ProductListQueryTests : IClassFixture<TestServiceProviderFixture>
     {
         private readonly TestServiceProviderFixture _testFixture;
+
         public ProductListQueryTests(TestServiceProviderFixture fixture)
         {
             _testFixture = fixture;
@@ -39,7 +35,6 @@ namespace ProjectIndependence.API.Tests.Products.UnitTests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(productCount, result.Count);
-
         }
     }
 }

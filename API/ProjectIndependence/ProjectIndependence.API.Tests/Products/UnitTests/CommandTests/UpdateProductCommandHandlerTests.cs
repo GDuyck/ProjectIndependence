@@ -6,13 +6,8 @@ using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Tests.Seeding;
 using ProjectIndependence.API.Tests.Servicebuilder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjectIndependence.API.Tests.Products.UnitTests
+namespace ProjectIndependence.API.Tests.Products.UnitTests.CommandTests
 {
     public class UpdateProductCommandHandlerTests : IClassFixture<TestServiceProviderFixture>
     {

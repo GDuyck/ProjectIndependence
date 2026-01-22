@@ -7,7 +7,7 @@ using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Tests.Servicebuilder;
 using ProjectIndependence.API.Tests.Seeding;
 
-namespace ProjectIndependence.API.Tests.Products.UnitTests
+namespace ProjectIndependence.API.Tests.Products.UnitTests.CommandTests
 {
     public class CreateProductCommandHandlerTests : IClassFixture<TestServiceProviderFixture>
     {

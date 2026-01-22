@@ -5,7 +5,7 @@ using ProjectIndependence.API.Application.Products.Queries.GetProductById;
 using ProjectIndependence.API.Tests.Seeding;
 using ProjectIndependence.API.Tests.Servicebuilder;
 
-namespace ProjectIndependence.API.Tests.Products.UnitTests
+namespace ProjectIndependence.API.Tests.Products.UnitTests.QueryTests
 {
     public class GetProductByIdQueryTests : IClassFixture<TestServiceProviderFixture>
     {

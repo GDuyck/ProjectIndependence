@@ -9,6 +9,7 @@ namespace ProjectIndependence.API.Core.Entities.Products
 
         // Price changes
         public decimal OldRetailPrice { get; private set; }
+
         public decimal NewRetailPrice { get; private set; }
         public decimal OldCostPrice { get; private set; }
         public decimal NewCostPrice { get; private set; }
