@@ -6,7 +6,7 @@ using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Queries.ProductPriceChangeHistory
 {
-    internal class GetProductPriceChangeHistoryListQueryHandler : IQueryHandler<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryListDto>>
+    public class GetProductPriceChangeHistoryListQueryHandler : IQueryHandler<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryListDto>>
     {
         private readonly ApplicationDbContext _applicationDbContext;
 

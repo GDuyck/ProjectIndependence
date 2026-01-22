@@ -84,12 +84,12 @@ namespace ProjectIndependence.API.Controllers
         {
             var productPriceChangeListQuery = new GetProductPriceChangeHistoryListQuery(id);
 
-            var priceChangeHistory = await _mediator.QueryAsync<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryDto>>(productPriceChangeListQuery);
+            var priceChangeHistory = await _mediator.QueryAsync<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryListDto>>(productPriceChangeListQuery);
 
             if (priceChangeHistory is null || !priceChangeHistory.Any())
                 return NotFoundResponse("ProductPriceChangeHistory", id);
 
-            return OkResponse<IEnumerable<ProductPriceChangeHistoryDto>>(priceChangeHistory);
+            return OkResponse<IEnumerable<ProductPriceChangeHistoryListDto>>(priceChangeHistory);
         }
 
         /// <summary>
