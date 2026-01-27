@@ -9,11 +9,11 @@ using ProjectIndependence.API.Tests.Servicebuilder;
 
 namespace ProjectIndependence.API.Tests.Products.UnitTests.CommandTests
 {
-    public class ProductStatusCommandHandlerTests : IClassFixture<TestServiceProviderFixture>
+    public class ToggleProductStatusCommandHandlerTests : IClassFixture<TestServiceProviderFixture>
     {
         private readonly TestServiceProviderFixture _fixture;
 
-        public ProductStatusCommandHandlerTests(TestServiceProviderFixture fixture)
+        public ToggleProductStatusCommandHandlerTests(TestServiceProviderFixture fixture)
         {
             _fixture = fixture;
         }
@@ -25,13 +25,13 @@ namespace ProjectIndependence.API.Tests.Products.UnitTests.CommandTests
             using var serviceProvider = _fixture.CreateServiceProvider();
             using var scope = serviceProvider.CreateScope();
 
-            var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<ProductStatusCommand, ProductDto>>();
+            var handler = scope.ServiceProvider.GetRequiredService<ICommandHandler<ToggleProductStatusCommand, ProductDto>>();
 
             var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             var productToChangeStatus = SeedingData.ProductsToSeed().FirstOrDefault();
 
-            var command = new ProductStatusCommand(productToChangeStatus.Id);
+            var command = new ToggleProductStatusCommand(productToChangeStatus.Id);
 
             // Act
             var result = await handler.HandleAsync(command);

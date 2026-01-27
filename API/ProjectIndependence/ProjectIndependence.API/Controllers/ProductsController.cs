@@ -260,12 +260,12 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
         [HttpPatch("{id}/status")]
-        public async Task<IActionResult> ChangeProductStatus(Guid id, ProductStatusCommand command)
+        public async Task<IActionResult> ChangeProductStatus(Guid id, ToggleProductStatusCommand command)
         {
             if (id != command.Id)
                 return MismatchResponse();
 
-            var updatedProductDto = await _mediator.SendAsync<ProductStatusCommand, ProductDto>(command);
+            var updatedProductDto = await _mediator.SendAsync<ToggleProductStatusCommand, ProductDto>(command);
 
             if (updatedProductDto is null)
                 return NotFoundResponse(nameof(Product), id);
