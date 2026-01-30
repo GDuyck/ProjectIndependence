@@ -99,12 +99,13 @@ namespace ProjectIndependence.API.Tests.Seeding
         }
 
         // add seeding date for productpricechanges
-        public static async Task SeedProducts(ApplicationDbContext dbContext)
+        public static void SeedProducts(ApplicationDbContext dbContext)
         {
             if (!dbContext.Products.Any())
             {
                 dbContext.Products.AddRange(ProductsToSeed());
-                await dbContext.SaveChangesAsync();
+                dbContext.ProductPriceChanges.AddRange(ProductPriceChangesToSeed());
+                dbContext.SaveChanges();
             }
         }
     }

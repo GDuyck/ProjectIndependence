@@ -35,7 +35,6 @@ namespace ProjectIndependence.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAsync()
         {
             var query = new ProductListQuery();
