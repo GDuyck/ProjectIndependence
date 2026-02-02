@@ -5,41 +5,24 @@ using Xunit;
 
 namespace ProjectIndependence.API.Tests.Integration.Common
 {
-    public abstract class IntegrationTestBase : IAsyncLifetime
+    [Collection("IntegrationTests")]
+    public abstract class IntegrationTestBase
     {
-        protected HttpClient Client { get; private set; } = null!;
-        private CustomWebApplicationFactory _factory = null!;
-        private string _datebaseName = null!;
+        protected readonly SqlServerContainerFixture _sqlServerContainerFixture;
 
-        protected async Task<HttpClient> CreateClientAsync(bool seedData)
+        protected IntegrationTestBase(SqlServerContainerFixture sqlServerContainerFixture)
         {
-            _datebaseName = $"TestDb_{Guid.NewGuid():N}";
-
-            var connectionString = new SqlConnectionStringBuilder
-            {
-                DataSource = "localhost,1433",
-                InitialCatalog = _datebaseName,
-                UserID = "sa",
-                Password = "L1mb0-m@N",
-                TrustServerCertificate = true,
-            }.ConnectionString;
-
-            _factory = new CustomWebApplicationFactory(connectionString, seedData);
-            Client = _factory.CreateClient();
-            return Client;
+            _sqlServerContainerFixture = sqlServerContainerFixture;
         }
 
-        public async Task DisposeAsync()
+        protected CustomWebApplicationFactory CreateFactory(bool seedData = false)
         {
-            if (_factory != null)
-            {
-                using var scope = _factory.Services.CreateScope();
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var connectionString = TestDatebase.CreateConnectionString(
+                _sqlServerContainerFixture.Container.GetConnectionString());
 
-                await dbContext.Database.EnsureDeletedAsync();
-            }
+            return new CustomWebApplicationFactory(
+                connectionString,
+                seedData);
         }
-
-        public Task InitializeAsync() => Task.CompletedTask;
     }
 }

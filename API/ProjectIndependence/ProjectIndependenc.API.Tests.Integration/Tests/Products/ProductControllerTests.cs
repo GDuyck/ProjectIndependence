@@ -10,13 +10,18 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
 {
     public class ProductControllerTests : IntegrationTestBase
     {
+        public ProductControllerTests(SqlServerContainerFixture sqlServerContainerFixture) : base(sqlServerContainerFixture)
+        {
+        }
+
         #region GetProducts
 
         [Fact]
         public async Task GetProducts_WithDataInDatabase_returns200OKWithProducts()
         {
             // Arrange
-            var client = await CreateClientAsync(seedData: true);
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
             var request = "/api/products";
 
             // Act
@@ -33,10 +38,11 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         }
 
         [Fact]
-        public async Task GetProducts_WithNoDataInDatabase_Returns404NotFound()
+        public async Task GetProducts_WithNoDataInDatabase_Returns200WithEmptyList()
         {
             // Arrange
-            var client = await CreateClientAsync(seedData: false);
+            await using var factory = CreateFactory(seedData: false);
+            var client = factory.CreateClient();
             var request = "/api/products";
 
             // Act
@@ -60,7 +66,8 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         public async Task GetProductById_WthValidId_Returns200OKWithProduct()
         {
             // Arrange
-            var client = await CreateClientAsync(seedData: true);
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
             var validProduct = SeedingData.ProductsToSeed().FirstOrDefault();
             var validProductId = validProduct!.Id;
             var request = $"/api/products/{validProductId}";
@@ -84,7 +91,8 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         public async Task GetProductById_WithInvalidId_Returns200OKWithEmptyList()
         {
             // Arrange
-            var client = await CreateClientAsync(seedData: true);
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
             var invalidProductId = Guid.NewGuid();
             var request = $"/api/products/{invalidProductId}";
 
@@ -108,7 +116,8 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         public async Task GetProductPriceRangeHistoryListQuery_WithValidProductId_Returns200OKWithPriceChangeHistoryList()
         {
             // Arrange
-            var client = await CreateClientAsync(seedData: true);
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
             var validProduct = SeedingData.ProductsToSeed().FirstOrDefault();
             var validProductId = validProduct!.Id;
             var request = $"/api/products/{validProductId}/pricechanges";

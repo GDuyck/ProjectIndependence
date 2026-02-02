@@ -12,6 +12,7 @@ namespace ProjectIndependence.API.Tests.Integration.Common
     {
         private readonly string _connectionString;
         private readonly bool _seedData;
+        private readonly string _databaseName;
 
         public CustomWebApplicationFactory(string connectionString, bool seedData)
         {
@@ -31,17 +32,14 @@ namespace ProjectIndependence.API.Tests.Integration.Common
                 // Register dbcontext with testcontainers
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(_connectionString));
-            });
 
-            builder.ConfigureServices(services =>
-            {
                 var sp = services.BuildServiceProvider();
 
                 using var scope = sp.CreateScope();
 
                 var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                dbContext.Database.EnsureCreated();
+                dbContext.Database.Migrate();
 
                 if (_seedData)
                 {
