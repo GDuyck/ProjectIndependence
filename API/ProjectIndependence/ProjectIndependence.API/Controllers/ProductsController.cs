@@ -85,8 +85,8 @@ namespace ProjectIndependence.API.Controllers
 
             var priceChangeHistory = await _mediator.QueryAsync<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryListDto>>(productPriceChangeListQuery);
 
-            if (priceChangeHistory is null || !priceChangeHistory.Any())
-                return NotFoundResponse("ProductPriceChangeHistory", id);
+            //if (priceChangeHistory is null || !priceChangeHistory.Any())
+            //    return NotFoundResponse("ProductPriceChangeHistory", id);
 
             return OkResponse<IEnumerable<ProductPriceChangeHistoryListDto>>(priceChangeHistory);
         }

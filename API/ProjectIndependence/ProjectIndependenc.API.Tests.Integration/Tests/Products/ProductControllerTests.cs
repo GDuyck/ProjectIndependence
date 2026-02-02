@@ -3,6 +3,7 @@ using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration.Common;
 using ProjectIndependence.API.Tests.Seeding;
+using System.Net;
 using System.Net.Http.Json;
 using Xunit;
 
@@ -35,6 +36,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.NotNull(result);
             Assert.True(result!.Success);
             Assert.Equal(SeedingData.ProductsToSeed().Count(), result.Data.Count);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
@@ -56,6 +58,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.NotNull(result);
             Assert.True(result!.Success);
             Assert.Empty(result.Data!);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         #endregion GetProducts
@@ -85,10 +88,11 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.True(result!.Success);
             Assert.NotNull(result.Data);
             Assert.Equal(validProductId, result.Data!.Id);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
-        public async Task GetProductById_WithInvalidId_Returns200OKWithEmptyList()
+        public async Task GetProductById_WithInvalidId_Returns404NotFound()
         {
             // Arrange
             await using var factory = CreateFactory(seedData: true);
@@ -106,6 +110,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.NotNull(result);
             Assert.False(result!.Success);
             Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         #endregion GetProductById
@@ -135,8 +140,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.True(result!.Success);
             Assert.NotNull(result.Data);
             Assert.Equal(validProductId, result.Data!.FirstOrDefault()!.ProductId);
-
-            #endregion GetProductPriceChangeHistory
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Fact]
@@ -148,7 +152,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var validProductPriceChange = SeedingData.ProductPriceChangesToSeed().FirstOrDefault();
             var validProductId = validProductPriceChange!.ProductId;
 
-            var validHistoryResponse = await  client.GetAsync($"/api/products/{validProductId}/pricechanges");
+            var validHistoryResponse = await client.GetAsync($"/api/products/{validProductId}/pricechanges");
             validHistoryResponse.EnsureSuccessStatusCode();
 
             var validHistoryResult = await validHistoryResponse.Content
@@ -168,6 +172,50 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.NotNull(result.Data);
             Assert.Equal(validProductId, result.Data!.ProductId);
             Assert.Equal(validHistoryId, result.Data.Id);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task GetProductPriceChangeHistoryListQuery_WithoutDataInDataBase_Returns200OKWithEmptyList()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: false);
+            var client = factory.CreateClient();
+            var someProductId = Guid.NewGuid();
+            var request = $"/api/products/{someProductId}/pricechanges";
+            // Act
+            var response = await client.GetAsync(request);
+            // Assert
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>();
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Empty(result.Data!);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetProductPriceChangeHistoryQuery_WithInvalidProductIdOrHistoryId_Returns404NotFound()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var invalidProductId = Guid.NewGuid();
+            var invalidHistoryId = Guid.NewGuid();
+            var request = $"/api/products/{invalidProductId}/pricechanges/{invalidHistoryId}";
+            // Act
+            var response = await client.GetAsync(request);
+            // Assert
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>();
+            Assert.NotNull(result);
+            Assert.False(result!.Success);
+            Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        #endregion GetProductPriceChangeHistory
     }
 }
