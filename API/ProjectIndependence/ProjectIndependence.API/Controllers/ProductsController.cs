@@ -104,7 +104,7 @@ namespace ProjectIndependence.API.Controllers
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProductPriceHistoryById(Guid id, Guid priceChangeId)
         {
-            var query = new GetProductPriceChangeQuery(id, priceChangeId);
+            var query = new GetProductPriceChangeQuery(priceChangeId, id);
 
             var priceChangeHistoryDetail = await _mediator.QueryAsync<GetProductPriceChangeQuery, ProductPriceChangeHistoryDto>(query);
 

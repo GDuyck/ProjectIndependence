@@ -1,0 +1,10 @@
+**/bin
+**/obj
+
+ProjectIndependence.API.Tests/
+ProjectIndependence.API.Tests.Integration/
+
+.vs
+.git
+.gitignore
+Dockerfile

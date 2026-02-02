@@ -138,5 +138,36 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
 
             #endregion GetProductPriceChangeHistory
         }
+
+        [Fact]
+        public async Task GetPriceChangeHistoryQuery_WithValidProductIdAndHistoryId_Returns200OKWithPriceChangeHistory()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var validProductPriceChange = SeedingData.ProductPriceChangesToSeed().FirstOrDefault();
+            var validProductId = validProductPriceChange!.ProductId;
+
+            var validHistoryResponse = await  client.GetAsync($"/api/products/{validProductId}/pricechanges");
+            validHistoryResponse.EnsureSuccessStatusCode();
+
+            var validHistoryResult = await validHistoryResponse.Content
+                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>();
+
+            var validHistoryId = validHistoryResult!.Data!.FirstOrDefault()!.Id;
+
+            var request = $"/api/products/{validProductId}/pricechanges/{validHistoryId}";
+            // Act
+            var response = await client.GetAsync(request);
+            // Assert
+            response.EnsureSuccessStatusCode();
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>();
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(validProductId, result.Data!.ProductId);
+            Assert.Equal(validHistoryId, result.Data.Id);
+        }
     }
 }

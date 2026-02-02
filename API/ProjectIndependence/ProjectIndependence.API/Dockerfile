@@ -3,26 +3,19 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy solution and project files (so restore uses cache effectively)
-COPY ProjectIndependence.sln ./
 COPY ProjectIndependence.API/*.csproj ProjectIndependence.API/
 COPY ProjectIndependence.API.Application/*.csproj ProjectIndependence.API.Application/
 COPY ProjectIndependence.API.Core/*.csproj ProjectIndependence.API.Core/
 COPY ProjectIndependence.API.Infrastructure/*.csproj ProjectIndependence.API.Infrastructure/
-COPY ProjectIndependence.API.Tests/*.csproj ProjectIndependence.API.Tests/
 
 # Restore dependencies
-RUN dotnet restore ProjectIndependence.sln
+RUN dotnet restore ProjectIndependence.API/ProjectIndependence.API.csproj
 
 # Copy everything else
 COPY . .
 
 # Build + Publish API
 RUN dotnet publish ProjectIndependence.API/ProjectIndependence.API.csproj -c Release -o /app/publish 
-
-# Stage 2: run tests (optional)
-FROM build AS testrunner
-WORKDIR /src
-CMD ["dotnet", "test", "ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj", "-c", "Release", "--no-build", "--logger:trx"]
 
 # Stage 3: runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
