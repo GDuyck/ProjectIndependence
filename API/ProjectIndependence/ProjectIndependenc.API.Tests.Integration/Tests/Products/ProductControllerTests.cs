@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration.Common;
@@ -217,5 +218,44 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         }
 
         #endregion GetProductPriceChangeHistory
+
+        #region PostCreateProduct
+
+        [Fact]
+        public async Task PostProductAsync_WithValidInput_Returns200OkWithNewProduct()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var request = "/api/products";
+            var newProduct = new CreateProductCommand
+            {
+                ProductCode = "NEWPROD001",
+                Name = "New Product",
+                Description = "This is a new product.",
+                IsActive = true,
+                RetailPrice = 29.99m,
+                CostPrice = 15.00m,
+                Tax = 21,
+                Stock = 100,
+                CreatedBy = "testuser"
+            };
+
+            // Act
+            var response = await client.PostAsJsonAsync(request, newProduct);
+            response.EnsureSuccessStatusCode();
+
+            // Assert
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>();
+
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(newProduct.ProductCode, result.Data!.ProductCode);
+            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        }
+
+        #endregion PostCreateProduct
     }
 }

@@ -123,7 +123,7 @@ namespace ProjectIndependence.API.Controllers
         /// </summary>
         /// <param name="createProductCommand">Values for a new product</param>
         /// <returns></returns>
-        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> PostAsync(CreateProductCommand createProductCommand)
