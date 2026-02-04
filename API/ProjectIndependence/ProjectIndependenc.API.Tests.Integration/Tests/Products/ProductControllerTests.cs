@@ -252,8 +252,46 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.NotNull(result);
             Assert.True(result!.Success);
             Assert.NotNull(result.Data);
+            Assert.NotNull(result.Data!.Id);
             Assert.Equal(newProduct.ProductCode, result.Data!.ProductCode);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+        }
+
+        [Theory]
+        [MemberData(
+            nameof(PostProductData.InvalidProductData),
+            MemberType = typeof(PostProductData)
+        )]
+        public async Task PostProductAsync_WithInvalidInput_Returns400BadRequest(
+            string productCode, string name, string description, bool isActive,
+            decimal retailPrice, decimal costPrice, int tax, int stock, string createdBy)
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var request = "/api/products";
+            var newWrongProduct = new CreateProductCommand
+            {
+                ProductCode = productCode,
+                Name = name,
+                Description = description,
+                IsActive = isActive,
+                RetailPrice = retailPrice,
+                CostPrice = costPrice,
+                Tax = tax,
+                Stock = stock,
+                CreatedBy = createdBy
+            };
+
+            // Act
+            var response = await client.PostAsJsonAsync(request, newWrongProduct);
+
+            // Assert
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<ProductDto>>();
+
+            Assert.NotNull(result);
+            Assert.False(result.Success);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         #endregion PostCreateProduct
