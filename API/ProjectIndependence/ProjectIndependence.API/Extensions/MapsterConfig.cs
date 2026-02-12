@@ -1,8 +1,6 @@
 ﻿using Mapster;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
-using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Application.Products.Dtos;
-using ProjectIndependence.API.Core.Dtos.Products;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.ValueObjects;
 

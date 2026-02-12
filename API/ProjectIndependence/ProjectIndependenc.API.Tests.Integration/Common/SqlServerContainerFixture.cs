@@ -14,14 +14,14 @@ namespace ProjectIndependence.API.Tests.Integration.Common
                 .Build();
         }
 
-        public async Task DisposeAsync()
-        {
-            await Container.DisposeAsync();
-        }
-
-        public async Task InitializeAsync()
+        async ValueTask IAsyncLifetime.InitializeAsync()
         {
             await Container.StartAsync();
+        }
+
+        async ValueTask IAsyncDisposable.DisposeAsync()
+        {
+            await Container.DisposeAsync();
         }
     }
 }
