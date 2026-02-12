@@ -295,5 +295,11 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
         }
 
         #endregion PostCreateProduct
+
+        #region PUT
+
+
+
+        #endregion
     }
 }
