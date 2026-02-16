@@ -1,4 +1,5 @@
-﻿using FluentValidation.AspNetCore;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Core.Response;
 

@@ -27,16 +27,16 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = "/api/products";
 
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             response.EnsureSuccessStatusCode();
 
             // Assert
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<ProductListDto>>>();
+                .ReadFromJsonAsync<ApiResponse<List<ProductListDto>>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.True(result!.Success);
-            Assert.Equal(SeedingData.ProductsToSeed().Count(), result.Data.Count);
+            Assert.Equal(SeedingData.ProductsToSeed().Count(), result!.Data!.Count);
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -49,12 +49,12 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = "/api/products";
 
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             // Assert
             response.EnsureSuccessStatusCode();
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<ProductListDto>>>();
+                .ReadFromJsonAsync<ApiResponse<List<ProductListDto>>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.True(result!.Success);
@@ -77,13 +77,13 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = $"/api/products/{validProductId}";
 
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             // Assert
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<ProductDto>>();
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.True(result!.Success);
@@ -102,11 +102,11 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = $"/api/products/{invalidProductId}";
 
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             // Assert
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<ProductDto>>();
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.False(result!.Success);
@@ -129,13 +129,13 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = $"/api/products/{validProductId}/pricechanges";
 
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
 
             // Assert
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>();
+                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.True(result!.Success);
@@ -153,21 +153,21 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var validProductPriceChange = SeedingData.ProductPriceChangesToSeed().FirstOrDefault();
             var validProductId = validProductPriceChange!.ProductId;
 
-            var validHistoryResponse = await client.GetAsync($"/api/products/{validProductId}/pricechanges");
+            var validHistoryResponse = await client.GetAsync($"/api/products/{validProductId}/pricechanges", cancellationToken: TestContext.Current.CancellationToken);
             validHistoryResponse.EnsureSuccessStatusCode();
 
             var validHistoryResult = await validHistoryResponse.Content
-                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>();
+                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>(cancellationToken: TestContext.Current.CancellationToken);
 
             var validHistoryId = validHistoryResult!.Data!.FirstOrDefault()!.Id;
 
             var request = $"/api/products/{validProductId}/pricechanges/{validHistoryId}";
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             // Assert
             response.EnsureSuccessStatusCode();
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>();
+                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>(cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(result);
             Assert.True(result!.Success);
             Assert.NotNull(result.Data);
@@ -185,11 +185,11 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var someProductId = Guid.NewGuid();
             var request = $"/api/products/{someProductId}/pricechanges";
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             // Assert
             response.EnsureSuccessStatusCode();
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>();
+                .ReadFromJsonAsync<ApiResponse<List<ProductPriceChangeHistoryListDto>>>(cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(result);
             Assert.True(result!.Success);
             Assert.NotNull(result.Data);
@@ -207,10 +207,10 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var invalidHistoryId = Guid.NewGuid();
             var request = $"/api/products/{invalidProductId}/pricechanges/{invalidHistoryId}";
             // Act
-            var response = await client.GetAsync(request);
+            var response = await client.GetAsync(request, cancellationToken: TestContext.Current.CancellationToken);
             // Assert
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>();
+                .ReadFromJsonAsync<ApiResponse<ProductPriceChangeHistoryDto>>(cancellationToken: TestContext.Current.CancellationToken);
             Assert.NotNull(result);
             Assert.False(result!.Success);
             Assert.NotNull(result.Error);
@@ -242,12 +242,12 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             };
 
             // Act
-            var response = await client.PostAsJsonAsync(request, newProduct);
+            var response = await client.PostAsJsonAsync(request, newProduct, cancellationToken: TestContext.Current.CancellationToken);
             response.EnsureSuccessStatusCode();
 
             // Assert
             var result = await response.Content
-                .ReadFromJsonAsync<ApiResponse<ProductDto>>();
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.True(result!.Success);
@@ -284,10 +284,10 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             };
 
             // Act
-            var response = await client.PostAsJsonAsync(request, newWrongProduct);
+            var response = await client.PostAsJsonAsync(request, newWrongProduct, cancellationToken: TestContext.Current.CancellationToken);
 
             // Assert
-            var result = await response.Content.ReadFromJsonAsync<ApiResponse<ProductDto>>();
+            var result = await response.Content.ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
 
             Assert.NotNull(result);
             Assert.False(result.Success);

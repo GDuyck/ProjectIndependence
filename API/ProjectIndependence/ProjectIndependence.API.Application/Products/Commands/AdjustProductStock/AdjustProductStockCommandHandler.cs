@@ -17,7 +17,7 @@ namespace ProjectIndependence.API.Application.Products.Commands.AdjustProductSto
 
         public async Task<ProductDto> HandleAsync(AdjustProductStockCommand command, CancellationToken cancellationToken = default)
         {
-            var product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == command.Id);
+            var product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
             product.Stock += command.QuantityChange;
 

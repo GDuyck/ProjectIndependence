@@ -18,5 +18,5 @@
         public static implicit operator TaxRate(int value) => new TaxRate(value);
     }
 
-    public record ProductSnapshot(Guid id, string name, decimal price, TaxRate taxRate);
+    public record ProductSnapshot(Guid Id, string Name, decimal Price, TaxRate TaxRate);
 }

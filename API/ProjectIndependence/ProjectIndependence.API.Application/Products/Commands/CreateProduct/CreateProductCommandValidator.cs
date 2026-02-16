@@ -5,7 +5,7 @@ namespace ProjectIndependence.API.Application.Products.Commands.CreateProduct
 {
     public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
-        private static readonly int[] AllowedTaxes = { 0, 6, 12, 21 };
+        private static readonly int[] AllowedTaxes = [0, 6, 12, 21];
 
         public CreateProductCommandValidator()
         {

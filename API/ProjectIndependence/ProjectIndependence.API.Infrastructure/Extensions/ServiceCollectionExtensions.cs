@@ -12,7 +12,7 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
         public static IServiceCollection AddInfrastructureServices
             (this IServiceCollection services,
             IConfiguration configuration,
-            IWebHostEnvironment environment)
+            IHostEnvironment environment)
         {
             string connectionString = configuration.GetConnectionString("DefaultDatabase");
 
