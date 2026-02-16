@@ -25,8 +25,7 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void IncreaseStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new IncreaseStockException(quantity);
+            EnsurePositiveQuantity(quantity);
 
             QuantityOnHand += quantity;
             UpdatedAt = DateTime.Now;
@@ -34,8 +33,7 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void DecreaseStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new InventoryException(InventoryErrors.InvalidQuantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > AvailableStock)
                 throw new InventoryException(InventoryErrors.QuantityExceedsAvailable);
@@ -46,11 +44,10 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void ReserveStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new InventoryException(InventoryErrors.InvalidQuantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > AvailableStock)
-                throw new InventoryException(InventoryErrors.InsufficientStock);
+                throw new InventoryException(InventoryErrors.QuantityExceedsAvailable);
 
             QuantityReserved += quantity;
             UpdatedAt = DateTime.Now;
@@ -58,14 +55,19 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void ReleaseReservedStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new InventoryException(InventoryErrors.InvalidQuantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > QuantityReserved)
                 throw new InventoryException(InventoryErrors.QuantityExceedsReserve);
 
             QuantityReserved -= quantity;
             UpdatedAt = DateTime.Now;
+        }
+
+        private static void EnsurePositiveQuantity(int quantity)
+        {
+            if (quantity <= 0)
+                throw new InventoryException(InventoryErrors.InvalidQuantity);
         }
     }
 }

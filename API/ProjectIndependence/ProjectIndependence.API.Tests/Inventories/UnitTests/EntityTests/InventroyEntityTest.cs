@@ -28,7 +28,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             // Act & Assert
-            Assert.Throws<IncreaseStockException>(() => inventory.IncreaseStock(-3));
+            Assert.Throws<InventoryException>(() => inventory.IncreaseStock(-3));
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             // Act & Assert
-            Assert.Throws<DecreaseStockNegativeException>(() => inventory.DecreaseStock(-2));
+            Assert.Throws<InventoryException>(() => inventory.DecreaseStock(-2));
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             // Act & Assert
-            Assert.Throws<DecreaseStockexception>(() => inventory.DecreaseStock(15));
+            Assert.Throws<InventoryException>(() => inventory.DecreaseStock(15));
         }
 
         [Fact]
@@ -90,7 +90,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             // Act & Assert
-            Assert.Throws<ReserveStockNegativeException>(() => inventory.ReserveStock(-1));
+            Assert.Throws<InventoryException>(() => inventory.ReserveStock(-1));
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             // Act & Assert
-            Assert.Throws<ReserveStockException>(() => inventory.ReserveStock(12));
+            Assert.Throws<InventoryException>(() => inventory.ReserveStock(12));
         }
 
         [Fact]
@@ -129,7 +129,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           "Tester");
             inventory.ReserveStock(5);
             // Act & Assert
-            Assert.Throws<ReleaseStockNegativeException>(() => inventory.ReleaseReservedStock(-2));
+            Assert.Throws<InventoryException>(() => inventory.ReleaseReservedStock(-2));
         }
 
         [Fact]
@@ -141,7 +141,7 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           "Tester");
             inventory.ReserveStock(5);
             // Act & Assert
-            Assert.Throws<ReleaseStockException>(() => inventory.ReleaseReservedStock(7));
+            Assert.Throws<InventoryException>(() => inventory.ReleaseReservedStock(7));
         }
     }
 }
