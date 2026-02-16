@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProjectIndependence.API.Core.Entities.Inventory
+namespace ProjectIndependence.API.Core.Entities.Inventories
 {
     public class Inventory : EntityBase
     {
@@ -14,6 +14,15 @@ namespace ProjectIndependence.API.Core.Entities.Inventory
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string CreatedBy { get; set; }
+
+        public Inventory(Guid productId, int quantityOnHand, int quantityReserved, string createdBy)
+        {
+            ProductId = productId;
+            QuantityOnHand = quantityOnHand;
+            QuantityReserved = quantityReserved;
+            CreatedAt = DateTime.Now;
+            CreatedBy = createdBy;
+        }
 
         public void IncreaseStock(int quantity)
         {
@@ -37,6 +46,7 @@ namespace ProjectIndependence.API.Core.Entities.Inventory
             {
                 throw new InvalidOperationException("Not enough stock available to reserve.");
             }
+            QuantityOnHand -= quantity;
             QuantityReserved += quantity;
             UpdatedAt = DateTime.Now;
         }

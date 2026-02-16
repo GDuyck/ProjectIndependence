@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectIndependence.API.Core.Entities.Customers;
-using ProjectIndependence.API.Core.Entities.Inventory;
+using ProjectIndependence.API.Core.Entities.Inventories;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Entities.Sales;
 using ProjectIndependence.API.Core.ValueObjects;
