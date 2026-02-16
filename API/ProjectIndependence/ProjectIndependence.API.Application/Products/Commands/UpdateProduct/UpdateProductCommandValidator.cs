@@ -15,6 +15,10 @@ namespace ProjectIndependence.API.Application.Products.Commands.UpdateProduct
             RuleFor(cpm => cpm.Description)
                 .NotEmpty()
                 .WithMessage(ValidationErrors.ProductCodeEmpty);
+
+            RuleFor(cmp => cmp.Tax)
+                .Must(t => AllowedTaxes.Contains(t))
+                .WithMessage($"Invalid tax rate. Allowed values: {string.Join(", ", AllowedTaxes)}");
         }
     }
 }
