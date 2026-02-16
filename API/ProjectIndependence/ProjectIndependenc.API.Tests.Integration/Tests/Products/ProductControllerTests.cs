@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration.Common;
@@ -298,7 +299,38 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
 
         #region PUT
 
+        [Fact]
+        public async Task PutProductAsync_WithValidInput_Returns200OkWithUpdatedProduct()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var request = $"/api/products/{existingProductId}";
+            var updatedProduct = new UpdateProductCommand
+            {
+                Id = existingProductId,
+                Name = "Updated product",
+                Description = "This is an updated product.",
+                Tax = 0
+            };
 
+            // Act
+            var response = await client.PutAsJsonAsync(request, updatedProduct, cancellationToken: TestContext.Current.CancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            // Assert
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(existingProductId, result.Data!.Id);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.NotEqual(existingProduct!.Name, result.Data!.Name);
+            Assert.NotEqual(existingProduct.Description, result.Data!.Description);
+        }
 
         #endregion
     }
