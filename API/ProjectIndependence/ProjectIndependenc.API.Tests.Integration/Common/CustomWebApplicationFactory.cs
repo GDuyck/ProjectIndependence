@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ProjectIndependence.API.Infrastructure.Data;
-using ProjectIndependence.API.Tests.Seeding;
+using ProjectIndependence.API.Tests.Integration.Seeding;
 
 namespace ProjectIndependence.API.Tests.Integration.Common
 {

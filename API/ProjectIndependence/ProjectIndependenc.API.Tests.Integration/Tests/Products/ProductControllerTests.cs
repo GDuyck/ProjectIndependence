@@ -3,7 +3,7 @@ using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration.Common;
-using ProjectIndependence.API.Tests.Seeding;
+using ProjectIndependence.API.Tests.Integration.Seeding;
 using System.Net;
 using System.Net.Http.Json;
 using Xunit;

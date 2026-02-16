@@ -1,7 +1,7 @@
 ﻿using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 
-namespace ProjectIndependence.API.Tests.Seeding
+namespace ProjectIndependence.API.Tests.Integration.Seeding
 {
     public static class SeedingData
     {
