@@ -28,8 +28,10 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           0,
                                           "Tester");
+
             // Act
             inventory.DecreaseStock(3);
+
             // Assert
             Assert.Equal(7, inventory.QuantityOnHand);
         }
@@ -59,8 +61,10 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           0,
                                           "Tester");
             inventory.ReserveStock(5);
+
             // Act
             inventory.ReleaseReservedStock(2);
+
             // Assert
             Assert.Equal(3, inventory.QuantityReserved);
         }
