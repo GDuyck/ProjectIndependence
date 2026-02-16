@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectIndependence.API.Core.Entities.Customers;
+using ProjectIndependence.API.Core.Entities.Inventories;
 using ProjectIndependence.API.Core.Entities.Products;
 using ProjectIndependence.API.Core.Entities.Sales;
 using ProjectIndependence.API.Core.ValueObjects;
@@ -18,6 +19,7 @@ namespace ProjectIndependence.API.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
+        public virtual DbSet<Inventory> Inventories { get; set; }
         public DbSet<SalesQuotation> SalesQuotations { get; set; }
         public DbSet<SalesQuotationLine> GetSalesQuotationLines { get => getSalesQuotationLines; set => getSalesQuotationLines = value; }
 
