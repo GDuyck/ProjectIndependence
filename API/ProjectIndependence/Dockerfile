@@ -3,14 +3,13 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy solution and project files
-COPY ProjectIndependence.sln ./
-COPY ProjectIndependence.API/ProjectIndependence.API.csproj ProjectIndependence.API/
-COPY ProjectIndependence.API.Core/ProjectIndependence.API.Core.csproj ProjectIndependence.API.Core/
-COPY ProjectIndependence.API.Infrastructure/ProjectIndependence.API.Infrastructure.csproj ProjectIndependence.API.Infrastructure/
-COPY ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj ProjectIndependence.API.Tests/
+COPY ProjectIndependence.API/*.csproj ProjectIndependence.API/
+COPY ProjectIndependence.API.Application/*.csproj ProjectIndependence.API.Application/
+COPY ProjectIndependence.API.Core/*.csproj ProjectIndependence.API.Core/
+COPY ProjectIndependence.API.Infrastructure/*.csproj ProjectIndependence.API.Infrastructure/
 
 # Restore
-RUN dotnet restore ProjectIndependence.sln
+RUN dotnet restore ProjectIndependence.API/ProjectIndependence.API.csproj
 
 # Copy everything else
 COPY . .

@@ -52,24 +52,90 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RetailPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("SalesQuotationLineId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
                     b.Property<int>("Tax")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SalesQuotationLineId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Products.ProductPriceChange", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ChangedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("NewCostPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("NewRetailPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OldCostPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OldRetailPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ReasonForPriceChange")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductPriceChanges");
                 });
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Sales.SalesQuotation", b =>
@@ -122,6 +188,15 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
                     b.HasOne("ProjectIndependence.API.Core.Entities.Sales.SalesQuotationLine", null)
                         .WithMany("Products")
                         .HasForeignKey("SalesQuotationLineId");
+                });
+
+            modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Products.ProductPriceChange", b =>
+                {
+                    b.HasOne("ProjectIndependence.API.Core.Entities.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Sales.SalesQuotation", b =>

@@ -1,4 +1,7 @@
 using Mapster;
+using ProjectIndependence.API.Application.Extensions;
+using ProjectIndependence.API.Core.Exceptions;
+using ProjectIndependence.API.Extensions;
 using ProjectIndependence.API.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,11 +21,18 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
+// Layer registration
 builder.Services.AddInfrastructureServices(builder.Configuration, builder.Environment);
+builder.Services.AddApiValidation();
+builder.Services.AddApplication();
 
-builder.Services.AddFluentValidationIntegration();
-
+// Mapping
 builder.Services.AddMapster();
+MapsterConfig.RegisterMappings();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Information);
 
 var app = builder.Build();
 
@@ -35,10 +45,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<DomainExceptionMiddleware>();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+public partial class Program
+{ }

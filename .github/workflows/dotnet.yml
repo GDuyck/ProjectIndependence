@@ -35,4 +35,7 @@ jobs:
       run: dotnet build API/ProjectIndependence/ProjectIndependence.sln --no-restore
       
     - name: Test
-      run: dotnet test API/ProjectIndependence/ProjectIndependence.sln --no-build --verbosity normal
+      run: dotnet test API/ProjectIndependence/ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj --verbosity normal
+
+    - name: Test integration
+      run: dotnet test API/ProjectIndependence/ProjectIndependenc.API.Tests.Integration/ProjectIndependence.API.Tests.Integration.csproj --verbosity normal
