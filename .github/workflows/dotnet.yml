@@ -37,3 +37,5 @@ jobs:
     - name: Test
       run: dotnet test API/ProjectIndependence/ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.csproj --verbosity normal
 
+    - name: Test integration
+      run: dotnet test API/ProjectIndependence/ProjectIndependence.API.Tests/ProjectIndependence.API.Tests.Integration.csproj --verbosity normal
