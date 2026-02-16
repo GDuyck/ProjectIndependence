@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
+using ProjectIndependence.API.Application.Products.Commands.ToggleProductStatus;
 using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
+using ProjectIndependence.API.Application.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
 using ProjectIndependence.API.Tests.Integration.Common;
@@ -11,11 +13,8 @@ using Xunit;
 
 namespace ProjectIndependence.API.Tests.Integration.Tests.Products
 {
-    public class ProductControllerTests : IntegrationTestBase
+    public class ProductControllerTests(SqlServerContainerFixture sqlServerContainerFixture) : IntegrationTestBase(sqlServerContainerFixture)
     {
-        public ProductControllerTests(SqlServerContainerFixture sqlServerContainerFixture) : base(sqlServerContainerFixture)
-        {
-        }
 
         #region GetProducts
 
@@ -393,6 +392,179 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.False(result!.Success);
             Assert.NotNull(result.Error);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        #endregion PUT
+
+        #region PatchProduct
+
+        [Fact]
+        public async Task UpdatePrice_WithValidInput_Returns200OkWithProductWithUpdatedPrice()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var request = $"/api/products/{existingProductId}/price";
+            var newPrice = existingProduct.RetailPrice + 10;
+            var updatePrice = new UpdateProductPriceCommand
+            {
+                Id = existingProductId,
+                RetailPrice = newPrice,
+                CostPrice = existingProduct.CostPrice,
+                ReasonForPriceChange = "Price increased due to higher costs.",
+                UpatedBy = "testuser"
+            };
+
+            // Act
+            var response = await client.PatchAsJsonAsync(request, updatePrice, cancellationToken: TestContext.Current.CancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            // Assert
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(existingProductId, result.Data!.Id);
+            Assert.Equal(newPrice, result.Data!.RetailPrice);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task UpdatePrice_WithMismatchingIds_Returns400BadRequest()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var invalidProductId = Guid.NewGuid();
+            var request = $"/api/products/{invalidProductId}/price";
+            var updatePrice = new UpdateProductPriceCommand
+            {
+                Id = existingProductId,
+                RetailPrice = existingProduct.RetailPrice + 10,
+                CostPrice = existingProduct.CostPrice,
+                ReasonForPriceChange = "Price increased due to higher costs.",
+                UpatedBy = "testuser"
+            };
+
+            // Act
+            var response = await client.PatchAsJsonAsync(request, updatePrice, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Assert
+            Assert.NotNull(response);
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.False(result!.Success);
+            Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task UpdatePrice_WithInvalidInput_Returns400BadRequest()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var request = $"/api/products/{existingProductId}/price";
+            var updatePrice = new UpdateProductPriceCommand
+            {
+                Id = existingProductId,
+                RetailPrice = -10, // Invalid retail price
+                CostPrice = existingProduct.CostPrice,
+                ReasonForPriceChange = "Invalid price change.",
+                UpatedBy = "testuser"
+            };
+            // Act
+            var response = await client.PatchAsJsonAsync(request, updatePrice, cancellationToken: TestContext.Current.CancellationToken);
+            // Assert
+            Assert.NotNull(response);
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.False(result!.Success);
+            Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task ToggleProductStatus_WithValidInput_Returns200OkWithUpdatedProduct()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var request = $"/api/products/{existingProductId}/status";
+            var toggleStatus = new ToggleProductStatusCommand(existingProductId);
+
+            // Act
+            var response = await client.PatchAsJsonAsync(request, toggleStatus, cancellationToken: TestContext.Current.CancellationToken);
+            response.EnsureSuccessStatusCode();
+
+            // Assert
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.True(result!.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(existingProductId, result.Data!.Id);
+            Assert.NotEqual(existingProduct.IsActive, result.Data!.IsActive);
+        }
+
+        [Fact]
+        public async Task ToggleProductStatus_WithMismatchingIds_Returns400BadRequest()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+            var invalidProductId = Guid.NewGuid();
+            var request = $"/api/products/{invalidProductId}/status";
+            var toggleStatus = new ToggleProductStatusCommand(existingProductId);
+
+            // Act
+            var response = await client.PatchAsJsonAsync(request, toggleStatus, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Assert
+            Assert.NotNull(response);
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.False(result!.Success);
+            Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task ToggleProductStatus_WithBothInvalidIds_Returns404NotFound()
+        {
+            // Arrange
+            await using var factory = CreateFactory(seedData: true);
+            var client = factory.CreateClient();
+            var invalidProductId = Guid.NewGuid();
+            var request = $"/api/products/{invalidProductId}/status";
+            var toggleStatus = new ToggleProductStatusCommand(invalidProductId);
+
+            // Act
+            var response = await client.PatchAsJsonAsync(request, toggleStatus, cancellationToken: TestContext.Current.CancellationToken);
+
+            // Assert
+            Assert.NotNull(response);
+            var result = await response.Content
+                .ReadFromJsonAsync<ApiResponse<ProductDto>>(cancellationToken: TestContext.Current.CancellationToken);
+            Assert.NotNull(result);
+            Assert.False(result!.Success);
+            Assert.NotNull(result.Error);
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         #endregion

@@ -19,6 +19,9 @@ namespace ProjectIndependence.API.Application.Products.Commands.ToggleProductSta
         {
             var product = await _applicationDbContext.Products.FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);
 
+            if (product is null)
+                return null;
+
             product.ToggleStatus();
 
             await _applicationDbContext.SaveChangesAsync(cancellationToken);

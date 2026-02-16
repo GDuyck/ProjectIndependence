@@ -27,5 +27,9 @@ namespace ProjectIndependence.API.Core.Errors
         public const string ProductTax = "The product must have a tax";
         public const string ProductStock = "The stock can not be empty";
         public const string ProductNotFound = "No product found with the id ";
+
+        // Product price history
+        public const string ProductPriceChangeReason = "A reason for the price change is required";
+        public const string ProductPriceChangeReasonLength = "The reason for the price change cannot exceed 500 characters";
     }
 }
