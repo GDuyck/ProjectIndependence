@@ -1,4 +1,6 @@
-﻿using ProjectIndependence.API.Core.Entities.Inventories;
+﻿using FluentAssertions;
+using ProjectIndependence.API.Core.Entities.Inventories;
+using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Exceptions;
 
 namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
@@ -27,8 +29,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             var inventory = new Inventory(Guid.NewGuid(),
                                           10,
                                           "Tester");
-            // Act & Assert
-            Assert.Throws<IncreaseStockException>(() => inventory.IncreaseStock(-3));
+            // Act
+            var action = () => inventory.IncreaseStock(-3);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.InvalidQuantity.Code);
         }
 
         [Fact]
@@ -53,8 +59,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             var inventory = new Inventory(Guid.NewGuid(),
                                           10,
                                           "Tester");
-            // Act & Assert
-            Assert.Throws<DecreaseStockNegativeException>(() => inventory.DecreaseStock(-2));
+            // Act
+            var action = () => inventory.DecreaseStock(-2);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.InvalidQuantity.Code);
         }
 
         [Fact]
@@ -64,8 +74,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             var inventory = new Inventory(Guid.NewGuid(),
                                           10,
                                           "Tester");
-            // Act & Assert
-            Assert.Throws<DecreaseStockexception>(() => inventory.DecreaseStock(15));
+            // Act
+            var action = () => inventory.DecreaseStock(15);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.QuantityExceedsAvailable.Code);
         }
 
         [Fact]
@@ -89,8 +103,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             var inventory = new Inventory(Guid.NewGuid(),
                                           10,
                                           "Tester");
-            // Act & Assert
-            Assert.Throws<ReserveStockNegativeException>(() => inventory.ReserveStock(-1));
+            // Act
+            var action = () => inventory.ReserveStock(-1);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.InvalidQuantity.Code);
         }
 
         [Fact]
@@ -100,8 +118,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             var inventory = new Inventory(Guid.NewGuid(),
                                           10,
                                           "Tester");
-            // Act & Assert
-            Assert.Throws<ReserveStockException>(() => inventory.ReserveStock(12));
+            // Act
+            var action = () => inventory.ReserveStock(12);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.QuantityExceedsAvailable.Code);
         }
 
         [Fact]
@@ -128,8 +150,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             inventory.ReserveStock(5);
-            // Act & Assert
-            Assert.Throws<ReleaseStockNegativeException>(() => inventory.ReleaseReservedStock(-2));
+            // Act
+            var action = () => inventory.ReleaseReservedStock(-2);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.InvalidQuantity.Code);
         }
 
         [Fact]
@@ -140,8 +166,12 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
                                           10,
                                           "Tester");
             inventory.ReserveStock(5);
-            // Act & Assert
-            Assert.Throws<ReleaseStockException>(() => inventory.ReleaseReservedStock(7));
+            // Act
+            var action = () => inventory.ReleaseReservedStock(7);
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.QuantityExceedsReserve.Code);
         }
     }
 }

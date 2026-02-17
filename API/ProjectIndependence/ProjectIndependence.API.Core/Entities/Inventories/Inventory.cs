@@ -1,4 +1,5 @@
 ﻿using ProjectIndependence.API.Core.Entities.Base;
+using ProjectIndependence.API.Core.Errors;
 using ProjectIndependence.API.Core.Exceptions;
 
 namespace ProjectIndependence.API.Core.Entities.Inventories
@@ -24,8 +25,7 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void IncreaseStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new IncreaseStockException(quantity);
+            EnsurePositiveQuantity(quantity);
 
             QuantityOnHand += quantity;
             UpdatedAt = DateTime.Now;
@@ -33,11 +33,10 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void DecreaseStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new DecreaseStockNegativeException(quantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > AvailableStock)
-                throw new DecreaseStockexception(AvailableStock, quantity);
+                throw new InventoryException(InventoryErrors.QuantityExceedsAvailable);
 
             QuantityOnHand -= quantity;
             UpdatedAt = DateTime.Now;
@@ -45,11 +44,10 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void ReserveStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new ReserveStockNegativeException(quantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > AvailableStock)
-                throw new ReserveStockException(AvailableStock, quantity);
+                throw new InventoryException(InventoryErrors.QuantityExceedsAvailable);
 
             QuantityReserved += quantity;
             UpdatedAt = DateTime.Now;
@@ -57,14 +55,19 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public void ReleaseReservedStock(int quantity)
         {
-            if (quantity <= 0)
-                throw new ReleaseStockNegativeException(quantity);
+            EnsurePositiveQuantity(quantity);
 
             if (quantity > QuantityReserved)
-                throw new ReleaseStockException(QuantityReserved, quantity);
+                throw new InventoryException(InventoryErrors.QuantityExceedsReserve);
 
             QuantityReserved -= quantity;
             UpdatedAt = DateTime.Now;
+        }
+
+        private static void EnsurePositiveQuantity(int quantity)
+        {
+            if (quantity <= 0)
+                throw new InventoryException(InventoryErrors.InvalidQuantity);
         }
     }
 }
