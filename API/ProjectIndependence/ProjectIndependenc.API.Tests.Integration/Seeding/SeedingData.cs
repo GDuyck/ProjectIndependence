@@ -108,20 +108,17 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                 new Inventory(
                     Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     100,
-                    "Seeder")
-                { Id = Guid.Parse("d1111111-1111-1111-1111-111111111111") },
+                    "Seeder"),
 
                 new Inventory(
                     Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     50,
-                    "Seeder")
-                { Id = Guid.Parse("d2222222-2222-2222-2222-222222222222") },
+                    "Seeder"),
 
                 new Inventory(
                     Guid.Parse("33333333-3333-3333-3333-333333333333"),
                     0,
                     "Seeder")
-                { Id = Guid.Parse("d3333333-3333-3333-3333-333333333333") }
             };
         }
 
@@ -135,16 +132,14 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                     Guid.Parse("11111111-1111-1111-1111-111111111111"),
                     100,
                     InventoryMovementType.Purchase,
-                    "Initial stock seed")
-                { Id = Guid.Parse("m1111111-1111-1111-1111-111111111111") },
+                    "Initial stock seed"),
 
                 // Initial purchase that created Inventory for Product B
                 new InventoryMovement(
                     Guid.Parse("22222222-2222-2222-2222-222222222222"),
                     50,
                     InventoryMovementType.Purchase,
-                    "Initial stock seed")
-                { Id = Guid.Parse("m2222222-2222-2222-2222-222222222222") },
+                    "Initial stock seed"),
 
                 // No initial movement for Product C (zero stock), but include an adjustment movement for history
                 new InventoryMovement(
@@ -152,7 +147,6 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                     0,
                     InventoryMovementType.Adjustment,
                     "Initial seed - zero stock")
-                { Id = Guid.Parse("m3333333-3333-3333-3333-333333333333") }
             };
         }
 
