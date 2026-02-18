@@ -38,10 +38,14 @@ namespace ProjectIndependence.API.Infrastructure.Data
                 .Property(p => p.Tax)
                 .HasConversion(taxRateConverter);
 
-            modelBuilder.Entity<ProductPriceChange>()
-                .HasOne<Product>()
-                .WithMany()
-                .HasForeignKey(p => p.ProductId);
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.HasMany(p => p.PriceChanges)
+                      .WithOne(pc => pc.Product)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
 
             modelBuilder.Entity<InventoryMovement>()
                 .Property(im => im.Type)

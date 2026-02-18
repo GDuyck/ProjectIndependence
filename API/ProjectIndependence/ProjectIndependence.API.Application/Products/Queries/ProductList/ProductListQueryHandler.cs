@@ -1,26 +1,24 @@
 ﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Interfaces;
+using ProjectIndependence.API.Application.Interfaces.Products;
 using ProjectIndependence.API.Application.Products.Dtos;
-using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Queries.ProductList
 {
     public class ProductListQueryHandler : IQueryHandler<ProductListQuery, List<ProductListDto>>
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IProductRepository _productRepository;
 
-        public ProductListQueryHandler(ApplicationDbContext applicationDbContext)
+        public ProductListQueryHandler(IProductRepository productRepository)
         {
-            _applicationDbContext = applicationDbContext;
+            _productRepository = productRepository;
         }
 
         public async Task<List<ProductListDto>> HandleAsync(ProductListQuery query, CancellationToken cancellationToken = default)
         {
-            var products = await _applicationDbContext.Products
-                .AsNoTracking()
-                .ProjectToType<ProductListDto>()
-                .ToListAsync(cancellationToken);
+            var productEnities = await _productRepository.GetProductListAsync(cancellationToken);
+
+            var products = productEnities.Adapt<List<ProductListDto>>();
 
             return products;
         }

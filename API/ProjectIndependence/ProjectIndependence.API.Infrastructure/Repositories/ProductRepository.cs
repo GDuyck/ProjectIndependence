@@ -17,7 +17,6 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
         public async Task<Product> GetProductByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             var product = await _applicationDbContext.Products
-                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             return product;
@@ -27,9 +26,18 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
         {
             var products = await _applicationDbContext.Products
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return products;
+        }
+
+        public async Task<Product> GetProductByIdReadOnlyAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var product = await _applicationDbContext.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+
+            return product;
         }
 
         public async Task<Product> CreateProductAsync(Product product, CancellationToken cancellationToken)
@@ -44,6 +52,25 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
             _applicationDbContext.Products.Update(product);
 
             return product;
+        }
+
+        public async Task<IReadOnlyList<ProductPriceChange>> GetProductPriceChangeByProductIdListAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var productPriceChanges = await _applicationDbContext.ProductPriceChanges
+                .AsNoTracking()
+                .Where(pc => pc.ProductId == id)
+                .ToListAsync();
+
+            return productPriceChanges;
+        }
+
+        public async Task<ProductPriceChange> GetProductPriceChangeDetailAsync(Guid id, Guid productId, CancellationToken cancellationToken)
+        {
+            var productPriceChangeDetail = await _applicationDbContext.ProductPriceChanges
+                .AsNoTracking()
+                .FirstOrDefaultAsync(pc => pc.Id == id & pc.ProductId == productId);
+
+            return productPriceChangeDetail;
         }
     }
 }
