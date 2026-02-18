@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjectIndependence.API.Infrastructure\ProjectIndependence.API.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Inventories\Commands\" />
     <Folder Include="Inventories\Dtos\" />
     <Folder Include="Inventories\Queries\" />
