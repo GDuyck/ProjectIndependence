@@ -20,6 +20,7 @@ namespace ProjectIndependence.API.Infrastructure.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
         public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<InventoryMovement> InventoryMovements { get; set; }
         public DbSet<SalesQuotation> SalesQuotations { get; set; }
         public DbSet<SalesQuotationLine> GetSalesQuotationLines { get => getSalesQuotationLines; set => getSalesQuotationLines = value; }
 
@@ -41,6 +42,10 @@ namespace ProjectIndependence.API.Infrastructure.Data
                 .HasOne<Product>()
                 .WithMany()
                 .HasForeignKey(p => p.ProductId);
+
+            modelBuilder.Entity<InventoryMovement>()
+                .Property(im => im.Type)
+                .HasConversion<string>();
         }
     }
 }
