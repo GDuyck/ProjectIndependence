@@ -12,4 +12,8 @@
     <Folder Include="Inventories\Queries\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectIndependence.API.Core\ProjectIndependence.API.Core.csproj" />
+  </ItemGroup>
+
 </Project>
