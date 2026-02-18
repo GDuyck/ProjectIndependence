@@ -1,4 +1,6 @@
-﻿using ProjectIndependence.API.Core.Entities.Products;
+﻿using ProjectIndependence.API.Core.Entities.Inventories;
+using ProjectIndependence.API.Core.Entities.Products;
+using ProjectIndependence.API.Core.Enums;
 using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Tests.Integration.Seeding
@@ -98,15 +100,78 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                 "Seeder");
         }
 
+        // Inventory seeding: one Inventory per seeded product, using product's stock as QuantityOnHand
+        public static IEnumerable<Inventory> InventoriesToSeed()
+        {
+            return new List<Inventory>
+            {
+                new Inventory(
+                    Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    100,
+                    "Seeder")
+                { Id = Guid.Parse("d1111111-1111-1111-1111-111111111111") },
+
+                new Inventory(
+                    Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    50,
+                    "Seeder")
+                { Id = Guid.Parse("d2222222-2222-2222-2222-222222222222") },
+
+                new Inventory(
+                    Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                    0,
+                    "Seeder")
+                { Id = Guid.Parse("d3333333-3333-3333-3333-333333333333") }
+            };
+        }
+
+        // Inventory movements based on the seeded inventories (initial purchase movements)
+        public static IEnumerable<InventoryMovement> InventoryMovementsToSeed()
+        {
+            return new List<InventoryMovement>
+            {
+                // Initial purchase that created Inventory for Product A
+                new InventoryMovement(
+                    Guid.Parse("11111111-1111-1111-1111-111111111111"),
+                    100,
+                    InventoryMovementType.Purchase,
+                    "Initial stock seed")
+                { Id = Guid.Parse("m1111111-1111-1111-1111-111111111111") },
+
+                // Initial purchase that created Inventory for Product B
+                new InventoryMovement(
+                    Guid.Parse("22222222-2222-2222-2222-222222222222"),
+                    50,
+                    InventoryMovementType.Purchase,
+                    "Initial stock seed")
+                { Id = Guid.Parse("m2222222-2222-2222-2222-222222222222") },
+
+                // No initial movement for Product C (zero stock), but include an adjustment movement for history
+                new InventoryMovement(
+                    Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                    0,
+                    InventoryMovementType.Adjustment,
+                    "Initial seed - zero stock")
+                { Id = Guid.Parse("m3333333-3333-3333-3333-333333333333") }
+            };
+        }
+
         // add seeding date for productpricechanges
         public static void SeedProducts(ApplicationDbContext dbContext)
         {
             if (!dbContext.Products.Any())
-            {
                 dbContext.Products.AddRange(ProductsToSeed());
+
+            if (!dbContext.ProductPriceChanges.Any())
                 dbContext.ProductPriceChanges.AddRange(ProductPriceChangesToSeed());
-                dbContext.SaveChanges();
-            }
+            
+            if (!dbContext.Inventories.Any())
+                dbContext.Inventories.AddRange(InventoriesToSeed());
+
+            if (!dbContext.InventoryMovements.Any())
+                dbContext.InventoryMovements.AddRange(InventoryMovementsToSeed());
+
+            dbContext.SaveChanges();
         }
     }
 }
