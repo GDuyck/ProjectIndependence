@@ -1,9 +1,6 @@
 ﻿using FluentAssertions;
 using ProjectIndependence.API.Infrastructure.Repositories;
 using ProjectIndependence.API.Tests.Integration.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace ProjectIndependence.API.Tests.Integration.Tests.Inventories
@@ -12,7 +9,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Inventories
     public class InventoryRepositoryTests(SqlServerContainerFixture sqlServerContainerFixture) : IntegrationTestBase(sqlServerContainerFixture)
     {
         [Fact]
-        public async Task GetInventoryByProductIdAsync_WithDataInDatabase_ShouldReturnInventory() 
+        public async Task GetInventoryByProductIdAsync_WithDataInDatabase_ShouldReturnInventory()
         {
             // Arrange
             await using var context = CreateDbContext(seedData: true);
@@ -21,7 +18,7 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Inventories
             var inventory = context.Inventories.First();
 
             // Act
-            var result =  await repository.GetInventoryByProductIdAsync(inventory.ProductId);
+            var result = await repository.GetInventoryByProductIdAsync(inventory.ProductId);
 
             // Assert
             result.Should().NotBeNull();
