@@ -10,8 +10,6 @@ namespace ProjectIndependence.API.Application.Interfaces.Inventories
 
         Task<Inventory> CreateInventoryAsync(Inventory inventory, CancellationToken cancellationToken = default);
 
-        Task<Inventory> UpdateInventoryAsync(Inventory inventory, CancellationToken cancellationToken = default);
-
         Task<IReadOnlyList<Inventory>> InventoryListAsync(CancellationToken cancellationToken = default);
     }
 }

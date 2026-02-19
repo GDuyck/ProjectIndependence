@@ -21,6 +21,8 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
 
         public Inventory(Guid productId, int quantityOnHand, string createdBy)
         {
+            EnsurePositiveQuantity(quantityOnHand);
+
             ProductId = productId;
             QuantityOnHand = quantityOnHand;
             QuantityReserved = 0;

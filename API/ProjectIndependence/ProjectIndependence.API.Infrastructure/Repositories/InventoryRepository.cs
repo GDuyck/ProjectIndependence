@@ -20,6 +20,7 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
         public async Task<Inventory> GetInventoryByProductIdAsync(Guid productId, CancellationToken cancellationToken = default)
         {
             var inventory = await _applicationDbContext.Inventories
+                .Include(i => i.Movements)
                 .FirstOrDefaultAsync(i => i.ProductId == productId, cancellationToken);
 
             return inventory;
@@ -29,6 +30,7 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
         {
             var inventory = await _applicationDbContext.Inventories
                 .AsNoTracking()
+                .Include(i => i.Movements)
                 .FirstOrDefaultAsync(i => i.ProductId == productId, cancellationToken);
 
             return inventory;
@@ -48,13 +50,6 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
                 .AddAsync(inventory, cancellationToken);
 
             return createdInventory.Entity;
-        }
-
-        public async Task<Inventory> UpdateInventoryAsync(Inventory inventory, CancellationToken cancellationToken = default)
-        {
-            var updatedInventory = await Task.FromResult(_applicationDbContext.Inventories.Update(inventory));
-
-            return updatedInventory.Entity;
         }
     }
 }
