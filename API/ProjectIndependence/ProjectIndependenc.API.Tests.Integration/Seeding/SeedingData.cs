@@ -117,7 +117,7 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
 
                 new Inventory(
                     Guid.Parse("33333333-3333-3333-3333-333333333333"),
-                    0,
+                    20,
                     "Seeder")
             };
         }
@@ -144,7 +144,7 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                 // No initial movement for Product C (zero stock), but include an adjustment movement for history
                 new InventoryMovement(
                     Guid.Parse("33333333-3333-3333-3333-333333333333"),
-                    0,
+                    20,
                     InventoryMovementType.Adjustment,
                     "Initial seed - zero stock")
             };
