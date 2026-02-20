@@ -14,6 +14,7 @@ namespace ProjectIndependence.API.Application.Interfaces.Products
         Task<Product> UpdateProductAsync(Product product, CancellationToken cancellationToken);
         Task<IReadOnlyList<ProductPriceChange>> GetProductPriceChangeByProductIdListAsync(Guid id, CancellationToken cancellationToken);
         Task<ProductPriceChange> GetProductPriceChangeDetailAsync(Guid id, Guid productId, CancellationToken cancellationToken);
+        Task<bool> ProductExists(Guid id, CancellationToken cancellationToken);
 
     }
 }

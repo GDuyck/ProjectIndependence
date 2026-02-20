@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Interfaces.Inventories;
+using ProjectIndependence.API.Application.Inventories.Queries.GetLowStock;
 using ProjectIndependence.API.Core.Entities.Inventories;
 using ProjectIndependence.API.Infrastructure.Data;
 using System;
@@ -50,6 +51,61 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
                 .AddAsync(inventory, cancellationToken);
 
             return createdInventory.Entity;
+        }
+
+        public async Task<int> GetQuantityOnHandByProductId(Guid productId, CancellationToken cancellationToken = default)
+        {
+            var quantityOnHand = await _applicationDbContext.Inventories
+                .AsNoTracking()
+                .Where(i => i.ProductId == productId)
+                .Select(i => i.QuantityOnHand)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return quantityOnHand;
+        }
+
+        public async Task<int> GetReservedStockByProductId(Guid productId, CancellationToken cancellationToken = default)
+        {
+            var reservedStock = await _applicationDbContext.Inventories
+                .AsNoTracking()
+                .Where(i => i.ProductId == productId)
+                .Select(i => i.QuantityReserved)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return reservedStock;
+        }
+
+        public async Task<int> GetAvailableStockByProductId(Guid productId, CancellationToken cancellationToken = default)
+        {
+            var availableStock = await _applicationDbContext.Inventories
+                .AsNoTracking()
+                .Where(i => i.ProductId == productId)
+                .Select(i => i.QuantityOnHand - i.QuantityReserved)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return availableStock;
+        }
+
+        public async Task<IReadOnlyList<LowStockItem>> GetLowStocksAsync(CancellationToken cancellationToken = default)
+        {
+            var lowStockItems = await _applicationDbContext.Inventories
+                .AsNoTracking()
+                .Where(i => (i.QuantityOnHand - i.QuantityReserved) <= i.ReorderLevel)
+                .Join(_applicationDbContext.Products,
+                inventory => inventory.ProductId,
+                product => product.Id,
+                (inventory, product) => new LowStockItem
+                {
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    ProductCode = product.ProductCode,
+                    QuantityOnHand = inventory.QuantityOnHand,
+                    QuantityReserved = inventory.QuantityReserved,
+                    AvailableStock = inventory.QuantityOnHand - inventory.QuantityReserved
+                })
+                .ToListAsync(cancellationToken);
+
+            return lowStockItems;
         }
     }
 }

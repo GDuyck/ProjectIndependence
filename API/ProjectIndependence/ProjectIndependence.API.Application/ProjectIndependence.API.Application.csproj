@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Inventories\Commands\" />
     <Folder Include="Inventories\Dtos\" />
-    <Folder Include="Inventories\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

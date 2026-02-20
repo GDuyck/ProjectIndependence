@@ -72,5 +72,12 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
 
             return productPriceChangeDetail;
         }
+
+        public async Task<bool> ProductExists(Guid id, CancellationToken cancellationToken)
+        {
+            return await _applicationDbContext.Products
+                .AsNoTracking()
+                .AnyAsync(p => p.Id == id, cancellationToken);
+        }
     }
 }

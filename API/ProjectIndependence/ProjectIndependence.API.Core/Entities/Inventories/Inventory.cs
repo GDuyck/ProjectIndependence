@@ -15,16 +15,18 @@ namespace ProjectIndependence.API.Core.Entities.Inventories
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public string CreatedBy { get; private set; }
+        public int ReorderLevel { get; private set; }
         public int AvailableStock => QuantityOnHand - QuantityReserved;
 
         public IReadOnlyCollection<InventoryMovement> Movements => _movements;
 
-        public Inventory(Guid productId, int quantityOnHand, string createdBy)
+        public Inventory(Guid productId, int quantityOnHand, int reorderLevel, string createdBy)
         {
             EnsurePositiveQuantity(quantityOnHand);
 
             ProductId = productId;
             QuantityOnHand = quantityOnHand;
+            ReorderLevel = reorderLevel;
             QuantityReserved = 0;
             CreatedAt = DateTime.Now;
             CreatedBy = createdBy;

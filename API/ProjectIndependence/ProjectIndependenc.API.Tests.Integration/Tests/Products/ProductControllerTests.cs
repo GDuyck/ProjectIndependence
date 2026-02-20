@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Application.Products.Commands.ToggleProductStatus;
 using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Application.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Core.Response;
+using ProjectIndependence.API.Infrastructure.Repositories;
 using ProjectIndependence.API.Tests.Integration.Common;
 using ProjectIndependence.API.Tests.Integration.Seeding;
 using System.Net;
@@ -15,7 +17,6 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
 {
     public class ProductControllerTests(SqlServerContainerFixture sqlServerContainerFixture) : IntegrationTestBase(sqlServerContainerFixture)
     {
-
         #region GetProducts
 
         [Fact]
@@ -567,6 +568,42 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        #endregion
+        #endregion PatchProduct
+
+        #region Repository
+
+        [Fact]
+        public async Task ProductRepository_ProductExists_WithValidId_ReturnsTrue()
+        {
+            // Arrange
+            await using var context = CreateDbContext(seedData: true);
+            var repository = new ProductRepository(context);
+
+            var existingProduct = SeedingData.ProductsToSeed().FirstOrDefault();
+            var existingProductId = existingProduct!.Id;
+
+            // Act
+            var result = await repository.ProductExists(existingProductId, TestContext.Current.CancellationToken);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task ProductRepository_ProductExists_WithInvalidId_ReturnsFalse()
+        {
+            // Arrange
+            await using var context = CreateDbContext(seedData: true);
+            var repository = new ProductRepository(context);
+            var invalidProductId = Guid.NewGuid();
+
+            // Act
+            var result = await repository.ProductExists(invalidProductId, TestContext.Current.CancellationToken);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion Repository
     }
 }
