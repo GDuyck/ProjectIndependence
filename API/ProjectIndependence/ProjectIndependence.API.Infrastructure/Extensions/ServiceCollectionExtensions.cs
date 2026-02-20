@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectIndependence.API.Application.Interfaces;
+using ProjectIndependence.API.Application.Interfaces.Products;
 using ProjectIndependence.API.Infrastructure.Data;
+using ProjectIndependence.API.Infrastructure.Repositories;
 
 namespace ProjectIndependence.API.Infrastructure.Extensions
 {
@@ -24,11 +27,21 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
                 options => options.UseSqlServer(connectionString,
                 sqlServerOptions => sqlServerOptions.EnableRetryOnFailure()));
 
+            // Repositories
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            // Unit of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
 
         public static IServiceCollection AddInfrastructureServicesWithoutDb(this IServiceCollection services)
         {
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             return services;
         }
     }

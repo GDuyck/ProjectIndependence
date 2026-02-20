@@ -6,6 +6,7 @@ namespace ProjectIndependence.API.Core.Entities.Products
     {
         // Corresponding product
         public Guid ProductId { get; private set; }
+        public Product Product { get; set; }
 
         // Price changes
         public decimal OldRetailPrice { get; private set; }

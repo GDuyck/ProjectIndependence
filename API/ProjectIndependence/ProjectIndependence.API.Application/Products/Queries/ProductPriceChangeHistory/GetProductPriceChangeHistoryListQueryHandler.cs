@@ -1,29 +1,26 @@
 ﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Interfaces;
+using ProjectIndependence.API.Application.Interfaces.Products;
 using ProjectIndependence.API.Application.Products.Dtos;
-using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Queries.ProductPriceChangeHistory
 {
     public class GetProductPriceChangeHistoryListQueryHandler : IQueryHandler<GetProductPriceChangeHistoryListQuery, List<ProductPriceChangeHistoryListDto>>
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IProductRepository _productRepository;
 
-        public GetProductPriceChangeHistoryListQueryHandler(ApplicationDbContext applicationDbContext)
+        public GetProductPriceChangeHistoryListQueryHandler(IProductRepository productRepository)
         {
-            _applicationDbContext = applicationDbContext;
+            _productRepository = productRepository;
         }
 
         public async Task<List<ProductPriceChangeHistoryListDto>> HandleAsync(GetProductPriceChangeHistoryListQuery query, CancellationToken cancellationToken = default)
         {
-            var priceChangeHistory = await _applicationDbContext.ProductPriceChanges
-                .AsNoTracking()
-                .Where(p => p.ProductId == query.ProductId)
-                .ProjectToType<ProductPriceChangeHistoryListDto>()
-                .ToListAsync();
+            var priceChangeHistory = await _productRepository.GetProductPriceChangeByProductIdListAsync(query.ProductId, cancellationToken);
 
-            return priceChangeHistory;
+            var dto = priceChangeHistory.Adapt<List<ProductPriceChangeHistoryListDto>>();
+
+            return dto;
         }
     }
 }

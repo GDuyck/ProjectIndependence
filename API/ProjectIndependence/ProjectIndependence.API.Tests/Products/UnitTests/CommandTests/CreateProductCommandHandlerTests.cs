@@ -51,6 +51,8 @@ namespace ProjectIndependence.API.Tests.Products.UnitTests.CommandTests
             Assert.NotNull(result);
             Assert.Equal(command.Name, result.Name);
 
+            var count = await dbContext.Products.CountAsync();
+
             // Assert - database
             var productInDb = await dbContext.Products.FirstOrDefaultAsync(p => p.ProductCode == singleProduct.ProductCode);
             Assert.Equal(command.Stock, productInDb.Stock);

@@ -13,5 +13,11 @@
 
         public static readonly Error QuantityExceedsReserve = 
             new("INV-004", "Quantity exceeds the reserved stock");
+
+        public static readonly Error ProductIdEmpty =
+            new("INV-005", "ProductId cannot be empty");
+
+        public static readonly Error NoReference = 
+            new("INV-006", "Reference is required for tracking");
     }
 }

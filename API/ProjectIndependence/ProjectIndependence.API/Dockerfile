@@ -1,5 +1,5 @@
 # Stage 1: build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy solution and project files (so restore uses cache effectively)
@@ -18,7 +18,7 @@ COPY . .
 RUN dotnet publish ProjectIndependence.API/ProjectIndependence.API.csproj -c Release -o /app/publish 
 
 # Stage 3: runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
 # Copy published output from build stage

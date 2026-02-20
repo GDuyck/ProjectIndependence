@@ -20,6 +20,7 @@ namespace ProjectIndependence.API.Infrastructure.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductPriceChange> ProductPriceChanges { get; set; }
         public virtual DbSet<Inventory> Inventories { get; set; }
+        public virtual DbSet<InventoryMovement> InventoryMovements { get; set; }
         public DbSet<SalesQuotation> SalesQuotations { get; set; }
         public DbSet<SalesQuotationLine> GetSalesQuotationLines { get => getSalesQuotationLines; set => getSalesQuotationLines = value; }
 
@@ -37,10 +38,18 @@ namespace ProjectIndependence.API.Infrastructure.Data
                 .Property(p => p.Tax)
                 .HasConversion(taxRateConverter);
 
-            modelBuilder.Entity<ProductPriceChange>()
-                .HasOne<Product>()
-                .WithMany()
-                .HasForeignKey(p => p.ProductId);
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.HasMany(p => p.PriceChanges)
+                      .WithOne(pc => pc.Product)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<InventoryMovement>()
+                .Property(im => im.Type)
+                .HasConversion<string>();
         }
     }
 }

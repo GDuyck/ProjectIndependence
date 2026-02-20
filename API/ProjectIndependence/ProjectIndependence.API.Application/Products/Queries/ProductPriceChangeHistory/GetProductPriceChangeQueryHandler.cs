@@ -1,25 +1,22 @@
 ﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
 using ProjectIndependence.API.Application.Interfaces;
+using ProjectIndependence.API.Application.Interfaces.Products;
 using ProjectIndependence.API.Application.Products.Dtos;
-using ProjectIndependence.API.Infrastructure.Data;
 
 namespace ProjectIndependence.API.Application.Products.Queries.ProductPriceChangeHistory
 {
     public class GetProductPriceChangeQueryHandler : IQueryHandler<GetProductPriceChangeQuery, ProductPriceChangeHistoryDto>
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IProductRepository _productRepository;
 
-        public GetProductPriceChangeQueryHandler(ApplicationDbContext applicationDbContext)
+        public GetProductPriceChangeQueryHandler(IProductRepository productRepository)
         {
-            _applicationDbContext = applicationDbContext;
+            _productRepository = productRepository;
         }
 
         public async Task<ProductPriceChangeHistoryDto> HandleAsync(GetProductPriceChangeQuery query, CancellationToken cancellationToken = default)
         {
-            var productPriceChange = await _applicationDbContext.ProductPriceChanges
-                .AsNoTracking()
-                .FirstOrDefaultAsync(ppc => ppc.Id == query.Id && ppc.ProductId == query.ProductId);
+            var productPriceChange = await _productRepository.GetProductPriceChangeDetailAsync(query.Id, query.ProductId, cancellationToken);
 
             var dto = productPriceChange.Adapt<ProductPriceChangeHistoryDto>();
 

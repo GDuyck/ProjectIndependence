@@ -24,7 +24,7 @@ namespace ProjectIndependence.API.Tests.Servicebuilder
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection), ServiceLifetime.Transient);
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection), ServiceLifetime.Scoped);
 
             var serviceProvider = services.BuildServiceProvider();
 

@@ -30,6 +30,9 @@ namespace ProjectIndependence.API.Core.Entities.Products
 
         public string CreatedBy { get; set; } // Placeholder, will be updated with person later
 
+        private readonly List<ProductPriceChange> _priceChanges = new();
+        public IReadOnlyList<ProductPriceChange> PriceChanges => _priceChanges.AsReadOnly();
+
         private Product()
         { }
 
@@ -64,8 +67,12 @@ namespace ProjectIndependence.API.Core.Entities.Products
             UpdatedAt = DateTime.Now;
         }
 
-        public void UpdatePrice(decimal newRetailPrice, decimal newCostPrice)
+        public void UpdatePrice(decimal newRetailPrice, decimal newCostPrice, string reasonForPriceChange)
         {
+            _priceChanges.Add(
+                new ProductPriceChange(
+                    Id, RetailPrice, newRetailPrice, CostPrice, newCostPrice, reasonForPriceChange, "someone"));
+
             if(newRetailPrice > 0)
                 RetailPrice = newRetailPrice;
 

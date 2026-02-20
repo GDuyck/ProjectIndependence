@@ -8,6 +8,31 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
     public class InventoryEntityTest
     {
         [Fact]
+        public void InventoryConstructor_WithCorrectInput_ShouldCreateInventory()
+        {
+            // Act on Arrange
+            var inventory = new Inventory(Guid.NewGuid(),
+                                          10,
+                                          "Tester");
+
+            // Assert
+            inventory.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void InventoryConstructor_WithNegativeQuantity_ShouldThrowException()
+        {
+            // Act on Arrange
+            var action = () => new Inventory(Guid.NewGuid(),
+                                             -5,
+                                             "Tester");
+
+            // Assert
+            var exception = action.Should().Throw<InventoryException>().Which;
+            exception.Code.Should().Be(InventoryErrors.InvalidQuantity.Code);
+        }
+
+        [Fact]
         public void Inventory_IncreaseStock_ShouldIncreaseStock()
         {
             // Arrange
@@ -20,6 +45,20 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
 
             // Assert
             Assert.Equal(15, inventory.QuantityOnHand);
+        }
+
+        [Fact]
+        public void Inventory_IncreaseStock_ShouldCreateMovement()
+        {
+            // Arrange
+            var inventory = new Inventory(Guid.NewGuid(),
+                                          10,
+                                          "Tester");
+            // Act
+            inventory.IncreaseStock(5);
+            // Assert
+            inventory.Movements.Should().HaveCount(1);
+            inventory.Movements.First().QuantityChange.Should().Be(5);
         }
 
         [Fact]
@@ -50,6 +89,22 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
 
             // Assert
             Assert.Equal(7, inventory.QuantityOnHand);
+        }
+
+        [Fact]
+        public void Inventory_DecreaseStock_ShouldCreateMovement()
+        {
+            // Arrange
+            var inventory = new Inventory(Guid.NewGuid(),
+                                          10,
+                                          "Tester");
+
+            // Act
+            inventory.DecreaseStock(3);
+
+            // Assert
+            inventory.Movements.Should().HaveCount(1);
+            inventory.Movements.First().QuantityChange.Should().Be(-3);
         }
 
         [Fact]
@@ -97,6 +152,22 @@ namespace ProjectIndependence.API.Tests.Inventories.UnitTests.EntityTests
             Assert.Equal(4, inventory.QuantityReserved);
         }
 
+        [Fact]
+        public void Inventory_ReserveStock_ShouldDecreaseQuantityOnHand()
+        {
+            // Arrange
+            var inventory = new Inventory(Guid.NewGuid(),
+                                          10,
+                                          "Tester");
+
+            // Act
+            inventory.ReserveStock(4);
+
+            // Assert
+            inventory.AvailableStock.Should().Be(6);
+        }
+
+        [Fact]
         public void Inventory_ReservestockWithNegativeQuantity_ThrowsException()
         {
             // Arrange

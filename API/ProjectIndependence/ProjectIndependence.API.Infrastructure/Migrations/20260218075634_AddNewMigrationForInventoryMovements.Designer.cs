@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectIndependence.API.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using ProjectIndependence.API.Infrastructure.Data;
 namespace ProjectIndependence.API.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260218075634_AddNewMigrationForInventoryMovements")]
+    partial class AddNewMigrationForInventoryMovements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,8 +108,6 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("InventoryId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("InventoryMovements");
                 });
@@ -253,14 +254,6 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
                     b.HasOne("ProjectIndependence.API.Core.Entities.Inventories.Inventory", null)
                         .WithMany("Movements")
                         .HasForeignKey("InventoryId");
-
-                    b.HasOne("ProjectIndependence.API.Core.Entities.Products.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Products.Product", b =>
@@ -272,13 +265,11 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Products.ProductPriceChange", b =>
                 {
-                    b.HasOne("ProjectIndependence.API.Core.Entities.Products.Product", "Product")
-                        .WithMany("PriceChanges")
+                    b.HasOne("ProjectIndependence.API.Core.Entities.Products.Product", null)
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Sales.SalesQuotation", b =>
@@ -307,11 +298,6 @@ namespace ProjectIndependence.API.Infrastructure.Migrations
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Inventories.Inventory", b =>
                 {
                     b.Navigation("Movements");
-                });
-
-            modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Products.Product", b =>
-                {
-                    b.Navigation("PriceChanges");
                 });
 
             modelBuilder.Entity("ProjectIndependence.API.Core.Entities.Sales.SalesQuotation", b =>
