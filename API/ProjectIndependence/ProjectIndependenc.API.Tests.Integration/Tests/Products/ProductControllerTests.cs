@@ -231,8 +231,8 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var request = "/api/products";
             var newProduct = new CreateProductCommand
             (
-                "NEWPROD001",
                 "New Product",
+                "NEWPROD001",
                 "This is a new product.",
                 true,
                 29.99m,
