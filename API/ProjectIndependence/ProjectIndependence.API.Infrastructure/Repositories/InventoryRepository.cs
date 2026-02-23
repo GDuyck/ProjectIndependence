@@ -85,27 +85,5 @@ namespace ProjectIndependence.API.Infrastructure.Repositories
 
             return availableStock;
         }
-
-        public async Task<IReadOnlyList<LowStockItem>> GetLowStocksAsync(CancellationToken cancellationToken = default)
-        {
-            var lowStockItems = await _applicationDbContext.Inventories
-                .AsNoTracking()
-                .Where(i => (i.QuantityOnHand - i.QuantityReserved) <= i.ReorderLevel)
-                .Join(_applicationDbContext.Products,
-                inventory => inventory.ProductId,
-                product => product.Id,
-                (inventory, product) => new LowStockItem
-                {
-                    ProductId = product.Id,
-                    ProductName = product.Name,
-                    ProductCode = product.ProductCode,
-                    QuantityOnHand = inventory.QuantityOnHand,
-                    QuantityReserved = inventory.QuantityReserved,
-                    AvailableStock = inventory.QuantityOnHand - inventory.QuantityReserved
-                })
-                .ToListAsync(cancellationToken);
-
-            return lowStockItems;
-        }
     }
 }

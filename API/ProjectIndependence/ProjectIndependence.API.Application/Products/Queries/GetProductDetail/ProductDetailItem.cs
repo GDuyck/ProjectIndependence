@@ -3,22 +3,22 @@
     public class ProductDetailItem
     {
         public Guid Id { get; init; }
-        public string Name { get; set; }
-        public string ProductCode { get; set; }
-        public string Description { get; set; }
-        public bool IsActive { get; set; }
+        public string Name { get; init; }
+        public string ProductCode { get; init; }
+        public string Description { get; init; }
+        public bool IsActive { get; init; }
 
-        public decimal RetailPrice { get; set; }
-        public decimal CostPrice { get; set; }
-        public int Tax { get; set; }
+        public decimal RetailPrice { get; init; }
+        public decimal CostPrice { get; init; }
+        public int Tax { get; init; }
 
-        public int QuantityOnHand { get; set; }
-        public int QuantityReserved { get; set; }
-        public int AvailableStock { get; set; }
-        public int ReorderLevel { get; set; }
+        public int QuantityOnHand { get; init; }
+        public int QuantityReserved { get; init; }
+        public int AvailableStock { get; init; }
+        public int ReorderLevel { get; init; }
 
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
-        public string CreatedBy { get; set; }
+        public DateTime CreatedAt { get; init; }
+        public DateTime UpdatedAt { get; init; }
+        public string CreatedBy { get; init; }
     }
 }

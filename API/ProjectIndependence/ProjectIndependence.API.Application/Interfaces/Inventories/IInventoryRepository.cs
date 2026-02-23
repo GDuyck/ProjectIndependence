@@ -15,6 +15,5 @@ namespace ProjectIndependence.API.Application.Interfaces.Inventories
         Task<int> GetQuantityOnHandByProductId(Guid productId, CancellationToken cancellationToken = default);
         Task<int> GetAvailableStockByProductId(Guid productId, CancellationToken cancellationToken = default);
         Task<int> GetReservedStockByProductId(Guid productId, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<LowStockItem>> GetLowStocksAsync(CancellationToken cancellationToken = default);
     }
 }
