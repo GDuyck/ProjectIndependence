@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectIndependence.API.Application.Interfaces;
+using ProjectIndependence.API.Application.Interfaces.Inventories;
 using ProjectIndependence.API.Application.Interfaces.Products;
 using ProjectIndependence.API.Infrastructure.Data;
 using ProjectIndependence.API.Infrastructure.Repositories;
@@ -29,6 +30,10 @@ namespace ProjectIndependence.API.Infrastructure.Extensions
 
             // Repositories
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<IInventoryMovementRepository, InventoryMovementRepository>();
+            services.AddScoped<IProductQueries, ProductQueries>();
+            services.AddScoped<IInventoryQueries, InventoryQueries>();
 
             // Unit of Work
             services.AddScoped<IUnitOfWork, UnitOfWork>();
