@@ -37,9 +37,13 @@ namespace ProjectIndependence.API.Application.Products.Commands.CreateProduct
                 .LessThanOrEqualTo(cmp => cmp.RetailPrice)
                 .WithMessage(ValidationErrors.ProductCostPriceLesserThan);
 
-            RuleFor(cpm => cpm.Stock)
+            RuleFor(cpm => cpm.InitialStock)
                 .GreaterThan(0)
                 .WithMessage(ValidationErrors.ProductStock);
+
+            RuleFor(cpm => cpm.ReorderLevel)
+                .GreaterThanOrEqualTo(0)
+                .WithMessage(ValidationErrors.ProductReorderLevel);
 
             RuleFor(cmp => cmp.Tax)
                 .Must(t => AllowedTaxes.Contains(t))

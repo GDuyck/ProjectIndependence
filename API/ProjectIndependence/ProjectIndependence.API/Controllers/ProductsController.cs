@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectIndependence.API.Application.Interfaces;
-using ProjectIndependence.API.Application.Products.Commands.AdjustProductStock;
 using ProjectIndependence.API.Application.Products.Commands.CreateProduct;
 using ProjectIndependence.API.Application.Products.Commands.ToggleProductStatus;
 using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
@@ -216,32 +215,6 @@ namespace ProjectIndependence.API.Controllers
             {
                 return NotFoundResponse(nameof(Product), id);
             }
-
-            return OkResponse<ProductDto>(updatedProductDto);
-        }
-
-        /// <summary>
-        /// Updates product stock
-        /// </summary>
-        /// <param name="id">The ID of the product to update.</param>
-        /// <param name="command">The updated product data.</param>
-        /// <returns>
-        /// returns a 200 OK with apiresponse succes is successfull
-        /// 400 if problems with validation, 404 if not found,
-        /// </returns>
-        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
-        [HttpPatch("{id}/stock")]
-        public async Task<IActionResult> AdjustProductStock(Guid id, AdjustProductStockCommand command)
-        {
-            if (id != command.Id)
-                return MismatchResponse();
-
-            var updatedProductDto = await _mediator.SendAsync<AdjustProductStockCommand, ProductDto>(command);
-
-            if (updatedProductDto is null)
-                return NotFoundResponse(nameof(Product), id);
 
             return OkResponse<ProductDto>(updatedProductDto);
         }

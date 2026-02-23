@@ -26,6 +26,7 @@ namespace ProjectIndependence.API.Core.Errors
         public const string ProductPriceNotZero = "The price of the product must be higher than 0";
         public const string ProductTax = "The product must have a tax";
         public const string ProductStock = "The stock can not be empty";
+        public const string ProductReorderLevel = "The reorder level must be 0 or higher";
         public const string ProductNotFound = "No product found with the id ";
 
         // Product price history

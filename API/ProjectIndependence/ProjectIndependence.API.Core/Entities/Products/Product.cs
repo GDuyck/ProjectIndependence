@@ -20,9 +20,6 @@ namespace ProjectIndependence.API.Core.Entities.Products
         public decimal CostPrice { get; set; }
         public TaxRate Tax { get; internal set; }
 
-        // Inventory
-        public int Stock { get; set; }
-
         // Auditing
         public DateTime CreatedAt { get; set; }
 
@@ -44,7 +41,6 @@ namespace ProjectIndependence.API.Core.Entities.Products
             decimal retailPrice,
             decimal costPrice,
             int tax,
-            int stock,
             string createdBy)
         {
             Id = id;
@@ -55,7 +51,6 @@ namespace ProjectIndependence.API.Core.Entities.Products
             RetailPrice = retailPrice;
             CostPrice = costPrice;
             Tax = new TaxRate(tax);
-            Stock = stock;
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
             CreatedBy = createdBy;

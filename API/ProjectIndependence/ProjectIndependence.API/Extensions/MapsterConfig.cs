@@ -22,7 +22,6 @@ namespace ProjectIndependence.API.Extensions
                     command.RetailPrice,
                     command.CostPrice,
                     0,
-                    command.Stock,
                     command.CreatedBy
                 ));
 

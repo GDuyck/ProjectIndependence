@@ -17,9 +17,9 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Inventories
             await using var context = CreateDbContext(seedData: false);
             var repository = new InventoryQueries(context);
 
-            var product1 = new Product(Guid.NewGuid(), "New Product 1", "NP01", "First Test product", true, 100m, 30m, 21, 10, "Testuser");
-            var product2 = new Product(Guid.NewGuid(), "New Product 2", "NP02", "Second Test product", true, 150m, 50m, 21, 20, "Testuser");
-            var product3 = new Product(Guid.NewGuid(), "New Product 3", "NP03", "Third Test product", true, 200m, 70m, 21, 30, "Testuser");
+            var product1 = new Product(Guid.NewGuid(), "New Product 1", "NP01", "First Test product", true, 100m, 30m, 21, "Testuser");
+            var product2 = new Product(Guid.NewGuid(), "New Product 2", "NP02", "Second Test product", true, 150m, 50m, 21, "Testuser");
+            var product3 = new Product(Guid.NewGuid(), "New Product 3", "NP03", "Third Test product", true, 200m, 70m, 21, "Testuser");
 
             await context.Products.AddRangeAsync(product1, product2, product3);
 

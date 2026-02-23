@@ -20,7 +20,6 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                     19.99m,
                     10.00m,
                     21,
-                    100,
                     "Seeder"),
 
                 new Product(
@@ -32,7 +31,6 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                     49.50m,
                     25.00m,
                     21,
-                    50,
                     "Seeder"),
 
                 new Product(
@@ -44,7 +42,6 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                     9.99m,
                     4.00m,
                     6,
-                    0,
                     "Seeder")
             };
         }
@@ -96,7 +93,6 @@ namespace ProjectIndependence.API.Tests.Integration.Seeding
                 5.00m,
                 2.50m,
                 21,
-                5,
                 "Seeder");
         }
 

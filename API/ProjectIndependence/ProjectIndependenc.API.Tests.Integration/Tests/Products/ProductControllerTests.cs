@@ -230,17 +230,17 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var client = factory.CreateClient();
             var request = "/api/products";
             var newProduct = new CreateProductCommand
-            {
-                ProductCode = "NEWPROD001",
-                Name = "New Product",
-                Description = "This is a new product.",
-                IsActive = true,
-                RetailPrice = 29.99m,
-                CostPrice = 15.00m,
-                Tax = 21,
-                Stock = 100,
-                CreatedBy = "testuser"
-            };
+            (
+                "NEWPROD001",
+                "New Product",
+                "This is a new product.",
+                true,
+                29.99m,
+                15.00m,
+                21,
+                100,
+                20,
+                "testuser");
 
             // Act
             var response = await client.PostAsJsonAsync(request, newProduct, cancellationToken: TestContext.Current.CancellationToken);
@@ -272,17 +272,18 @@ namespace ProjectIndependence.API.Tests.Integration.Tests.Products
             var client = factory.CreateClient();
             var request = "/api/products";
             var newWrongProduct = new CreateProductCommand
-            {
-                ProductCode = productCode,
-                Name = name,
-                Description = description,
-                IsActive = isActive,
-                RetailPrice = retailPrice,
-                CostPrice = costPrice,
-                Tax = tax,
-                Stock = stock,
-                CreatedBy = createdBy
-            };
+            (
+                name,
+                productCode,
+                description,
+                isActive,
+                retailPrice,
+                costPrice,
+                tax,
+                stock,
+                1,
+                createdBy
+            );
 
             // Act
             var response = await client.PostAsJsonAsync(request, newWrongProduct, cancellationToken: TestContext.Current.CancellationToken);
