@@ -6,6 +6,7 @@ using ProjectIndependence.API.Application.Products.Commands.UpdateProduct;
 using ProjectIndependence.API.Application.Products.Commands.UpdateProductPrice;
 using ProjectIndependence.API.Application.Products.Dtos;
 using ProjectIndependence.API.Application.Products.Queries.GetProductById;
+using ProjectIndependence.API.Application.Products.Queries.GetProductDetail;
 using ProjectIndependence.API.Application.Products.Queries.ProductList;
 using ProjectIndependence.API.Application.Products.Queries.ProductPriceChangeHistory;
 using ProjectIndependence.API.Controllers.Base;
@@ -48,22 +49,22 @@ namespace ProjectIndependence.API.Controllers
         /// <param name="id">product id</param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetProductById")]
-        [ProducesResponseType(typeof(ApiResponse<ProductDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ProductDetailDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetByIdAsync(Guid id)
         {
-            var productQuery = new GetProductByIdQuery(id);
+            var productQuery = new GetProductDetailByIdQuery(id);
 
-            var product = await _mediator.QueryAsync<GetProductByIdQuery, ProductDto>(productQuery);
+            var product = await _mediator.QueryAsync<GetProductDetailByIdQuery, ProductDetailDto>(productQuery);
 
             if (product is null)
             {
                 return NotFoundResponse(nameof(Product), id);
             }
 
-            return OkResponse<ProductDto>(product);
+            return OkResponse<ProductDetailDto>(product);
         }
 
         // Get productprice changes

@@ -8,12 +8,10 @@ namespace ProjectIndependence.API.Application.Products.Queries.GetProductById
     public class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, ProductDto>
     {
         private readonly IProductRepository _productRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public GetProductByIdQueryHandler(IProductRepository productRepository, IUnitOfWork unitOfWork)
+        public GetProductByIdQueryHandler(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<ProductDto> HandleAsync(GetProductByIdQuery query, CancellationToken cancellationToken = default)
